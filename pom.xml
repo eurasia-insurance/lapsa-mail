@@ -4,7 +4,7 @@
 
 	<name>METROBANK Mail utility</name>
 
-	<groupId>com.metrobank.helpers.mail-helper</groupId>
+	<groupId>com.metrobank.mail-helper</groupId>
 	<artifactId>parent</artifactId>
 	<version>1.3-SNAPSHOT</version>
 	<packaging>pom</packaging>
