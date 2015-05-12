@@ -1,17 +1,28 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<name>METROBANK Mail utility</name>
 
 	<groupId>com.metrobank.helpers</groupId>
-	<artifactId>mail-helper</artifactId>
+	<artifactId>parent</artifactId>
 	<version>1.3-SNAPSHOT</version>
-	<packaging>jar</packaging>
+	<packaging>pom</packaging>
 
 	<organization>
 		<name>METROBANK, JSC</name>
 		<url>http://www.metrobank.ru</url>
 	</organization>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+	</properties>
+
+	<modules>
+		<module>api</module>
+		<module>impl</module>
+	</modules>
 
 	<distributionManagement>
 		<repository>
@@ -24,25 +35,20 @@
 		</snapshotRepository>
 	</distributionManagement>
 
-	<properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-	</properties>
-
-	<dependencies>
-		<dependency>
-			<groupId>javax.mail</groupId>
-			<artifactId>mail</artifactId>
-			<version>1.4.7</version>
-			<scope>compile</scope>
-		</dependency>
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>4.11</version>
-			<scope>test</scope>
-		</dependency>
-	</dependencies>
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>javax.mail</groupId>
+				<artifactId>mail</artifactId>
+				<version>1.4.7</version>
+			</dependency>
+			<dependency>
+				<groupId>junit</groupId>
+				<artifactId>junit</artifactId>
+				<version>4.11</version>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
 
 	<build>
 		<defaultGoal>clean install</defaultGoal>
@@ -100,8 +106,8 @@
 	</build>
 
 	<scm>
-		<connection>scm:git:http://git.bank.ru/com.metrobank.helpers.mail-helper/</connection>
-		<developerConnection>scm:git:http://git.bank.ru/com.metrobank.helpers.mail-helper/</developerConnection>
+		<connection>scm:git:http://git.bank.ru/mail-helper.git</connection>
+		<developerConnection>scm:git:http://git.bank.ru/mail-helper.git</developerConnection>
 		<tag>HEAD</tag>
 	</scm>
 
