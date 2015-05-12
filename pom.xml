@@ -5,7 +5,7 @@
 
 	<groupId>com.metrobank.mail-helper</groupId>
 	<artifactId>parent</artifactId>
-	<version>1.4-SNAPSHOT</version>
+	<version>1.3.1-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
 	<organization>
@@ -107,7 +107,7 @@
 	<scm>
 		<connection>scm:git:http://git.bank.ru/mail-helper.git</connection>
 		<developerConnection>scm:git:http://git.bank.ru/mail-helper.git</developerConnection>
-		<tag>hotfix1.3.x</tag>
+		<tag>HEAD</tag>
 	</scm>
 
 </project>
