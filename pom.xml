@@ -107,7 +107,7 @@
 	<scm>
 		<connection>scm:git:http://git.bank.ru/mail-helper.git</connection>
 		<developerConnection>scm:git:http://git.bank.ru/mail-helper.git</developerConnection>
-		<tag>HEAD</tag>
+		<tag>hotfix1.3.x</tag>
 	</scm>
 
 </project>
