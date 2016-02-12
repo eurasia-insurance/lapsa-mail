@@ -2,6 +2,12 @@ package com.metrobank.mail.test;
 
 import static org.junit.Assert.*;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.ByteBuffer;
 import java.util.Properties;
 
 import javax.mail.Authenticator;
@@ -128,6 +134,63 @@ public class BasicTestCase {
 	message.addPart(mmb.createTextPart("Test message"));
 	sender.setAlwaysBlindCopyTo(mmb.createAddress(MAIL_TEST_RECIPIENT_ADDRESS));
 	sender.send(message);
+    }
+
+    @Test
+    public void testSendImage_InputStream() throws MailException, IOException, InvalidMessageException {
+	MailFactory mf = MailFactory.getDefaultMailFactory();
+	MailService ms = mf.getService(session);
+	MailMessageBuilder builder = ms.createBuilder();
+	MailMessage message = builder.createMessage();
+	message.addTORecipient(builder.createAddress(MAIL_TEST_RECIPIENT_ADDRESS));
+	message.setSubject("Test message");
+	message.addPart(builder.createStreamPart("PICTURE", "image/jpeg", testFileInputStream()));
+	MailSender sender = ms.createSender();
+	sender.send(message);
+    }
+
+    @Test
+    public void testSendImage_Bytes() throws MailException, IOException, InvalidMessageException {
+	MailFactory mf = MailFactory.getDefaultMailFactory();
+	MailService ms = mf.getService(session);
+	MailMessageBuilder builder = ms.createBuilder();
+	MailMessage message = builder.createMessage();
+	message.addTORecipient(builder.createAddress(MAIL_TEST_RECIPIENT_ADDRESS));
+	message.setSubject("Test message");
+	message.addPart(builder.createByteArrayPart("PICTURE", "image/jpeg", testFileBytes()));
+	MailSender sender = ms.createSender();
+	sender.send(message);
+    }
+
+    private InputStream testFileInputStream() {
+	InputStream is = this.getClass().getClassLoader().getResourceAsStream("policy_sample.jpg");
+	return is;
+    }
+
+    private byte[] testFileBytes() throws IOException {
+	InputStream is = null;
+	ByteArrayOutputStream baos = null;
+	try {
+	    is = testFileInputStream();
+	    byte[] buff = new byte[256];
+	    int readed;
+	    baos = new ByteArrayOutputStream();
+	    while ((readed = is.read(buff)) != -1)
+		baos.write(buff, 0, readed);
+	    is.close();
+	    return baos.toByteArray();
+	} finally {
+	    if (baos != null)
+		try {
+		    baos.close();
+		} catch (IOException e) {
+		}
+	    if (is != null)
+		try {
+		    baos.close();
+		} catch (IOException e) {
+		}
+	}
     }
 
 }
