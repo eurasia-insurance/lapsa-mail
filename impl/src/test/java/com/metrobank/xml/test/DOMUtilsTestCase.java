@@ -4,7 +4,7 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import com.metrobank.xml.DOMUtils;
+import com.lapsa.mailhelper.impl.DOMUtils;
 
 public class DOMUtilsTestCase {
 

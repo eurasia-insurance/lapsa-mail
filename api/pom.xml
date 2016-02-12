@@ -2,7 +2,7 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
-		<groupId>com.metrobank.mail-helper</groupId>
+		<groupId>com.lapsa.mail-helper</groupId>
 		<artifactId>parent</artifactId>
 		<version>1.4-SNAPSHOT</version>
 	</parent>
@@ -10,7 +10,7 @@
 	<artifactId>mail-helper-api</artifactId>
 	<packaging>jar</packaging>
 
-	<name>METROBANK Mail utility : API</name>
+	<name>LAPSA Mail utility : API</name>
 
 	<dependencies>
 		<dependency>

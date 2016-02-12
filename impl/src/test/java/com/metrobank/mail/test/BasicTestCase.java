@@ -8,7 +8,7 @@ import javax.mail.*;
 
 import org.junit.*;
 
-import com.metrobank.mail.helper.*;
+import com.lapsa.mailhelper.*;
 
 public class BasicTestCase {
 
@@ -17,9 +17,9 @@ public class BasicTestCase {
     @BeforeClass
     public static void prepareSession() {
 	Properties prop = new Properties();
-	prop.put("mail.smtp.host", "smtp.bank.ru");
-	prop.put("mail.from", "junit@metrobank.ru");
-	prop.put("mail.debug", true);
+//	prop.put("mail.smtp.host", "smtp.bank.ru");
+//	prop.put("mail.from", "junit@metrobank.ru");
+//	prop.put("mail.debug", true);
 	Authenticator a = new Authenticator() {
 	    // public PasswordAuthentication getPasswordAuthentication() {
 	    // return new PasswordAuthentication("postmaster", "012549");

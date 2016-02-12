@@ -1,16 +1,17 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<name>METROBANK Mail utility</name>
+	<name>LAPSA Mail utility</name>
 
-	<groupId>com.metrobank.mail-helper</groupId>
+	<groupId>com.lapsa.mail-helper</groupId>
 	<artifactId>parent</artifactId>
 	<version>1.4-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
 	<organization>
-		<name>METROBANK, JSC</name>
-		<url>http://www.metrobank.ru</url>
+		<name>LAPSA, JSC</name>
+		<url>http://www.lapsa.org</url>
 	</organization>
 
 	<properties>
@@ -26,11 +27,11 @@
 	<distributionManagement>
 		<repository>
 			<id>archiva.releases</id>
-			<url>http://mvnrepo.bank.ru/repository/releases/</url>
+			<url>http://mvnrepo.theeurasia.kz/repository/releases/</url>
 		</repository>
 		<snapshotRepository>
 			<id>archiva.snapshots</id>
-			<url>http://mvnrepo.bank.ru/repository/snapshots/</url>
+			<url>http://mvnrepo.theeurasia.kz/repository/snapshots/</url>
 		</snapshotRepository>
 	</distributionManagement>
 
@@ -105,8 +106,8 @@
 	</build>
 
 	<scm>
-		<connection>scm:git:http://git.bank.ru/mail-helper.git</connection>
-		<developerConnection>scm:git:http://git.bank.ru/mail-helper.git</developerConnection>
+		<connection>scm:git:https://gitrepo.theeurasia.kz/vadim.isaev/mail-helper.git</connection>
+		<developerConnection>scm:git:https://gitrepo.theeurasia.kz/vadim.isaev/mail-helper.git</developerConnection>
 		<tag>HEAD</tag>
 	</scm>
 
