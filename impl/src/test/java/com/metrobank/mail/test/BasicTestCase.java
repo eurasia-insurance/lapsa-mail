@@ -12,18 +12,25 @@ import com.lapsa.mailhelper.*;
 
 public class BasicTestCase {
 
+    private static final String MAIL_TEST_HOST = "almaty-mb01.theeurasia.local";
+    private static final String MAIL_TEST_PASSWORD = "SuperPuper2016";
+    private static final String MAIL_TEST_USER = "eurasia-policy";
+
+    private static final String MAIL_TEST_FROM_ADDRESS = "junit@theeurasia.local";
+    private static final String MAIL_TEST_RECIPIENT_ADDRESS = "vadim.isaev@theeurasia.kz";
+
     private static Session session;
 
     @BeforeClass
     public static void prepareSession() {
 	Properties prop = new Properties();
-//	prop.put("mail.smtp.host", "smtp.bank.ru");
-//	prop.put("mail.from", "junit@metrobank.ru");
-//	prop.put("mail.debug", true);
+	prop.put("mail.smtp.host", MAIL_TEST_HOST);
+	prop.put("mail.from", MAIL_TEST_FROM_ADDRESS);
+	prop.put("mail.debug", true);
 	Authenticator a = new Authenticator() {
-	    // public PasswordAuthentication getPasswordAuthentication() {
-	    // return new PasswordAuthentication("postmaster", "012549");
-	    // }
+	    public PasswordAuthentication getPasswordAuthentication() {
+		return new PasswordAuthentication(MAIL_TEST_USER, MAIL_TEST_PASSWORD);
+	    }
 	};
 	session = Session.getInstance(prop, a);
     }
@@ -78,13 +85,13 @@ public class BasicTestCase {
 	MailMessageBuilder mmb = mh.createBuilder();
 
 	MailMessage message = mmb.createMessage();
-	message.addTORecipient(mmb.createAddress("vadim.isaev@metrobank.ru"));
+	message.addTORecipient(mmb.createAddress(MAIL_TEST_RECIPIENT_ADDRESS));
 	message.setSubject("Test message");
 	MailSender sender = mh.createSender();
 	sender.send(message);
     }
 
-    // @Test
+    @Test
     public void testSend() throws MailHelperException, InvalidMessageException {
 	MailHelperFactory mhf = MailHelperFactory.getDefaultMailHelperFactory();
 	MailService mh = mhf.getHelper(session);
@@ -92,13 +99,13 @@ public class BasicTestCase {
 	MailMessageBuilder mmb = mh.createBuilder();
 
 	MailMessage message = mmb.createMessage();
-	message.addTORecipient(mmb.createAddress("vadim.isaev@metrobank.ru"));
+	message.addTORecipient(mmb.createAddress(MAIL_TEST_RECIPIENT_ADDRESS));
 	message.setSubject("Test message");
 	message.addPart(mmb.createTextPart("Test message"));
 	sender.send(message);
     }
 
-    // @Test
+    @Test
     public void testSendAlwaysCopyTo() throws MailHelperException, InvalidMessageException {
 	MailHelperFactory mhf = MailHelperFactory.getDefaultMailHelperFactory();
 	MailService mh = mhf.getHelper(session);
@@ -106,10 +113,10 @@ public class BasicTestCase {
 	MailMessageBuilder mmb = mh.createBuilder();
 
 	MailMessage message = mmb.createMessage();
-	message.addTORecipient(mmb.createAddress("vadim.isaev@metrobank.ru"));
+	message.addTORecipient(mmb.createAddress(MAIL_TEST_RECIPIENT_ADDRESS));
 	message.setSubject("Test message");
 	message.addPart(mmb.createTextPart("Test message"));
-	sender.setAlwaysBlindCopyTo(mmb.createAddress("vadim.isaev@metrobank.ru"));
+	sender.setAlwaysBlindCopyTo(mmb.createAddress(MAIL_TEST_RECIPIENT_ADDRESS));
 	sender.send(message);
     }
 
