@@ -3,11 +3,8 @@ package com.metrobank.mail.test;
 import static org.junit.Assert.*;
 
 import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.ByteBuffer;
 import java.util.Properties;
 
 import javax.mail.Authenticator;
@@ -138,15 +135,22 @@ public class BasicTestCase {
 
     @Test
     public void testSendImage_InputStream() throws MailException, IOException, InvalidMessageException {
-	MailFactory mf = MailFactory.getDefaultMailFactory();
-	MailService ms = mf.getService(session);
-	MailMessageBuilder builder = ms.createBuilder();
-	MailMessage message = builder.createMessage();
-	message.addTORecipient(builder.createAddress(MAIL_TEST_RECIPIENT_ADDRESS));
-	message.setSubject("Test message");
-	message.addPart(builder.createStreamPart("PICTURE", "image/jpeg", testFileInputStream()));
-	MailSender sender = ms.createSender();
-	sender.send(message);
+	InputStream is = null;
+	try {
+	    MailFactory mf = MailFactory.getDefaultMailFactory();
+	    MailService ms = mf.getService(session);
+	    MailMessageBuilder builder = ms.createBuilder();
+	    MailMessage message = builder.createMessage();
+	    message.addTORecipient(builder.createAddress(MAIL_TEST_RECIPIENT_ADDRESS));
+	    message.setSubject("Test message");
+	    is = testFileInputStream();
+	    message.addPart(builder.createStreamPart("PICTURE", "image/jpeg", is));
+	    MailSender sender = ms.createSender();
+	    sender.send(message);
+	} finally {
+	    if (is != null)
+		is.close();
+	}
     }
 
     @Test
@@ -177,7 +181,6 @@ public class BasicTestCase {
 	    baos = new ByteArrayOutputStream();
 	    while ((readed = is.read(buff)) != -1)
 		baos.write(buff, 0, readed);
-	    is.close();
 	    return baos.toByteArray();
 	} finally {
 	    if (baos != null)
