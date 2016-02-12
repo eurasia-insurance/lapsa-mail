@@ -11,6 +11,7 @@ import com.lapsa.mailutil.MailAddress;
 import com.lapsa.mailutil.MailException;
 import com.lapsa.mailutil.MailMessage;
 import com.lapsa.mailutil.MailMessageBuilder;
+import com.lapsa.mailutil.MailMessageByteArrayPart;
 import com.lapsa.mailutil.MailMessageFilePart;
 import com.lapsa.mailutil.MailMessageHTMLPart;
 import com.lapsa.mailutil.MailMessageStreamPart;
@@ -70,6 +71,12 @@ public class MailMessageBuilderImpl implements MailMessageBuilder {
     }
 
     @Override
+    public MailMessageByteArrayPart createByteArrayPart(String name, String contentType, byte[] bytes)
+	    throws MailException, IOException {
+	return new MailMessageByteArrayPartImpl(name, contentType, bytes);
+    }
+
+    @Override
     public MailMessage createMessage() throws MailException {
 	return createMessage(null, null, null, null);
     }
@@ -120,4 +127,5 @@ public class MailMessageBuilderImpl implements MailMessageBuilder {
 	    throws MailException {
 	return createMessage(null, to, subject, charset);
     }
+
 }

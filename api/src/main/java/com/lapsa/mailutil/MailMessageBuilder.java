@@ -47,7 +47,10 @@ public interface MailMessageBuilder {
 	MailMessageFilePart createFilePart(File file) throws MailException;
 
 	MailMessageStreamPart createStreamPart(String name, String contentType,
-			InputStream inputStream) throws MailException, IOException;
+		InputStream inputStream) throws MailException, IOException;
+
+	MailMessageByteArrayPart createByteArrayPart(String name, String contentType,
+		byte[] bytes) throws MailException, IOException;
 
 	MailAddress createAddress(String eMail) throws MailException;
 

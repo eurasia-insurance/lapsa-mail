@@ -1,5 +1,6 @@
 package com.lapsa.mailutil.impl;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -11,16 +12,17 @@ import javax.mail.MessagingException;
 import javax.mail.internet.MimeBodyPart;
 
 import com.lapsa.mailutil.MailMessagePart;
-import com.lapsa.mailutil.MailMessageStreamPart;
+import com.lapsa.mailutil.MailMessageByteArrayPart;
 
-class MultiPartStreamProvider implements MultiPartProvider {
+class MultiPartByteArrayProvider implements MultiPartProvider {
+
     @Override
     public BodyPart getBodyPart(MailMessagePart part) throws MessagingException {
-	final MimeBodyPart result = new MimeBodyPart();
+	MimeBodyPart result = new MimeBodyPart();
 
-	final MailMessageStreamPart mmsp = (MailMessageStreamPart) part;
-
-	final DataSource ds = new DataSource() {
+	final MailMessageByteArrayPart mmsp = (MailMessageByteArrayPart) part;
+	final ByteArrayInputStream bais = new ByteArrayInputStream(mmsp.getBytes());
+	DataSource ds = new DataSource() {
 	    @Override
 	    public OutputStream getOutputStream() throws IOException {
 		throw new IOException("Is not writable data source");
@@ -33,7 +35,7 @@ class MultiPartStreamProvider implements MultiPartProvider {
 
 	    @Override
 	    public InputStream getInputStream() throws IOException {
-		return mmsp.getInputStream();
+		return bais;
 	    }
 
 	    @Override
@@ -41,8 +43,9 @@ class MultiPartStreamProvider implements MultiPartProvider {
 		return mmsp.getContentType();
 	    }
 	};
-	final DataHandler dh = new DataHandler(ds);
+	DataHandler dh = new DataHandler(ds);
 	result.setDataHandler(dh);
 	return result;
     }
+
 }
