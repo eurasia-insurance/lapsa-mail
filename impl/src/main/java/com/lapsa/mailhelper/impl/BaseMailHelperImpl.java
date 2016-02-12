@@ -11,7 +11,7 @@ import org.w3c.dom.Document;
 
 import com.lapsa.mailhelper.*;
 
-public abstract class BaseMailHelperImpl implements MailHelper {
+public abstract class BaseMailHelperImpl implements MailService {
 
 	protected abstract Session getSession();
 

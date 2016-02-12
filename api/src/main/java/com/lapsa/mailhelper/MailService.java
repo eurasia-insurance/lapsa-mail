@@ -5,7 +5,7 @@ import java.nio.charset.*;
 
 import org.w3c.dom.*;
 
-public interface MailHelper {
+public interface MailService {
 	@Deprecated
 	public static final Charset DEFAULT_CHARSET = Charset.forName("UTF-8");
 

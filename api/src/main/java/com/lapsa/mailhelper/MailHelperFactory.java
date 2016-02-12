@@ -37,6 +37,6 @@ public abstract class MailHelperFactory {
 
 	public abstract String getName();
 
-	public abstract MailHelper getHelper(Session session)
+	public abstract MailService getHelper(Session session)
 			throws MailHelperException;
 }

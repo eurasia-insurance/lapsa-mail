@@ -2,11 +2,11 @@ package com.lapsa.mailhelper.impl;
 
 import javax.mail.*;
 
-public class MailHelperImpl extends BaseMailHelperImpl {
+public class MailSerivceFactoryImpl extends BaseMailHelperImpl {
 
 	private Session session;
 
-	MailHelperImpl(Session session) {
+	MailSerivceFactoryImpl(Session session) {
 		this.session = session;
 	}
 

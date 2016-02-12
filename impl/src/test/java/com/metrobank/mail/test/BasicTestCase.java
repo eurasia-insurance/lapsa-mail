@@ -37,14 +37,14 @@ public class BasicTestCase {
     @Test
     public void testGetHelper() throws MailHelperException {
 	MailHelperFactory mhf = MailHelperFactory.getDefaultMailHelperFactory();
-	MailHelper mh = mhf.getHelper(session);
+	MailService mh = mhf.getHelper(session);
 	assertNotNull(mh);
     }
 
     @Test
     public void testCreateSender() throws MailHelperException {
 	MailHelperFactory mhf = MailHelperFactory.getDefaultMailHelperFactory();
-	MailHelper mh = mhf.getHelper(session);
+	MailService mh = mhf.getHelper(session);
 	MailSender ms = mh.createSender();
 	assertNotNull(ms);
     }
@@ -52,7 +52,7 @@ public class BasicTestCase {
     @Test
     public void testCreateBuilder() throws MailHelperException {
 	MailHelperFactory mhf = MailHelperFactory.getDefaultMailHelperFactory();
-	MailHelper mh = mhf.getHelper(session);
+	MailService mh = mhf.getHelper(session);
 	MailMessageBuilder mmb = mh.createBuilder();
 	assertNotNull(mmb);
     }
@@ -60,7 +60,7 @@ public class BasicTestCase {
     @Test(expected = InvalidMessageException.class)
     public void testEmptyRecipientsException() throws MailHelperException, InvalidMessageException {
 	MailHelperFactory mhf = MailHelperFactory.getDefaultMailHelperFactory();
-	MailHelper mh = mhf.getHelper(session);
+	MailService mh = mhf.getHelper(session);
 	MailMessageBuilder mmb = mh.createBuilder();
 
 	MailMessage message = mmb.createMessage();
@@ -74,7 +74,7 @@ public class BasicTestCase {
     @Test(expected = InvalidMessageException.class)
     public void testEmptyBodyException() throws MailHelperException, InvalidMessageException {
 	MailHelperFactory mhf = MailHelperFactory.getDefaultMailHelperFactory();
-	MailHelper mh = mhf.getHelper(session);
+	MailService mh = mhf.getHelper(session);
 	MailMessageBuilder mmb = mh.createBuilder();
 
 	MailMessage message = mmb.createMessage();
@@ -87,7 +87,7 @@ public class BasicTestCase {
     // @Test
     public void testSend() throws MailHelperException, InvalidMessageException {
 	MailHelperFactory mhf = MailHelperFactory.getDefaultMailHelperFactory();
-	MailHelper mh = mhf.getHelper(session);
+	MailService mh = mhf.getHelper(session);
 	MailSender sender = mh.createSender();
 	MailMessageBuilder mmb = mh.createBuilder();
 
@@ -101,7 +101,7 @@ public class BasicTestCase {
     // @Test
     public void testSendAlwaysCopyTo() throws MailHelperException, InvalidMessageException {
 	MailHelperFactory mhf = MailHelperFactory.getDefaultMailHelperFactory();
-	MailHelper mh = mhf.getHelper(session);
+	MailService mh = mhf.getHelper(session);
 	MailSender sender = mh.createSender();
 	MailMessageBuilder mmb = mh.createBuilder();
 

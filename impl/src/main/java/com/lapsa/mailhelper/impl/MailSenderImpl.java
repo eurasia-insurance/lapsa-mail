@@ -32,7 +32,7 @@ class MailSenderImpl implements MailSender {
 	logger = Logger.getLogger(this.getClass().getCanonicalName());
     }
 
-    private void _sendOneMessage(Transport transport, MailMessage message) throws MailHelperException,
+    private JobForTransport buildJobForTransport(MailMessage message) throws MailHelperException,
 	    InvalidMessageException {
 	try {
 	    MimeMessage msg = new MimeMessage(session);
@@ -77,8 +77,8 @@ class MailSenderImpl implements MailSender {
 	    }
 	    msg.setContent(multipart);
 	    Address[] adrs = msg.getAllRecipients();
-	    transport.sendMessage(msg, adrs);
-	    logger.log(Level.FINER, "MAIL_SEND_OK " + message);
+	    return new JobForTransport(msg, adrs);
+
 	} catch (MessagingException e) {
 	    logger.log(Level.SEVERE, "MAIL_SEND_ERROR " + message, e);
 	    throw new MailHelperException(e);
@@ -105,14 +105,20 @@ class MailSenderImpl implements MailSender {
     @Override
     public void send(MailMessage[] messages, MailSendProtocol protocol) throws MailHelperException,
 	    InvalidMessageException {
+	JobForTransport[] jobs = new JobForTransport[messages.length];
+	for (int i = 0; i < messages.length; i++) {
+	    jobs[i] = buildJobForTransport(messages[i]);
+	}
 	Transport transport = null;
 	try {
+	    logger.log(Level.FINER, "MAIL_SEND transport connected protocol " + protocol + " OK");
 	    transport = session.getTransport(protocol.getProtocol());
 	    transport.connect();
-	    logger.log(Level.FINER, "MAIL_SEND transport connected protocol " + protocol + " OK");
-	    for (MailMessage message : messages) {
-		_sendOneMessage(transport, message);
+	    for (JobForTransport jfs : jobs) {
+		transport.sendMessage(jfs.msg, jfs.adrs);
+		logger.log(Level.FINER, "MAIL_SEND_OK " + jfs.msg.getMessageID());
 	    }
+
 	} catch (NoSuchProviderException e) {
 	    throw new MailHelperException(e);
 	} catch (MessagingException e) {
@@ -158,4 +164,16 @@ class MailSenderImpl implements MailSender {
     public void setAlwaysBlindCopyTo(MailAddress bccAddress) {
 	this.bccAddress = bccAddress;
     }
+}
+
+class JobForTransport {
+
+    MimeMessage msg;
+    Address[] adrs;
+
+    public JobForTransport(MimeMessage msg, Address[] adrs) {
+	this.msg = msg;
+	this.adrs = adrs;
+    }
+
 }
