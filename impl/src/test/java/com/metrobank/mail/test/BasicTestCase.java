@@ -25,19 +25,24 @@ import com.lapsa.mailutil.MailService;
 
 public class BasicTestCase {
 
-    private static final String MAIL_TEST_HOST = "almaty-mb01.theeurasia.local";
+    private static final String MAIL_TEST_USER = "lapsa.test@gmail.com";
     private static final String MAIL_TEST_PASSWORD = "SuperPuper2016";
-    private static final String MAIL_TEST_USER = "eurasia-policy";
 
-    private static final String MAIL_TEST_FROM_ADDRESS = "junit@theeurasia.local";
-    private static final String MAIL_TEST_RECIPIENT_ADDRESS = "vadim.isaev@theeurasia.kz";
+    private static final String MAIL_TEST_HOST = "smtp.gmail.com";
+
+    private static final String MAIL_TEST_FROM_ADDRESS = MAIL_TEST_USER;
+    private static final String MAIL_TEST_RECIPIENT_ADDRESS = MAIL_TEST_USER;
 
     private static Session session;
 
     @BeforeClass
     public static void prepareSession() {
 	Properties prop = new Properties();
+	prop.put("mail.smtp.auth", "true");
+	prop.put("mail.smtp.starttls.enable", "true");
+
 	prop.put("mail.smtp.host", MAIL_TEST_HOST);
+	prop.put("mail.smtp.port", "587");
 	prop.put("mail.from", MAIL_TEST_FROM_ADDRESS);
 	prop.put("mail.debug", true);
 	Authenticator a = new Authenticator() {
@@ -113,8 +118,8 @@ public class BasicTestCase {
 
 	MailMessage message = mmb.createMessage();
 	message.addTORecipient(mmb.createAddress(MAIL_TEST_RECIPIENT_ADDRESS));
-	message.setSubject("Test message");
-	message.addPart(mmb.createTextPart("Test message"));
+	message.setSubject("testSend");
+	message.addPart(mmb.createTextPart("testSend"));
 	sender.send(message);
     }
 
@@ -127,8 +132,8 @@ public class BasicTestCase {
 
 	MailMessage message = mmb.createMessage();
 	message.addTORecipient(mmb.createAddress(MAIL_TEST_RECIPIENT_ADDRESS));
-	message.setSubject("Test message");
-	message.addPart(mmb.createTextPart("Test message"));
+	message.setSubject("testSendAlwaysCopyTo");
+	message.addPart(mmb.createTextPart("testSendAlwaysCopyTo"));
 	sender.setAlwaysBlindCopyTo(mmb.createAddress(MAIL_TEST_RECIPIENT_ADDRESS));
 	sender.send(message);
     }
@@ -142,7 +147,7 @@ public class BasicTestCase {
 	    MailMessageBuilder builder = ms.createBuilder();
 	    MailMessage message = builder.createMessage();
 	    message.addTORecipient(builder.createAddress(MAIL_TEST_RECIPIENT_ADDRESS));
-	    message.setSubject("Test message");
+	    message.setSubject("testSendImage_InputStream");
 	    is = testFileInputStream();
 	    message.addPart(builder.createStreamPart("PICTURE", "image/jpeg", is));
 	    MailSender sender = ms.createSender();
@@ -160,7 +165,7 @@ public class BasicTestCase {
 	MailMessageBuilder builder = ms.createBuilder();
 	MailMessage message = builder.createMessage();
 	message.addTORecipient(builder.createAddress(MAIL_TEST_RECIPIENT_ADDRESS));
-	message.setSubject("Test message");
+	message.setSubject("testSendImage_Bytes");
 	message.addPart(builder.createByteArrayPart("PICTURE", "image/jpeg", testFileBytes()));
 	MailSender sender = ms.createSender();
 	sender.send(message);
