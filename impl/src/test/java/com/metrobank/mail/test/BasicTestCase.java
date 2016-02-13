@@ -3,6 +3,7 @@ package com.metrobank.mail.test;
 import static org.junit.Assert.*;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
@@ -32,6 +33,9 @@ public class BasicTestCase {
 
     private static final String MAIL_TEST_FROM_ADDRESS = MAIL_TEST_USER;
     private static final String MAIL_TEST_RECIPIENT_ADDRESS = MAIL_TEST_USER;
+
+    private static final String PATH_TO_TEST_RESOURCE = "policy_sample.jpg";
+    private static final String PATH_TO_TEST_FILE = "src/test/resources/policy_sample.jpg";
 
     private static Session session;
 
@@ -159,6 +163,26 @@ public class BasicTestCase {
     }
 
     @Test
+    public void testSendImage_File() throws MailException, IOException, InvalidMessageException {
+	InputStream is = null;
+	try {
+	    MailFactory mf = MailFactory.getDefaultMailFactory();
+	    MailService ms = mf.getService(session);
+	    MailMessageBuilder builder = ms.createBuilder();
+	    MailMessage message = builder.createMessage();
+	    message.addTORecipient(builder.createAddress(MAIL_TEST_RECIPIENT_ADDRESS));
+	    message.setSubject("testSendImage_File");
+	    MailMessagePart part = builder.createFilePart(new File(PATH_TO_TEST_FILE));
+	    message.addPart(part);
+	    MailSender sender = ms.createSender();
+	    sender.send(message);
+	} finally {
+	    if (is != null)
+		is.close();
+	}
+    }
+
+    @Test
     public void testSendImage_Bytes() throws MailException, IOException, InvalidMessageException {
 	MailFactory mf = MailFactory.getDefaultMailFactory();
 	MailService ms = mf.getService(session);
@@ -166,13 +190,14 @@ public class BasicTestCase {
 	MailMessage message = builder.createMessage();
 	message.addTORecipient(builder.createAddress(MAIL_TEST_RECIPIENT_ADDRESS));
 	message.setSubject("testSendImage_Bytes");
-	message.addPart(builder.createByteArrayPart("PICTURE", "image/jpeg", testFileBytes()));
+	byte[] bytes = testFileBytes();
+	message.addPart(builder.createByteArrayPart("PICTURE.jpg", "image/jpeg", bytes));
 	MailSender sender = ms.createSender();
 	sender.send(message);
     }
 
     private InputStream testFileInputStream() {
-	InputStream is = this.getClass().getClassLoader().getResourceAsStream("policy_sample.jpg");
+	InputStream is = this.getClass().getClassLoader().getResourceAsStream(PATH_TO_TEST_RESOURCE);
 	return is;
     }
 
