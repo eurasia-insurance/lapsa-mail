@@ -17,11 +17,13 @@ class MultiPartStreamProvider implements MultiPartProvider {
     public BodyPart getBodyPart(MailMessagePart part) throws MessagingException {
 	try {
 	    MimeBodyPart result = new MimeBodyPart();
-	    MailMessageStreamPart mmsp = (MailMessageStreamPart) part;
-	    DataSource source = new ByteArrayDataSource(mmsp.getInputStream(), mmsp.getContentType());
+	    MailMessageStreamPart p = (MailMessageStreamPart) part;
+	    DataSource source = new ByteArrayDataSource(p.getInputStream(), p.getContentType());
 	    DataHandler dh = new DataHandler(source);
 	    result.setDataHandler(dh);
-	    result.setFileName(mmsp.getName());
+	    result.setFileName(p.getName());
+	    if (p.getContentID() != null)
+		result.setContentID(p.getContentID());
 	    return result;
 	} catch (IOException e) {
 	    throw new MessagingException(e.getMessage(), e);

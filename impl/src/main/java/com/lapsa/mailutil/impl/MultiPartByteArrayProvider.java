@@ -15,11 +15,13 @@ class MultiPartByteArrayProvider implements MultiPartProvider {
     @Override
     public BodyPart getBodyPart(MailMessagePart part) throws MessagingException {
 	MimeBodyPart result = new MimeBodyPart();
-	MailMessageByteArrayPart mmsp = (MailMessageByteArrayPart) part;
-	DataSource source = new ByteArrayDataSource(mmsp.getBytes(), mmsp.getContentType());
+	MailMessageByteArrayPart p = (MailMessageByteArrayPart) part;
+	DataSource source = new ByteArrayDataSource(p.getBytes(), p.getContentType());
 	DataHandler dh = new DataHandler(source);
 	result.setDataHandler(dh);
-	result.setFileName(mmsp.getName());
+	result.setFileName(p.getName());
+	if (p.getContentID() != null)
+	    result.setContentID(p.getContentID());
 	return result;
     }
 

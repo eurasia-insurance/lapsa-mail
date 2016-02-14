@@ -3,39 +3,39 @@ package com.lapsa.mailutil;
 import java.nio.charset.*;
 
 public interface MailMessage {
-	void setFrom(MailAddress from);
+    void setFrom(MailAddress from);
 
-	MailAddress getFrom();
+    MailAddress getFrom();
 
-	void setSubject(String subject);
+    void setSubject(String subject);
 
-	String getSubject();
+    String getSubject();
 
-	void addTORecipient(MailAddress recipient);
+    void addTORecipient(MailAddress recipient);
 
-	void removeTORecipient(MailAddress recipient);
+    void removeTORecipient(MailAddress recipient);
 
-	MailAddress[] getTORecipients();
+    MailAddress[] getTORecipients();
 
-	void addCCRecipient(MailAddress recipient);
+    void addCCRecipient(MailAddress recipient);
 
-	void removeCCRecipient(MailAddress recipient);
+    void removeCCRecipient(MailAddress recipient);
 
-	MailAddress[] getCCRecipients();
+    MailAddress[] getCCRecipients();
 
-	void addBCCRecipient(MailAddress recipient);
+    void addBCCRecipient(MailAddress recipient);
 
-	void removeBCCRecipient(MailAddress recipient);
+    void removeBCCRecipient(MailAddress recipient);
 
-	MailAddress[] getBCCRecipients();
+    MailAddress[] getBCCRecipients();
 
-	void addPart(MailMessagePart mailMessagePart);
+    void addPart(MailMessagePart mailMessagePart);
 
-	void removePart(MailMessagePart mailMessagePart);
+    void removePart(MailMessagePart mailMessagePart);
 
-	MailMessagePart[] getParts();
+    MailMessagePart[] getParts();
 
-	void setCharset(Charset charset);
+    void setCharset(Charset charset);
 
-	Charset getCharset();
+    Charset getCharset();
 }

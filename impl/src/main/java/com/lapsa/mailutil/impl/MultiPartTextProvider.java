@@ -11,9 +11,11 @@ class MultiPartTextProvider implements MultiPartProvider {
     public BodyPart getBodyPart(MailMessagePart part) throws MessagingException {
 	MimeBodyPart result = new MimeBodyPart();
 
-	MailMessageTextPart mmtp = (MailMessageTextPart) part;
+	MailMessageTextPart p = (MailMessageTextPart) part;
 	// result.setText(mmtp.getText(), "UTF-8", "plain");
-	result.setText(mmtp.getText(), mmtp.getCharset().name(), "plain");
+	result.setText(p.getText(), p.getCharset().name(), "plain");
+	if (p.getContentID() != null)
+	    result.setContentID(part.getContentID());
 	return result;
     }
 }

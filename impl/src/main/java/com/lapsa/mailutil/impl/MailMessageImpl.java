@@ -138,5 +138,4 @@ class MailMessageImpl implements MailMessage {
     public void setCharset(Charset charset) {
 	this.charset = charset;
     }
-
 }

@@ -25,8 +25,18 @@ public class MailMessageBuilderImpl implements MailMessageBuilder {
     }
 
     @Override
+    public MailMessageFilePart createFilePart(File file, String contentId) throws MailException {
+	return new MailMessageFilePartImpl(file, contentId);
+    }
+
+    @Override
     public MailMessageHTMLPart createHTMLPart(String html) throws MailException {
 	return new MailMessageHTMLPartImpl(html, Charset.defaultCharset());
+    }
+
+    @Override
+    public MailMessageHTMLPart createHTMLPart(String html, String contentId) throws MailException {
+	return new MailMessageHTMLPartImpl(html, Charset.defaultCharset(), contentId);
     }
 
     @Override
@@ -40,8 +50,18 @@ public class MailMessageBuilderImpl implements MailMessageBuilder {
     }
 
     @Override
+    public MailMessageTextPart createTextPart(String text, String contentId) throws MailException {
+	return new MailMessageTextPartImpl(text, Charset.defaultCharset(), contentId);
+    }
+
+    @Override
     public MailMessageHTMLPart createHTMLPart(String html, Charset charset) throws MailException {
 	return new MailMessageHTMLPartImpl(html, charset);
+    }
+
+    @Override
+    public MailMessageHTMLPart createHTMLPart(String html, Charset charset, String contentId) throws MailException {
+	return new MailMessageHTMLPartImpl(html, charset, contentId);
     }
 
     @Override
@@ -50,13 +70,28 @@ public class MailMessageBuilderImpl implements MailMessageBuilder {
     }
 
     @Override
+    public MailMessageTextPart createTextPart(String text, Charset charset, String contentId) throws MailException {
+	return new MailMessageTextPartImpl(text, charset, contentId);
+    }
+
+    @Override
     public MailMessageXMLPart createXMLPart(Document doc) throws MailException {
 	return new MailMessageXMLPartImpl(doc, Charset.defaultCharset());
     }
 
     @Override
+    public MailMessageXMLPart createXMLPart(Document doc, String contentId) throws MailException {
+	return new MailMessageXMLPartImpl(doc, Charset.defaultCharset(), contentId);
+    }
+
+    @Override
     public MailMessageXMLPart createXMLPart(Document doc, Charset charset) throws MailException {
 	return new MailMessageXMLPartImpl(doc, charset);
+    }
+
+    @Override
+    public MailMessageXMLPart createXMLPart(Document doc, Charset charset, String contentId) throws MailException {
+	return new MailMessageXMLPartImpl(doc, charset, contentId);
     }
 
     @Override
@@ -71,9 +106,22 @@ public class MailMessageBuilderImpl implements MailMessageBuilder {
     }
 
     @Override
+    public MailMessageStreamPart createStreamPart(String name, String contentType, InputStream inputStream,
+	    String contentId)
+		    throws MailException, IOException {
+	return new MailMessageStreamPartImpl(name, contentType, inputStream, contentId);
+    }
+
+    @Override
     public MailMessageByteArrayPart createByteArrayPart(String name, String contentType, byte[] bytes)
 	    throws MailException, IOException {
 	return new MailMessageByteArrayPartImpl(name, contentType, bytes);
+    }
+
+    @Override
+    public MailMessageByteArrayPart createByteArrayPart(String name, String contentType, byte[] bytes, String contentId)
+	    throws MailException, IOException {
+	return new MailMessageByteArrayPartImpl(name, contentType, bytes, contentId);
     }
 
     @Override

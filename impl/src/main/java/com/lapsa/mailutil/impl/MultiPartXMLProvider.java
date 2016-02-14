@@ -12,15 +12,16 @@ import com.lapsa.mailutil.MailMessageXMLPart;
 class MultiPartXMLProvider implements MultiPartProvider {
     public BodyPart getBodyPart(MailMessagePart part) throws MessagingException {
 	MimeBodyPart result = new MimeBodyPart();
-
-	MailMessageXMLPart mmxp = (MailMessageXMLPart) part;
+	MailMessageXMLPart p = (MailMessageXMLPart) part;
 	String content;
 	try {
-	    content = DOMUtils.getInstance().getAsString(mmxp.getDocument(), mmxp.getCharset().name());
+	    content = DOMUtils.getInstance().getAsString(p.getDocument(), p.getCharset().name());
 	} catch (UnsupportedEncodingException e) {
-	    throw new MessagingException("Unsupported encoding '" + mmxp.getCharset().name() + "'", e);
+	    throw new MessagingException("Unsupported encoding '" + p.getCharset().name() + "'", e);
 	}
-	result.setText(content, mmxp.getCharset().name(), "xml");
+	result.setText(content, p.getCharset().name(), "xml");
+	if (p.getContentID() != null)
+	    result.setContentID(p.getContentID());
 	return result;
     }
 }

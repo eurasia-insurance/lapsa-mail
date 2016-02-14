@@ -10,6 +10,15 @@ class MailMessageStreamPartImpl implements MailMessageStreamPart {
     private InputStream inputStream;
     private String contentType;
     private String name;
+    private String contentId;
+
+    MailMessageStreamPartImpl(String name, String contentType, InputStream inputStream, String contentId)
+	    throws IOException {
+	this.name = name;
+	this.contentType = contentType;
+	this.inputStream = inputStream;
+	this.contentId = contentId;
+    }
 
     MailMessageStreamPartImpl(String name, String contentType, InputStream inputStream) throws IOException {
 	this.name = name;
@@ -27,6 +36,11 @@ class MailMessageStreamPartImpl implements MailMessageStreamPart {
 
     public String getName() {
 	return name;
+    }
+
+    @Override
+    public String getContentID() {
+	return contentId;
     }
 
 }

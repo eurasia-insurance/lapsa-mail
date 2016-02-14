@@ -13,9 +13,11 @@ class MultiPartFileProvider implements MultiPartProvider {
     public BodyPart getBodyPart(MailMessagePart part) throws MessagingException {
 	MimeBodyPart result = new MimeBodyPart();
 
-	MailMessageFilePart mmfp = (MailMessageFilePart) part;
+	MailMessageFilePart p = (MailMessageFilePart) part;
 	try {
-	    result.attachFile(mmfp.getFile());
+	    result.attachFile(p.getFile());
+	    if (p.getContentID() != null)
+		result.setContentID(p.getContentID());
 	    return result;
 	} catch (IOException e) {
 	    throw new MessagingException("Unable to attach file", e);

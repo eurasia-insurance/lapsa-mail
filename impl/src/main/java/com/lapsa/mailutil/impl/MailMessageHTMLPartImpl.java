@@ -8,6 +8,13 @@ class MailMessageHTMLPartImpl implements MailMessageHTMLPart {
 
     private Charset charset;
     private String html;
+    private String contentId;
+
+    MailMessageHTMLPartImpl(String html, Charset charset, String contentId) {
+	this.charset = charset;
+	this.html = html;
+	this.contentId = contentId;
+    }
 
     MailMessageHTMLPartImpl(String html, Charset charset) {
 	this.charset = charset;
@@ -20,6 +27,11 @@ class MailMessageHTMLPartImpl implements MailMessageHTMLPart {
 
     public Charset getCharset() {
 	return charset;
+    }
+
+    @Override
+    public String getContentID() {
+	return contentId;
     }
 
 }

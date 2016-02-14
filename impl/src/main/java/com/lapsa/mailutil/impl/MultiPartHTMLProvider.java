@@ -11,9 +11,10 @@ class MultiPartHTMLProvider implements MultiPartProvider {
     public BodyPart getBodyPart(MailMessagePart part) throws MessagingException {
 	MimeBodyPart result = new MimeBodyPart();
 
-	MailMessageHTMLPart mmhp = (MailMessageHTMLPart) part;
-	// result.setText(mmhp.getHTML(), "UTF-8", "html");
-	result.setText(mmhp.getHTML(), mmhp.getCharset().name(), "html");
+	MailMessageHTMLPart p = (MailMessageHTMLPart) part;
+	result.setText(p.getHTML(), p.getCharset().name(), "html");
+	if (p.getContentID() != null)
+	    result.setContentID(p.getContentID());
 	return result;
     }
 }

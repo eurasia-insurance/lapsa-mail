@@ -8,6 +8,13 @@ class MailMessageTextPartImpl implements MailMessageTextPart {
 
     private String text;
     private Charset charset;
+    private String contentId;
+
+    MailMessageTextPartImpl(String text, Charset charset, String contentId) {
+	this.text = text;
+	this.charset = charset;
+	this.contentId = contentId;
+    }
 
     MailMessageTextPartImpl(String text, Charset charset) {
 	this.text = text;
@@ -20,5 +27,10 @@ class MailMessageTextPartImpl implements MailMessageTextPart {
 
     public Charset getCharset() {
 	return charset;
+    }
+
+    @Override
+    public String getContentID() {
+	return contentId;
     }
 }
