@@ -4,7 +4,7 @@
 	<parent>
 		<groupId>com.lapsa.mail-helper</groupId>
 		<artifactId>parent</artifactId>
-		<version>1.5</version>
+		<version>1.6-SNAPSHOT</version>
 	</parent>
 
 	<artifactId>mail-helper-impl</artifactId>
@@ -16,7 +16,7 @@
 		<dependency>
 			<groupId>com.lapsa.mail-helper</groupId>
 			<artifactId>mail-helper-api</artifactId>
-			<version>1.5</version>
+			<version>1.6-SNAPSHOT</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>

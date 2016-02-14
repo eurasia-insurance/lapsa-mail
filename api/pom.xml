@@ -3,7 +3,7 @@
 	<parent>
 		<groupId>com.lapsa.mail-helper</groupId>
 		<artifactId>parent</artifactId>
-		<version>1.5</version>
+		<version>1.6-SNAPSHOT</version>
 	</parent>
 
 	<artifactId>mail-helper-api</artifactId>
