@@ -12,11 +12,13 @@
 	<name>LAPSA Mail utility : API</name>
 
 	<dependencies>
+		<!-- JavaEE -->
 		<dependency>
 			<groupId>javax.mail</groupId>
 			<artifactId>mail</artifactId>
 			<scope>provided</scope>
 		</dependency>
+		<!-- test -->
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
