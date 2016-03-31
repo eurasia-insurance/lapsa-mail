@@ -1,5 +1,7 @@
 package com.lapsa.mailutil.impl;
 
+import static com.lapsa.mailutil.impl.MailPropertyNames.*;
+
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
@@ -38,8 +40,7 @@ class MailSenderImpl implements MailSender {
 	logger = Logger.getLogger(this.getClass().getCanonicalName());
     }
 
-    private JobForTransport buildJobForTransport(MailMessage message) throws MailException,
-	    InvalidMessageException {
+    private JobForTransport buildJobForTransport(MailMessage message) throws MailException, InvalidMessageException {
 	try {
 	    MimeMessage msg = new MimeMessage(session);
 
@@ -94,8 +95,7 @@ class MailSenderImpl implements MailSender {
 	}
     }
 
-    private static Address convertAddress(MailAddress ma, Charset charset)
-	    throws UnsupportedEncodingException {
+    private static Address convertAddress(MailAddress ma, Charset charset) throws UnsupportedEncodingException {
 	return new InternetAddress(ma.getEMail(), ma.getName(), charset.name());
     }
 
@@ -109,8 +109,7 @@ class MailSenderImpl implements MailSender {
     }
 
     @Override
-    public void send(MailMessage[] messages, MailSendProtocol protocol) throws MailException,
-	    InvalidMessageException {
+    public void send(MailMessage[] messages, MailSendProtocol protocol) throws MailException, InvalidMessageException {
 	JobForTransport[] jobs = new JobForTransport[messages.length];
 	for (int i = 0; i < messages.length; i++) {
 	    jobs[i] = buildJobForTransport(messages[i]);
@@ -156,8 +155,8 @@ class MailSenderImpl implements MailSender {
     }
 
     @Override
-    public void send(Collection<MailMessage> messages, MailSendProtocol protocol) throws MailException,
-	    InvalidMessageException {
+    public void send(Collection<MailMessage> messages, MailSendProtocol protocol)
+	    throws MailException, InvalidMessageException {
 	send(messages.toArray(new MailMessage[0]), protocol);
     }
 
@@ -169,6 +168,15 @@ class MailSenderImpl implements MailSender {
     @Override
     public void setAlwaysBlindCopyTo(MailAddress bccAddress) {
 	this.bccAddress = bccAddress;
+    }
+
+    @Override
+    public MailAddress getDefaultSender() {
+	String from = session.getProperty(MAIL_FROM);
+	if (from != null) {
+	    return new MailAddressImpl(from, "");
+	}
+	return null;
     }
 }
 

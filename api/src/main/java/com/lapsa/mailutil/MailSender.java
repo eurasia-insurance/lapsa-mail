@@ -5,6 +5,8 @@ import java.util.*;
 public interface MailSender {
 	void setAlwaysBlindCopyTo(MailAddress bccAddress);
 
+	MailAddress getDefaultSender();
+
 	void send(MailMessage message) throws MailException,
 			InvalidMessageException;
 
