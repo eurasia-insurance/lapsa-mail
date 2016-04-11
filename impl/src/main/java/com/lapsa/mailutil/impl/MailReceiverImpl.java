@@ -72,7 +72,7 @@ class MailReceiverImpl implements MailReceiver {
     public int countMessages() throws MailException {
 	try {
 	    autoConnect();
-	    return folder.getNewMessageCount();
+	    return folder.getMessageCount();
 	} catch (MessagingException e) {
 	    logger.log(Level.SEVERE, "MAIL_RECEIVE_ERROR", e);
 	    throw new MailException(e);
