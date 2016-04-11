@@ -2,11 +2,11 @@ package com.lapsa.mailutil;
 
 import java.util.Collection;
 
-public interface MailReceiver {
+public interface MailReceiver extends AutoCloseable {
 
-    boolean hasNewMessages() throws MailException;
+    boolean hasMessages() throws MailException;
 
-    int countNewMessages() throws MailException;
+    int countMessages() throws MailException;
 
     Collection<MailMessage> getAndClear() throws MailException;
 }
