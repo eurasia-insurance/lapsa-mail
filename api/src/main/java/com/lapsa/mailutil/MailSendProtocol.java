@@ -1,5 +1,6 @@
 package com.lapsa.mailutil;
 
+@Deprecated
 public enum MailSendProtocol {
 	SMTP("smtp");
 
