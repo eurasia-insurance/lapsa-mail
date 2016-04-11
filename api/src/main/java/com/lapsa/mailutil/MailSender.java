@@ -2,7 +2,7 @@ package com.lapsa.mailutil;
 
 import java.util.*;
 
-public interface MailSender {
+public interface MailSender extends AutoCloseable {
 	void setAlwaysBlindCopyTo(MailAddress bccAddress);
 
 	MailAddress getDefaultSender();
