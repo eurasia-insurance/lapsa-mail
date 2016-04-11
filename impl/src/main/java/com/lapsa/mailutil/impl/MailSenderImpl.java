@@ -35,6 +35,8 @@ class MailSenderImpl implements MailSender {
     private final Logger logger;
     private MailAddress bccAddress;
 
+    private Transport transport;
+
     MailSenderImpl(Session session) {
 	this.session = session;
 	logger = Logger.getLogger(this.getClass().getCanonicalName());
@@ -114,28 +116,16 @@ class MailSenderImpl implements MailSender {
 	for (int i = 0; i < messages.length; i++) {
 	    jobs[i] = buildJobForTransport(messages[i]);
 	}
-	Transport transport = null;
 	try {
-	    logger.log(Level.FINER, "MAIL_SEND transport connected protocol " + protocol + " OK");
-	    transport = session.getTransport(protocol.getProtocol());
-	    transport.connect();
+	    autoConnect();
 	    for (JobForTransport jfs : jobs) {
 		transport.sendMessage(jfs.msg, jfs.adrs);
-		logger.log(Level.FINER, "MAIL_SEND_OK " + jfs.msg.getMessageID());
+		logger.log(Level.FINE, "MAIL_SEND_OK " + jfs.msg.getMessageID());
 	    }
-
 	} catch (NoSuchProviderException e) {
 	    throw new MailException(e);
 	} catch (MessagingException e) {
 	    throw new MailException(e);
-	} finally {
-	    if (transport != null) {
-		try {
-		    transport.close();
-		} catch (MessagingException e) {
-		}
-		logger.log(Level.FINER, "MAIL_SEND transport disconnected OK");
-	    }
 	}
     }
 
@@ -177,6 +167,27 @@ class MailSenderImpl implements MailSender {
 	    return new MailAddressImpl(from, "");
 	}
 	return null;
+    }
+
+    private void autoConnect() throws MessagingException {
+	if (transport == null)
+	    transport = session.getTransport();
+	if (!transport.isConnected()) {
+	    transport.connect(session.getProperty(MAIL_USER), session.getProperty(MAIL_PASSWORD));
+	    logger.log(Level.FINE, "MAIL_SEND transport connected OK");
+	}
+    }
+
+    @Override
+    public void close() {
+	if (transport != null && transport.isConnected()) {
+	    try {
+		transport.close();
+	    } catch (MessagingException e) {
+		logger.log(Level.SEVERE, "MAIL_SEND_ERROR", e);
+	    }
+	    logger.log(Level.FINE, "MAIL_SEND transport disconnected OK");
+	}
     }
 }
 
