@@ -26,7 +26,6 @@ import com.lapsa.mailutil.MailAddress;
 import com.lapsa.mailutil.MailException;
 import com.lapsa.mailutil.MailMessage;
 import com.lapsa.mailutil.MailMessagePart;
-import com.lapsa.mailutil.MailSendProtocol;
 import com.lapsa.mailutil.MailSender;
 
 class MailSenderImpl implements MailSender {
@@ -111,7 +110,7 @@ class MailSenderImpl implements MailSender {
     }
 
     @Override
-    public void send(MailMessage[] messages, MailSendProtocol protocol) throws MailException, InvalidMessageException {
+    public void send(MailMessage[] messages) throws MailException, InvalidMessageException {
 	JobForTransport[] jobs = new JobForTransport[messages.length];
 	for (int i = 0; i < messages.length; i++) {
 	    jobs[i] = buildJobForTransport(messages[i]);
@@ -131,28 +130,12 @@ class MailSenderImpl implements MailSender {
 
     @Override
     public void send(MailMessage message) throws MailException, InvalidMessageException {
-	send(new MailMessage[] { message }, MailSendProtocol.SMTP);
-    }
-
-    @Override
-    public void send(MailMessage message, MailSendProtocol protocol) throws MailException {
-	send(message, MailSendProtocol.SMTP);
+	send(new MailMessage[] { message });
     }
 
     @Override
     public void send(Collection<MailMessage> messages) throws MailException, InvalidMessageException {
-	send(messages.toArray(new MailMessage[0]), MailSendProtocol.SMTP);
-    }
-
-    @Override
-    public void send(Collection<MailMessage> messages, MailSendProtocol protocol)
-	    throws MailException, InvalidMessageException {
-	send(messages.toArray(new MailMessage[0]), protocol);
-    }
-
-    @Override
-    public void send(MailMessage[] messages) throws MailException, InvalidMessageException {
-	send(messages, MailSendProtocol.SMTP);
+	send(messages.toArray(new MailMessage[0]));
     }
 
     @Override
