@@ -1,6 +1,7 @@
 package com.metrobank.mail.test;
 
 import java.util.Properties;
+
 import javax.mail.Folder;
 import javax.mail.Message;
 import javax.mail.MessagingException;

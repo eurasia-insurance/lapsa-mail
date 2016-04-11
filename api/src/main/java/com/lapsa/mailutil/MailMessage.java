@@ -1,6 +1,6 @@
 package com.lapsa.mailutil;
 
-import java.nio.charset.*;
+import java.nio.charset.Charset;
 
 public interface MailMessage {
     void setFrom(MailAddress from);

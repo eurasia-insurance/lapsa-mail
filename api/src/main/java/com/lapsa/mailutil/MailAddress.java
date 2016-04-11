@@ -1,7 +1,7 @@
 package com.lapsa.mailutil;
 
 public interface MailAddress {
-	String getName();
+    String getName();
 
-	String getEMail();
+    String getEMail();
 }

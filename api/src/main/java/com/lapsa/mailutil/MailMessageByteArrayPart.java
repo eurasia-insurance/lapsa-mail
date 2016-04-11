@@ -1,10 +1,10 @@
 package com.lapsa.mailutil;
 
 public interface MailMessageByteArrayPart extends MailMessagePart {
-	byte[] getBytes();
+    byte[] getBytes();
 
-	String getContentType();
+    String getContentType();
 
-	String getName();
+    String getName();
 
 }
