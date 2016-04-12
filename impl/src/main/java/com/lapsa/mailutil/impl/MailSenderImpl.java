@@ -119,7 +119,7 @@ class MailSenderImpl implements MailSender {
 	    autoConnect();
 	    for (JobForTransport jfs : jobs) {
 		transport.sendMessage(jfs.msg, jfs.adrs);
-		logger.log(Level.FINE, "MAIL_SEND_OK " + jfs.msg.getMessageID());
+		logger.fine("MAIL_SEND_OK " + jfs.msg.getMessageID());
 	    }
 	} catch (NoSuchProviderException e) {
 	    throw new MailException(e);
@@ -157,19 +157,20 @@ class MailSenderImpl implements MailSender {
 	    transport = session.getTransport();
 	if (!transport.isConnected()) {
 	    transport.connect(session.getProperty(MAIL_USER), session.getProperty(MAIL_PASSWORD));
-	    logger.log(Level.FINE, "MAIL_SEND transport connected OK");
+	    logger.fine("MAIL_SEND transport connected OK");
 	}
     }
 
     @Override
-    public void close() {
+    public void close() throws MailException {
 	if (transport != null && transport.isConnected()) {
 	    try {
 		transport.close();
+		logger.fine("MAIL_SEND transport disconnected OK");
 	    } catch (MessagingException e) {
 		logger.log(Level.SEVERE, "MAIL_SEND_ERROR", e);
+		throw new MailException(e);
 	    }
-	    logger.log(Level.FINE, "MAIL_SEND transport disconnected OK");
 	}
     }
 }

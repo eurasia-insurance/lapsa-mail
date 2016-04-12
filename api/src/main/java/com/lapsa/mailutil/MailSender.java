@@ -12,4 +12,7 @@ public interface MailSender extends AutoCloseable {
     void send(Collection<MailMessage> messages) throws MailException, InvalidMessageException;
 
     void send(MailMessage[] messages) throws MailException, InvalidMessageException;
+
+    @Override
+    void close() throws MailException;
 }

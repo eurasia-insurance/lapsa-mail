@@ -83,13 +83,14 @@ class MailReceiverImpl implements MailReceiver {
     }
 
     @Override
-    public void close() {
+    public void close() throws MailException {
 	if (folder != null && folder.isOpen())
 	    try {
 		folder.close(false);
 		logger.log(Level.FINE, "MAIL_CHECK folder closed OK");
 	    } catch (MessagingException e) {
 		logger.log(Level.SEVERE, "MAIL_RECEIVE_ERROR", e);
+		throw new MailException(e);
 	    }
 	if (store != null && store.isConnected())
 	    try {
@@ -97,6 +98,7 @@ class MailReceiverImpl implements MailReceiver {
 		logger.log(Level.FINE, "MAIL_CHECK store disconnected OK");
 	    } catch (MessagingException e) {
 		logger.log(Level.SEVERE, "MAIL_RECEIVE_ERROR", e);
+		throw new MailException(e);
 	    }
     }
 
