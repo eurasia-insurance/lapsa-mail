@@ -42,11 +42,13 @@ public class BasicTestCase {
     @BeforeClass
     public static void prepareSession() {
 	Properties prop = new Properties();
-	prop.put("mail.smtp.auth", "true");
-	prop.put("mail.smtp.starttls.enable", "true");
 
-	prop.put("mail.smtp.host", MAIL_TEST_HOST);
-	prop.put("mail.smtp.port", "587");
+	prop.put("mail.transport.protocol", "smtps");
+	prop.put("mail.smtps.class", "com.sun.mail.smtp.SMTPSSLTransport");
+	prop.put("mail.smtps.auth", "true");
+	prop.put("mail.smtps.host", MAIL_TEST_HOST);
+	prop.put("mail.smtps.port", "465");
+	prop.put("mail.smtps.starttls.enable", "true");
 	prop.put("mail.from", MAIL_TEST_FROM_ADDRESS);
 	prop.put("mail.debug", true);
 	Authenticator a = new Authenticator() {

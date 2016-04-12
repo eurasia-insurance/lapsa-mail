@@ -16,9 +16,11 @@ public class CheckMails {
 	    Properties properties = new Properties();
 
 	    properties.put("mail.store.protocol", "imaps");
+	    properties.put("mail.imaps.class", "com.sun.mail.imap.IMAPSSLStore");
 	    properties.put("mail.imaps.host", host);
 	    properties.put("mail.imaps.port", "993");
 	    properties.put("mail.imaps.starttls.enable", "true");
+	    properties.put("mail.debug", true);
 	    Session emailSession = Session.getDefaultInstance(properties);
 
 	    // create the POP3 store object and connect with the pop server
@@ -63,7 +65,6 @@ public class CheckMails {
 	String password = "eurasiachecker2015";// change accordingly
 
 	check(host, mailStoreType, username, password);
-
     }
 
 }
