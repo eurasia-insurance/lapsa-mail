@@ -1,11 +1,11 @@
 package com.lapsa.mailutil;
 
-import java.nio.charset.*;
+import java.nio.charset.Charset;
 
-import org.w3c.dom.*;
+import org.w3c.dom.Document;
 
 public interface MailMessageXMLPart extends MailMessagePart {
-	Document getDocument();
+    Document getDocument();
 
-	Charset getCharset();
+    Charset getCharset();
 }

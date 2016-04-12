@@ -18,12 +18,11 @@ public final class DOMUtils {
     public static final String DOM_IMPLEMENTATION_VERSION = "XML 3.0";
 
     private static final DOMUtils INSTANCE = new DOMUtils();
-    
+
     private final DOMImplementationRegistry domImplementationRegistry;
     private final DOMImplementation domImplementation;
     private final DOMImplementationLS domImplementationLS;
 
-    
     private DOMUtils() {
 	try {
 	    domImplementationRegistry = DOMImplementationRegistry.newInstance();
@@ -64,8 +63,7 @@ public final class DOMUtils {
     }
 
     @Deprecated
-    public static final String writeToString(Document doc, String xmlEncoding)
-	    throws UnsupportedEncodingException {
+    public static final String writeToString(Document doc, String xmlEncoding) throws UnsupportedEncodingException {
 	return DOMUtils.getInstance().getAsString(doc, xmlEncoding);
     }
 

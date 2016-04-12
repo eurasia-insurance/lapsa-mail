@@ -26,7 +26,6 @@ import com.lapsa.mailutil.MailAddress;
 import com.lapsa.mailutil.MailException;
 import com.lapsa.mailutil.MailMessage;
 import com.lapsa.mailutil.MailMessagePart;
-import com.lapsa.mailutil.MailSendProtocol;
 import com.lapsa.mailutil.MailSender;
 
 class MailSenderImpl implements MailSender {
@@ -64,9 +63,6 @@ class MailSenderImpl implements MailSender {
 	    if (toRecipients.length + ccRecipients.length + bccRecipients.length == 0)
 		throw new InvalidMessageException("Not specified any recipient", message);
 
-	    if (message.getParts() == null || message.getParts().length == 0)
-		throw new InvalidMessageException("This is an empty message can not be sent", message);
-
 	    msg.addRecipients(RecipientType.TO, toRecipients);
 	    msg.addRecipients(RecipientType.CC, ccRecipients);
 	    msg.addRecipients(RecipientType.BCC, bccRecipients);
@@ -74,17 +70,22 @@ class MailSenderImpl implements MailSender {
 	    if (bccAddress != null)
 		msg.addRecipient(RecipientType.BCC, convertAddress(bccAddress, message.getCharset()));
 
-	    Multipart multipart = new MimeMultipart();
-	    MailMessagePart[] parts = message.getParts();
+	    if (message.getParts() == null || message.getParts().length == 0)
+		msg.setContent("", "text/plain");
+	    else {
+		Multipart multipart = new MimeMultipart();
+		MailMessagePart[] parts = message.getParts();
 
-	    for (MailMessagePart part : parts) {
-		MultiPartProvider provider = MultiPartProviderFactoryMethod.getProviderFor(part);
-		if (provider != null) {
-		    BodyPart bodyPart = provider.getBodyPart(part);
-		    multipart.addBodyPart(bodyPart);
+		for (MailMessagePart part : parts) {
+		    MultiPartProvider provider = MultiPartProviderFactoryMethod.getProviderFor(part);
+		    if (provider != null) {
+			BodyPart bodyPart = provider.getBodyPart(part);
+			multipart.addBodyPart(bodyPart);
+		    }
 		}
+		msg.setContent(multipart);
 	    }
-	    msg.setContent(multipart);
+
 	    Address[] adrs = msg.getAllRecipients();
 	    return new JobForTransport(msg, adrs);
 
@@ -111,7 +112,7 @@ class MailSenderImpl implements MailSender {
     }
 
     @Override
-    public void send(MailMessage[] messages, MailSendProtocol protocol) throws MailException, InvalidMessageException {
+    public void send(MailMessage[] messages) throws MailException, InvalidMessageException {
 	JobForTransport[] jobs = new JobForTransport[messages.length];
 	for (int i = 0; i < messages.length; i++) {
 	    jobs[i] = buildJobForTransport(messages[i]);
@@ -120,7 +121,7 @@ class MailSenderImpl implements MailSender {
 	    autoConnect();
 	    for (JobForTransport jfs : jobs) {
 		transport.sendMessage(jfs.msg, jfs.adrs);
-		logger.log(Level.FINE, "MAIL_SEND_OK " + jfs.msg.getMessageID());
+		logger.fine("MAIL_SEND_OK " + jfs.msg.getMessageID());
 	    }
 	} catch (NoSuchProviderException e) {
 	    throw new MailException(e);
@@ -131,28 +132,12 @@ class MailSenderImpl implements MailSender {
 
     @Override
     public void send(MailMessage message) throws MailException, InvalidMessageException {
-	send(new MailMessage[] { message }, MailSendProtocol.SMTP);
-    }
-
-    @Override
-    public void send(MailMessage message, MailSendProtocol protocol) throws MailException {
-	send(message, MailSendProtocol.SMTP);
+	send(new MailMessage[] { message });
     }
 
     @Override
     public void send(Collection<MailMessage> messages) throws MailException, InvalidMessageException {
-	send(messages.toArray(new MailMessage[0]), MailSendProtocol.SMTP);
-    }
-
-    @Override
-    public void send(Collection<MailMessage> messages, MailSendProtocol protocol)
-	    throws MailException, InvalidMessageException {
-	send(messages.toArray(new MailMessage[0]), protocol);
-    }
-
-    @Override
-    public void send(MailMessage[] messages) throws MailException, InvalidMessageException {
-	send(messages, MailSendProtocol.SMTP);
+	send(messages.toArray(new MailMessage[0]));
     }
 
     @Override
@@ -174,19 +159,20 @@ class MailSenderImpl implements MailSender {
 	    transport = session.getTransport();
 	if (!transport.isConnected()) {
 	    transport.connect(session.getProperty(MAIL_USER), session.getProperty(MAIL_PASSWORD));
-	    logger.log(Level.FINE, "MAIL_SEND transport connected OK");
+	    logger.fine("MAIL_SEND transport connected OK");
 	}
     }
 
     @Override
-    public void close() {
+    public void close() throws MailException {
 	if (transport != null && transport.isConnected()) {
 	    try {
 		transport.close();
+		logger.fine("MAIL_SEND transport disconnected OK");
 	    } catch (MessagingException e) {
 		logger.log(Level.SEVERE, "MAIL_SEND_ERROR", e);
+		throw new MailException(e);
 	    }
-	    logger.log(Level.FINE, "MAIL_SEND transport disconnected OK");
 	}
     }
 }

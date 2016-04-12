@@ -1,9 +1,9 @@
 package com.lapsa.mailutil;
 
-import java.nio.charset.*;
+import java.nio.charset.Charset;
 
 public interface MailMessageTextPart extends MailMessagePart {
-	Charset getCharset();
+    Charset getCharset();
 
-	String getText();
+    String getText();
 }

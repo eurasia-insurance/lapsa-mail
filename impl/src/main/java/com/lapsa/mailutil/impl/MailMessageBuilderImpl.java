@@ -107,8 +107,7 @@ public class MailMessageBuilderImpl implements MailMessageBuilder {
 
     @Override
     public MailMessageStreamPart createStreamPart(String name, String contentType, InputStream inputStream,
-	    String contentId)
-		    throws MailException, IOException {
+	    String contentId) throws MailException, IOException {
 	return new MailMessageStreamPartImpl(name, contentType, inputStream, contentId);
     }
 
@@ -140,8 +139,7 @@ public class MailMessageBuilderImpl implements MailMessageBuilder {
     }
 
     @Override
-    public MailMessage createMessage(MailAddress from, MailAddress to, String subject)
-	    throws MailException {
+    public MailMessage createMessage(MailAddress from, MailAddress to, String subject) throws MailException {
 	return createMessage(from, to, subject, null);
     }
 
@@ -171,8 +169,7 @@ public class MailMessageBuilderImpl implements MailMessageBuilder {
     }
 
     @Override
-    public MailMessage createMessage(MailAddress to, String subject, Charset charset)
-	    throws MailException {
+    public MailMessage createMessage(MailAddress to, String subject, Charset charset) throws MailException {
 	return createMessage(null, to, subject, charset);
     }
 
