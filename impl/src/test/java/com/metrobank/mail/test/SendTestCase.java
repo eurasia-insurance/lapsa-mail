@@ -42,7 +42,7 @@ public class SendTestCase {
 	    MailMessage message = mmb.createMessage();
 	    MailMessagePart part = mmb.createTextPart("Test message");
 	    message.addPart(part);
-	    message.setSubject("Test message");
+	    message.setSubject("testEmptyRecipientsException()");
 	    sender.send(message);
 	}
     }
@@ -55,7 +55,7 @@ public class SendTestCase {
 	    MailMessageBuilder mmb = mh.createBuilder();
 	    MailMessage message = mmb.createMessage();
 	    message.addTORecipient(mmb.createAddress(MAIL_TEST_RECIPIENT_ADDRESS));
-	    message.setSubject("Test message");
+	    message.setSubject("testEmptyBody()");
 	    sender.send(message);
 	}
     }
@@ -68,7 +68,7 @@ public class SendTestCase {
 	    MailMessageBuilder mmb = mh.createBuilder();
 	    MailMessage message = mmb.createMessage();
 	    message.addTORecipient(mmb.createAddress(MAIL_TEST_RECIPIENT_ADDRESS));
-	    message.setSubject("testSend");
+	    message.setSubject("testSend()");
 	    message.addPart(mmb.createTextPart("testSend"));
 	    sender.send(message);
 	}
@@ -82,7 +82,7 @@ public class SendTestCase {
 	    MailMessageBuilder mmb = mh.createBuilder();
 	    MailMessage message = mmb.createMessage();
 	    message.addTORecipient(mmb.createAddress(MAIL_TEST_RECIPIENT_ADDRESS));
-	    message.setSubject("testSendAlwaysCopyTo");
+	    message.setSubject("testSendAlwaysCopyTo()");
 	    message.addPart(mmb.createTextPart("testSendAlwaysCopyTo"));
 	    sender.setAlwaysBlindCopyTo(mmb.createAddress(MAIL_TEST_RECIPIENT_ADDRESS));
 	    sender.send(message);
@@ -97,7 +97,7 @@ public class SendTestCase {
 	    MailMessageBuilder builder = ms.createBuilder();
 	    MailMessage message = builder.createMessage();
 	    message.addTORecipient(builder.createAddress(MAIL_TEST_RECIPIENT_ADDRESS));
-	    message.setSubject("testSendImage_InputStream");
+	    message.setSubject("testSendImage_InputStream()");
 	    message.addPart(builder.createStreamPart("PICTURE", "image/jpeg", is));
 	    sender.send(message);
 	}
