@@ -47,8 +47,8 @@ public class SendTestCase {
 	}
     }
 
-    @Test(expected = InvalidMessageException.class)
-    public void testEmptyBodyException() throws MailException, InvalidMessageException {
+    @Test
+    public void testEmptyBody() throws MailException, InvalidMessageException {
 	MailFactory mhf = MailFactory.getDefaultMailFactory();
 	MailService mh = mhf.getService(session);
 	try (MailSender sender = mh.createSender()) {
