@@ -63,9 +63,6 @@ class MailSenderImpl implements MailSender {
 	    if (toRecipients.length + ccRecipients.length + bccRecipients.length == 0)
 		throw new InvalidMessageException("Not specified any recipient", message);
 
-	    if (message.getParts() == null || message.getParts().length == 0)
-		throw new InvalidMessageException("This is an empty message can not be sent", message);
-
 	    msg.addRecipients(RecipientType.TO, toRecipients);
 	    msg.addRecipients(RecipientType.CC, ccRecipients);
 	    msg.addRecipients(RecipientType.BCC, bccRecipients);
@@ -73,17 +70,22 @@ class MailSenderImpl implements MailSender {
 	    if (bccAddress != null)
 		msg.addRecipient(RecipientType.BCC, convertAddress(bccAddress, message.getCharset()));
 
-	    Multipart multipart = new MimeMultipart();
-	    MailMessagePart[] parts = message.getParts();
+	    if (message.getParts() == null || message.getParts().length == 0)
+		msg.setContent("", "text/plain");
+	    else {
+		Multipart multipart = new MimeMultipart();
+		MailMessagePart[] parts = message.getParts();
 
-	    for (MailMessagePart part : parts) {
-		MultiPartProvider provider = MultiPartProviderFactoryMethod.getProviderFor(part);
-		if (provider != null) {
-		    BodyPart bodyPart = provider.getBodyPart(part);
-		    multipart.addBodyPart(bodyPart);
+		for (MailMessagePart part : parts) {
+		    MultiPartProvider provider = MultiPartProviderFactoryMethod.getProviderFor(part);
+		    if (provider != null) {
+			BodyPart bodyPart = provider.getBodyPart(part);
+			multipart.addBodyPart(bodyPart);
+		    }
 		}
+		msg.setContent(multipart);
 	    }
-	    msg.setContent(multipart);
+
 	    Address[] adrs = msg.getAllRecipients();
 	    return new JobForTransport(msg, adrs);
 
