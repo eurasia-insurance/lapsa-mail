@@ -1,4 +1,4 @@
-package com.metrobank.xml.test;
+package com.lapsa.mailutil.xml.test;
 
 import static org.junit.Assert.*;
 
