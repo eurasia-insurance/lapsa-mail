@@ -1,6 +1,7 @@
 package com.lapsa.mailutil.impl;
 
 import java.io.IOException;
+import java.io.InputStream;
 
 import javax.activation.DataHandler;
 import javax.activation.DataSource;
@@ -15,10 +16,11 @@ import com.lapsa.mailutil.MailMessageStreamPart;
 class MultiPartStreamProvider implements MultiPartProvider {
     @Override
     public BodyPart getBodyPart(MailMessagePart part) throws MessagingException {
-	try {
-	    MimeBodyPart result = new MimeBodyPart();
-	    MailMessageStreamPart p = (MailMessageStreamPart) part;
-	    DataSource source = new ByteArrayDataSource(p.getInputStream(), p.getContentType());
+	MimeBodyPart result = new MimeBodyPart();
+	MailMessageStreamPart p = (MailMessageStreamPart) part;
+
+	try (InputStream is = p.getInputStream()) {
+	    DataSource source = new ByteArrayDataSource(is, p.getContentType());
 	    DataHandler dh = new DataHandler(source);
 	    result.setDataHandler(dh);
 	    result.setFileName(p.getName());

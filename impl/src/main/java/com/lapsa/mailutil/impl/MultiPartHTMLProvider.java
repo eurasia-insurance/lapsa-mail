@@ -10,8 +10,8 @@ import com.lapsa.mailutil.MailMessagePart;
 class MultiPartHTMLProvider implements MultiPartProvider {
     public BodyPart getBodyPart(MailMessagePart part) throws MessagingException {
 	MimeBodyPart result = new MimeBodyPart();
-
 	MailMessageHTMLPart p = (MailMessageHTMLPart) part;
+
 	result.setText(p.getHTML(), p.getCharset().name(), "html");
 	if (p.getContentID() != null)
 	    result.setContentID(p.getContentID());

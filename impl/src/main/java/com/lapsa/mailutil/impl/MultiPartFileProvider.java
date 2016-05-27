@@ -12,8 +12,8 @@ import com.lapsa.mailutil.MailMessagePart;
 class MultiPartFileProvider implements MultiPartProvider {
     public BodyPart getBodyPart(MailMessagePart part) throws MessagingException {
 	MimeBodyPart result = new MimeBodyPart();
-
 	MailMessageFilePart p = (MailMessageFilePart) part;
+
 	try {
 	    result.attachFile(p.getFile());
 	    if (p.getContentID() != null)

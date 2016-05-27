@@ -16,6 +16,7 @@ class MultiPartByteArrayProvider implements MultiPartProvider {
     public BodyPart getBodyPart(MailMessagePart part) throws MessagingException {
 	MimeBodyPart result = new MimeBodyPart();
 	MailMessageByteArrayPart p = (MailMessageByteArrayPart) part;
+
 	DataSource source = new ByteArrayDataSource(p.getBytes(), p.getContentType());
 	DataHandler dh = new DataHandler(source);
 	result.setDataHandler(dh);

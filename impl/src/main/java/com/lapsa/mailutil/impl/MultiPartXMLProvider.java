@@ -13,6 +13,7 @@ class MultiPartXMLProvider implements MultiPartProvider {
     public BodyPart getBodyPart(MailMessagePart part) throws MessagingException {
 	MimeBodyPart result = new MimeBodyPart();
 	MailMessageXMLPart p = (MailMessageXMLPart) part;
+
 	String content;
 	try {
 	    content = DOMUtils.getInstance().getAsString(p.getDocument(), p.getCharset().name());
