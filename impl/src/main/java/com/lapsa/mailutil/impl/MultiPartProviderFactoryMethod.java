@@ -6,12 +6,15 @@ import com.lapsa.mailutil.MailMessageHTMLPart;
 import com.lapsa.mailutil.MailMessagePart;
 import com.lapsa.mailutil.MailMessageStreamPart;
 import com.lapsa.mailutil.MailMessageTextPart;
+import com.lapsa.mailutil.MailMessageURResourcePart;
 import com.lapsa.mailutil.MailMessageXMLPart;
 
 abstract class MultiPartProviderFactoryMethod {
     static MultiPartProvider getProviderFor(MailMessagePart part) {
 	if (part instanceof MailMessageFilePart)
 	    return new MultiPartFileProvider();
+	if (part instanceof MailMessageURResourcePart)
+	    return new MultiPartURLResourceProvider();
 	if (part instanceof MailMessageTextPart)
 	    return new MultiPartTextProvider();
 	if (part instanceof MailMessageHTMLPart)

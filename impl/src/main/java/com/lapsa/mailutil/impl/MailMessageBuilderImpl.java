@@ -3,6 +3,7 @@ package com.lapsa.mailutil.impl;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URL;
 import java.nio.charset.Charset;
 
 import org.w3c.dom.Document;
@@ -16,6 +17,7 @@ import com.lapsa.mailutil.MailMessageFilePart;
 import com.lapsa.mailutil.MailMessageHTMLPart;
 import com.lapsa.mailutil.MailMessageStreamPart;
 import com.lapsa.mailutil.MailMessageTextPart;
+import com.lapsa.mailutil.MailMessageURResourcePart;
 import com.lapsa.mailutil.MailMessageXMLPart;
 
 public class MailMessageBuilderImpl implements MailMessageBuilder {
@@ -27,6 +29,16 @@ public class MailMessageBuilderImpl implements MailMessageBuilder {
     @Override
     public MailMessageFilePart createFilePart(File file, String contentId) throws MailException {
 	return new MailMessageFilePartImpl(file, contentId);
+    }
+
+    @Override
+    public MailMessageURResourcePart createURLResourcePart(URL urlResource) throws MailException {
+	return new MailMessageURLPartImpl(urlResource);
+    }
+
+    @Override
+    public MailMessageURResourcePart createURLResourcePart(URL urlResource, String contentId) throws MailException {
+	return new MailMessageURLPartImpl(urlResource, contentId);
     }
 
     @Override
@@ -172,5 +184,4 @@ public class MailMessageBuilderImpl implements MailMessageBuilder {
     public MailMessage createMessage(MailAddress to, String subject, Charset charset) throws MailException {
 	return createMessage(null, to, subject, charset);
     }
-
 }
