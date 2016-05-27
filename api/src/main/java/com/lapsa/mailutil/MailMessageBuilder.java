@@ -3,7 +3,6 @@ package com.lapsa.mailutil;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.URL;
 import java.nio.charset.Charset;
 
 import org.w3c.dom.Document;
@@ -54,10 +53,6 @@ public interface MailMessageBuilder {
     MailMessageFilePart createFilePart(File file) throws MailException;
 
     MailMessageFilePart createFilePart(File file, String contentId) throws MailException;
-
-    MailMessageURResourcePart createURLResourcePart(URL url) throws MailException;
-
-    MailMessageURResourcePart createURLResourcePart(URL url, String contentId) throws MailException;
 
     MailMessageStreamPart createStreamPart(String name, String contentType, InputStream inputStream)
 	    throws MailException, IOException;

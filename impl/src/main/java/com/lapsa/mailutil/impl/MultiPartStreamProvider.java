@@ -26,6 +26,8 @@ class MultiPartStreamProvider implements MultiPartProvider {
 	    result.setFileName(p.getName());
 	    if (p.getContentID() != null)
 		result.setContentID(p.getContentID());
+	    else
+		result.setContentID(p.getName());
 	    return result;
 	} catch (IOException e) {
 	    throw new MessagingException(e.getMessage(), e);
