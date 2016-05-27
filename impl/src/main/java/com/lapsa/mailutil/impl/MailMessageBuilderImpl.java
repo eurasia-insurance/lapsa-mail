@@ -119,9 +119,23 @@ public class MailMessageBuilderImpl implements MailMessageBuilder {
 
     @Override
     public MailMessageStreamPart createStreamPart(String name, String contentType, InputStream inputStream,
+	    boolean readImmediately) throws MailException, IOException {
+	return new MailMessageStreamPartImpl(name, contentType, inputStream, readImmediately);
+    }
+
+    @Override
+    public MailMessageStreamPart createStreamPart(String name, String contentType, InputStream inputStream,
 	    String contentId) throws MailException, IOException {
 	return new MailMessageStreamPartImpl(name, contentType, inputStream, contentId);
     }
+
+    @Override
+    public MailMessageStreamPart createStreamPart(String name, String contentType, InputStream inputStream,
+	    boolean readImmediately, String contentId) throws MailException, IOException {
+	return new MailMessageStreamPartImpl(name, contentType, inputStream, readImmediately, contentId);
+    }
+
+
 
     @Override
     public MailMessageByteArrayPart createByteArrayPart(String name, String contentType, byte[] bytes)
@@ -184,4 +198,5 @@ public class MailMessageBuilderImpl implements MailMessageBuilder {
     public MailMessage createMessage(MailAddress to, String subject, Charset charset) throws MailException {
 	return createMessage(null, to, subject, charset);
     }
+
 }

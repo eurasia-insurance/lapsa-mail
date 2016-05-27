@@ -62,7 +62,13 @@ public interface MailMessageBuilder {
     MailMessageStreamPart createStreamPart(String name, String contentType, InputStream inputStream)
 	    throws MailException, IOException;
 
+    MailMessageStreamPart createStreamPart(String name, String contentType, InputStream inputStream, boolean readImmediately)
+	    throws MailException, IOException;
+
     MailMessageStreamPart createStreamPart(String name, String contentType, InputStream inputStream, String contentId)
+	    throws MailException, IOException;
+
+    MailMessageStreamPart createStreamPart(String name, String contentType, InputStream inputStream, boolean readImmediately, String contentId)
 	    throws MailException, IOException;
 
     MailMessageByteArrayPart createByteArrayPart(String name, String contentType, byte[] bytes)
