@@ -76,4 +76,26 @@ public interface MailMessageBuilder {
 
     MailAddress createAddress(String eMail, String name) throws MailException;
 
+    /*
+     * createInlineImagePart methods
+     */
+
+    /*
+     * source File
+     */
+
+    MailMessageInlineImagePart createInlineImagePart(String contentType, File file) throws MailException, IOException;
+
+    MailMessageInlineImagePart createInlineImagePart(String contentType, File file, String contentId)
+	    throws MailException, IOException;
+
+    /*
+     * source InputStream
+     */
+    MailMessageInlineImagePart createInlineImagePart(String contentType, InputStream inputStream, String fileName)
+	    throws MailException, IOException;
+
+    MailMessageInlineImagePart createInlineImagePart(String contentType, InputStream inputStream, String fileName,
+	    String contentId)
+	    throws MailException, IOException;
 }

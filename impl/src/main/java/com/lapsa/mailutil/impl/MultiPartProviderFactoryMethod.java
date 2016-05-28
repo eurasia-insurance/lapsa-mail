@@ -3,6 +3,7 @@ package com.lapsa.mailutil.impl;
 import com.lapsa.mailutil.MailMessageByteArrayPart;
 import com.lapsa.mailutil.MailMessageFilePart;
 import com.lapsa.mailutil.MailMessageHTMLPart;
+import com.lapsa.mailutil.MailMessageInlineImagePart;
 import com.lapsa.mailutil.MailMessagePart;
 import com.lapsa.mailutil.MailMessageStreamPart;
 import com.lapsa.mailutil.MailMessageTextPart;
@@ -22,6 +23,8 @@ abstract class MultiPartProviderFactoryMethod {
 	    return new MultiPartStreamProvider();
 	if (part instanceof MailMessageByteArrayPart)
 	    return new MultiPartByteArrayProvider();
+	if (part instanceof MailMessageInlineImagePart)
+	    return new MultiPartInlineImagePartProvider();
 	return null;
     }
 }
