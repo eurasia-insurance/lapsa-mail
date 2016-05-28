@@ -1,6 +1,8 @@
 package com.lapsa.mailutil.impl;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.Charset;
@@ -14,6 +16,7 @@ import com.lapsa.mailutil.MailMessageBuilder;
 import com.lapsa.mailutil.MailMessageByteArrayPart;
 import com.lapsa.mailutil.MailMessageFilePart;
 import com.lapsa.mailutil.MailMessageHTMLPart;
+import com.lapsa.mailutil.MailMessageInlineImagePart;
 import com.lapsa.mailutil.MailMessageStreamPart;
 import com.lapsa.mailutil.MailMessageTextPart;
 import com.lapsa.mailutil.MailMessageXMLPart;
@@ -123,8 +126,6 @@ public class MailMessageBuilderImpl implements MailMessageBuilder {
 	return new MailMessageStreamPartImpl(name, contentType, inputStream, readImmediately, contentId);
     }
 
-
-
     @Override
     public MailMessageByteArrayPart createByteArrayPart(String name, String contentType, byte[] bytes)
 	    throws MailException, IOException {
@@ -185,6 +186,61 @@ public class MailMessageBuilderImpl implements MailMessageBuilder {
     @Override
     public MailMessage createMessage(MailAddress to, String subject, Charset charset) throws MailException {
 	return createMessage(null, to, subject, charset);
+    }
+
+    /*
+     * createInlineImagePart methods
+     */
+
+    /*
+     * source File
+     */
+
+    @Override
+    public MailMessageInlineImagePart createInlineImagePart(String contentType, File file)
+	    throws MailException, IOException {
+	try (FileInputStream fis = new FileInputStream(file)) {
+	    byte[] bytes = readBytes(fis);
+	    return new MailMessageInlineImagePartImpl(contentType, bytes, file.getName(), null);
+	}
+    }
+
+    @Override
+    public MailMessageInlineImagePart createInlineImagePart(String contentType, File file, String contentId)
+	    throws MailException, IOException {
+	try (FileInputStream fis = new FileInputStream(file)) {
+	    byte[] bytes = readBytes(fis);
+	    return new MailMessageInlineImagePartImpl(contentType, bytes, file.getName(), contentId);
+	}
+    }
+
+    /*
+     * source InputStream
+     */
+
+    @Override
+    public MailMessageInlineImagePart createInlineImagePart(String contentType, InputStream inputStream,
+	    String fileName) throws MailException, IOException {
+	byte[] bytes = readBytes(inputStream);
+	return new MailMessageInlineImagePartImpl(contentType, bytes, fileName, null);
+    }
+
+    @Override
+    public MailMessageInlineImagePart createInlineImagePart(String contentType, InputStream inputStream,
+	    String fileName, String contentId) throws MailException, IOException {
+	byte[] bytes = readBytes(inputStream);
+	return new MailMessageInlineImagePartImpl(contentType, bytes, fileName, contentId);
+    }
+
+    // PRIVATE
+
+    private byte[] readBytes(InputStream inputStream) throws IOException {
+	ByteArrayOutputStream baos = new ByteArrayOutputStream();
+	int readed = -1;
+	byte[] buff = new byte[256];
+	while ((readed = inputStream.read(buff)) != -1)
+	    baos.write(buff, 0, readed);
+	return baos.toByteArray();
     }
 
 }
