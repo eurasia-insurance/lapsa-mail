@@ -17,7 +17,7 @@ class MultiPartFileProvider implements MultiPartProvider {
 	try {
 	    result.attachFile(p.getFile());
 	    if (p.getContentID() != null)
-		result.setContentID(p.getContentID());
+		result.setContentID(String.format("<%1$s>", p.getContentID()));
 	    return result;
 	} catch (IOException e) {
 	    throw new MessagingException("Unable to attach file", e);

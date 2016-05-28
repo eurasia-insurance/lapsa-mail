@@ -22,7 +22,7 @@ class MultiPartXMLProvider implements MultiPartProvider {
 	}
 	result.setText(content, p.getCharset().name(), "xml");
 	if (p.getContentID() != null)
-	    result.setContentID(p.getContentID());
+	    result.setContentID(String.format("<%1$s>", p.getContentID()));
 	return result;
     }
 }

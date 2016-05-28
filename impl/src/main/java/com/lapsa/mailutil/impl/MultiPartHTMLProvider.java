@@ -14,7 +14,7 @@ class MultiPartHTMLProvider implements MultiPartProvider {
 
 	result.setText(p.getHTML(), p.getCharset().name(), "html");
 	if (p.getContentID() != null)
-	    result.setContentID(p.getContentID());
+	    result.setContentID(String.format("<%1$s>", p.getContentID()));
 	return result;
     }
 }

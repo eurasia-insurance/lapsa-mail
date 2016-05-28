@@ -15,7 +15,7 @@ class MultiPartTextProvider implements MultiPartProvider {
 	// result.setText(mmtp.getText(), "UTF-8", "plain");
 	result.setText(p.getText(), p.getCharset().name(), "plain");
 	if (p.getContentID() != null)
-	    result.setContentID(part.getContentID());
+	    result.setContentID(String.format("<%1$s>", p.getContentID()));
 	return result;
     }
 }

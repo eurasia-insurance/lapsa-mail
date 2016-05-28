@@ -23,11 +23,10 @@ class MultiPartStreamProvider implements MultiPartProvider {
 	    DataSource source = new ByteArrayDataSource(is, p.getContentType());
 	    DataHandler dh = new DataHandler(source);
 	    result.setDataHandler(dh);
-	    result.setFileName(p.getName());
+	    if (p.getName() != null)
+		result.setFileName(p.getName());
 	    if (p.getContentID() != null)
-		result.setContentID(p.getContentID());
-	    else
-		result.setContentID(p.getName());
+		result.setContentID(String.format("<%1$s>", p.getContentID()));
 	    return result;
 	} catch (IOException e) {
 	    throw new MessagingException(e.getMessage(), e);
