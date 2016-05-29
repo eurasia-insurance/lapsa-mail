@@ -19,7 +19,6 @@ public class MultiPartInlineImagePartProvider implements MultiPartProvider {
 	DataSource source = new ByteArrayDataSource(p.getByteArray(), p.getContentType());
 	DataHandler dh = new DataHandler(source);
 	result.setDataHandler(dh);
-	result.setFileName(p.getFileName());
 	result.setContentID(String.format("<%1$s>", p.getContentID() != null ? p.getContentID() : p.getFileName()));
 	result.setDisposition(MimeBodyPart.INLINE);
 	return result;
