@@ -4,12 +4,17 @@ import com.lapsa.mailutil.MailAddress;
 
 class MailAddressImpl implements MailAddress {
 
-    private String name;
-    private String eMail;
+    private final String name;
+    private final String eMail;
 
     MailAddressImpl(String eMail, String name) {
 	this.eMail = eMail;
 	this.name = name;
+    }
+
+    MailAddressImpl(String eMail) {
+	this.eMail = eMail;
+	this.name = null;
     }
 
     public String getEMail() {
