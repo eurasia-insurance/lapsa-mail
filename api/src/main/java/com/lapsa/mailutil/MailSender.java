@@ -7,6 +7,10 @@ public interface MailSender extends AutoCloseable {
 
     MailAddress getDefaultSender();
 
+    MailAddress getDefaultRecipient();
+
+    MailAddress getDefaultBCCRecipient();
+
     void send(MailMessage message) throws MailException, InvalidMessageException;
 
     void send(Collection<MailMessage> messages) throws MailException, InvalidMessageException;

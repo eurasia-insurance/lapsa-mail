@@ -154,6 +154,24 @@ class MailSenderImpl implements MailSender {
 	return null;
     }
 
+    @Override
+    public MailAddress getDefaultRecipient() {
+	String from = session.getProperty(MAIL_TO);
+	if (from != null) {
+	    return new MailAddressImpl(from, "");
+	}
+	return null;
+    }
+
+    @Override
+    public MailAddress getDefaultBCCRecipient() {
+	String from = session.getProperty(MAIL_BCC);
+	if (from != null) {
+	    return new MailAddressImpl(from, "");
+	}
+	return null;
+    }
+
     private void autoConnect() throws MessagingException {
 	if (transport == null)
 	    transport = session.getTransport();
