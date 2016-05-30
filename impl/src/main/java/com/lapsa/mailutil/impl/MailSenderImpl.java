@@ -32,13 +32,19 @@ class MailSenderImpl implements MailSender {
 
     private final Session session;
     private final Logger logger;
+
     private MailAddress bccAddress;
+    private boolean alwaysBlindCopy = false;
 
     private Transport transport;
 
     MailSenderImpl(Session session) {
 	this.session = session;
 	logger = Logger.getLogger(this.getClass().getCanonicalName());
+	if (session.getProperty(MAIL_BCC) != null) {
+	    alwaysBlindCopy = true;
+	    bccAddress = new MailAddressImpl(session.getProperty(MAIL_BCC));
+	}
     }
 
     private JobForTransport buildJobForTransport(MailMessage message) throws MailException, InvalidMessageException {
@@ -67,7 +73,7 @@ class MailSenderImpl implements MailSender {
 	    msg.addRecipients(RecipientType.CC, ccRecipients);
 	    msg.addRecipients(RecipientType.BCC, bccRecipients);
 
-	    if (bccAddress != null)
+	    if (alwaysBlindCopy && bccAddress != null)
 		msg.addRecipient(RecipientType.BCC, convertAddress(bccAddress, message.getCharset()));
 
 	    if (message.getParts() == null || message.getParts().length == 0)
@@ -141,8 +147,23 @@ class MailSenderImpl implements MailSender {
     }
 
     @Override
+    public MailAddress getAlwaysBlindCopyTo() {
+	return bccAddress;
+    }
+
+    @Override
     public void setAlwaysBlindCopyTo(MailAddress bccAddress) {
 	this.bccAddress = bccAddress;
+    }
+
+    @Override
+    public boolean getAlwaysBlindCopy() {
+	return alwaysBlindCopy;
+    }
+
+    @Override
+    public void setAlwaysBlindCopy(boolean alwaysBlindCopy) {
+	this.alwaysBlindCopy = alwaysBlindCopy;
     }
 
     @Override
