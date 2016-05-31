@@ -2,7 +2,9 @@ package com.lapsa.mailutil.impl;
 
 import javax.mail.Session;
 
-public class MailSerivceFactoryImpl extends BaseMailHelperImpl {
+import com.lapsa.mailutil.MailService;
+
+public class MailSerivceFactoryImpl extends BaseMailHelperImpl implements MailService {
 
     private Session session;
 
@@ -14,4 +16,5 @@ public class MailSerivceFactoryImpl extends BaseMailHelperImpl {
     protected Session getSession() {
 	return session;
     }
+
 }

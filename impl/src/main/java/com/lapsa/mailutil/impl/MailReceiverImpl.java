@@ -14,6 +14,7 @@ import javax.mail.Store;
 
 import com.lapsa.mailutil.MailException;
 import com.lapsa.mailutil.MailReceiver;
+import com.lapsa.mailutil.MailService;
 
 class MailReceiverImpl implements MailReceiver {
 
@@ -23,7 +24,7 @@ class MailReceiverImpl implements MailReceiver {
     private Store store = null;
     private Folder folder = null;
 
-    MailReceiverImpl(Session session) {
+    MailReceiverImpl(MailService mailService, Session session) {
 	this.session = session;
 	this.logger = Logger.getLogger(this.getClass().getCanonicalName());
     }

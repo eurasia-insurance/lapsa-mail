@@ -12,10 +12,13 @@ public interface MailSender extends AutoCloseable {
 
     void setAlwaysBlindCopy(boolean alwaysBlindCopy);
 
+    @Deprecated
     MailAddress getDefaultSender();
 
+    @Deprecated
     MailAddress getDefaultRecipient();
 
+    @Deprecated
     MailAddress getDefaultBCCRecipient();
 
     void send(MailMessage message) throws MailException, InvalidMessageException;

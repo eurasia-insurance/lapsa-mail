@@ -27,10 +27,12 @@ import com.lapsa.mailutil.MailException;
 import com.lapsa.mailutil.MailMessage;
 import com.lapsa.mailutil.MailMessagePart;
 import com.lapsa.mailutil.MailSender;
+import com.lapsa.mailutil.MailService;
 
 class MailSenderImpl implements MailSender {
 
     private final Session session;
+    private final MailService service;
     private final Logger logger;
 
     private MailAddress bccAddress;
@@ -38,12 +40,16 @@ class MailSenderImpl implements MailSender {
 
     private Transport transport;
 
-    MailSenderImpl(Session session) {
+    MailSenderImpl(MailService service, Session session) {
 	this.session = session;
-	logger = Logger.getLogger(this.getClass().getCanonicalName());
+	this.service = service;
+	this.logger = Logger.getLogger(this.getClass().getCanonicalName());
 	if (session.getProperty(MAIL_BCC) != null) {
-	    alwaysBlindCopy = true;
-	    bccAddress = new MailAddressImpl(session.getProperty(MAIL_BCC));
+	    try {
+		bccAddress = service.createBuilder().createAddress(session.getProperty(MAIL_BCC));
+		alwaysBlindCopy = true;
+	    } catch (MailException ignored) {
+	    }
 	}
     }
 
@@ -166,33 +172,6 @@ class MailSenderImpl implements MailSender {
 	this.alwaysBlindCopy = alwaysBlindCopy;
     }
 
-    @Override
-    public MailAddress getDefaultSender() {
-	String from = session.getProperty(MAIL_FROM);
-	if (from != null) {
-	    return new MailAddressImpl(from, "");
-	}
-	return null;
-    }
-
-    @Override
-    public MailAddress getDefaultRecipient() {
-	String from = session.getProperty(MAIL_TO);
-	if (from != null) {
-	    return new MailAddressImpl(from, "");
-	}
-	return null;
-    }
-
-    @Override
-    public MailAddress getDefaultBCCRecipient() {
-	String from = session.getProperty(MAIL_BCC);
-	if (from != null) {
-	    return new MailAddressImpl(from, "");
-	}
-	return null;
-    }
-
     private void autoConnect() throws MessagingException {
 	if (transport == null)
 	    transport = session.getTransport();
@@ -213,6 +192,24 @@ class MailSenderImpl implements MailSender {
 		throw new MailException(e);
 	    }
 	}
+    }
+
+    @Deprecated
+    @Override
+    public MailAddress getDefaultSender() {
+	return service.getDefaultSender();
+    }
+
+    @Deprecated
+    @Override
+    public MailAddress getDefaultRecipient() {
+	return service.getDefaultRecipient();
+    }
+
+    @Deprecated
+    @Override
+    public MailAddress getDefaultBCCRecipient() {
+	return service.getDefaultBCCRecipient();
     }
 }
 

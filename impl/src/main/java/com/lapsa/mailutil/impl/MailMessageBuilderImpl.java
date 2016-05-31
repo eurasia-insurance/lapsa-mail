@@ -20,8 +20,13 @@ import com.lapsa.mailutil.MailMessageInlineImagePart;
 import com.lapsa.mailutil.MailMessageStreamPart;
 import com.lapsa.mailutil.MailMessageTextPart;
 import com.lapsa.mailutil.MailMessageXMLPart;
+import com.lapsa.mailutil.MailService;
 
 public class MailMessageBuilderImpl implements MailMessageBuilder {
+
+    MailMessageBuilderImpl(MailService mailService) {
+    }
+
     @Override
     public MailMessageFilePart createFilePart(File file) throws MailException {
 	return new MailMessageFilePartImpl(file);
