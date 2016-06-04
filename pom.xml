@@ -3,7 +3,7 @@
 	<parent>
 		<groupId>com.lapsa.maven.pom</groupId>
 		<artifactId>javaee7-app-parent</artifactId>
-		<version>1.2</version>
+		<version>1.3</version>
 	</parent>
 
 	<groupId>com.lapsa.mail-helper</groupId>
@@ -18,6 +18,22 @@
 		<module>impl</module>
 	</modules>
 
+
+	<dependencyManagement>
+		<dependencies>
+			<!-- own -->
+			<dependency>
+				<groupId>com.lapsa.mail-helper</groupId>
+				<artifactId>mail-helper-api</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.lapsa.mail-helper</groupId>
+				<artifactId>mail-helper-impl</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
 	<developers>
 		<developer>
 			<id>vadim.o.isaev@gmail.com</id>
