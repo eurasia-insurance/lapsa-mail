@@ -34,9 +34,9 @@ public interface MailMessageBuilder {
 
     MailMessageTextPart createTextPart(String text, Charset charset, String contentId) throws MailException;
 
-    MailMessageTextPart createTextPart(Exception e);
+    MailMessageTextPart createTextPart(Exception e) throws MailException;
 
-    MailMessageTextPart createTextPart(Exception e, String contentId);
+    MailMessageTextPart createTextPart(Exception e, String contentId) throws MailException;
 
     MailMessageHTMLPart createHTMLPart(String html) throws MailException;
 

@@ -5,6 +5,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.nio.charset.Charset;
 
 import org.w3c.dom.Document;
@@ -80,6 +82,22 @@ public class MailMessageBuilderImpl implements MailMessageBuilder {
     @Override
     public MailMessageTextPart createTextPart(String text, Charset charset, String contentId) throws MailException {
 	return new MailMessageTextPartImpl(text, charset, contentId);
+    }
+
+    @Override
+    public MailMessageTextPart createTextPart(Exception e) throws MailException {
+	StringWriter sw = new StringWriter();
+	PrintWriter pw = new PrintWriter(sw);
+	e.printStackTrace(pw);
+	return createTextPart(sw.toString());
+    }
+
+    @Override
+    public MailMessageTextPart createTextPart(Exception e, String contentId) throws MailException {
+	StringWriter sw = new StringWriter();
+	PrintWriter pw = new PrintWriter(sw);
+	e.printStackTrace(pw);
+	return createTextPart(sw.toString(), contentId);
     }
 
     @Override
@@ -247,5 +265,4 @@ public class MailMessageBuilderImpl implements MailMessageBuilder {
 	    baos.write(buff, 0, readed);
 	return baos.toByteArray();
     }
-
 }
