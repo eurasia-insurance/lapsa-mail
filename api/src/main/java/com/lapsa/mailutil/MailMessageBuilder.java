@@ -90,18 +90,36 @@ public interface MailMessageBuilder {
      * source File
      */
 
-    MailMessageInlineImagePart createInlineImagePart(String contentType, File file) throws MailException, IOException;
+    MailMessageAttachementPart createInlineImagePart(String contentType, File file) throws MailException, IOException;
 
-    MailMessageInlineImagePart createInlineImagePart(String contentType, File file, String contentId)
+    MailMessageAttachementPart createInlineImagePart(String contentType, File file, String contentId)
 	    throws MailException, IOException;
 
     /*
      * source InputStream
      */
-    MailMessageInlineImagePart createInlineImagePart(String contentType, InputStream inputStream, String fileName)
+    MailMessageAttachementPart createInlineImagePart(String contentType, InputStream inputStream, String fileName)
 	    throws MailException, IOException;
 
-    MailMessageInlineImagePart createInlineImagePart(String contentType, InputStream inputStream, String fileName,
+    MailMessageAttachementPart createInlineImagePart(String contentType, InputStream inputStream, String fileName,
 	    String contentId)
 	    throws MailException, IOException;
+
+    // createAttachement methods
+
+    MailMessageAttachementPart createTextAttachement(String content, String contentType, String fileName);
+
+    MailMessageAttachementPart createTextAttachement(String content, String contentType, String fileName,
+	    String contentId);
+
+    MailMessageAttachementPart createBytesAttachement(byte[] content, String contentType, String fileName);
+
+    MailMessageAttachementPart createBytesAttachement(byte[] content, String contentType, String fileName,
+	    String contentId);
+
+    MailMessageAttachementPart createStreamAttachement(InputStream content, String contentType, String fileName) throws IOException;
+
+    MailMessageAttachementPart createStreamAttachement(InputStream content, String contentType, String fileName,
+	    String contentId) throws IOException;
+
 }

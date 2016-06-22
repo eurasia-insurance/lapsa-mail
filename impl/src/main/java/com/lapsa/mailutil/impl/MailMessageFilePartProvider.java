@@ -9,7 +9,7 @@ import javax.mail.internet.MimeBodyPart;
 import com.lapsa.mailutil.MailMessageFilePart;
 import com.lapsa.mailutil.MailMessagePart;
 
-class MultiPartFileProvider implements MultiPartProvider {
+class MailMessageFilePartProvider implements MultiPartProvider {
     public BodyPart getBodyPart(MailMessagePart part) throws MessagingException {
 	MimeBodyPart result = new MimeBodyPart();
 	MailMessageFilePart p = (MailMessageFilePart) part;

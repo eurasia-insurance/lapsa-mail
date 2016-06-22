@@ -13,7 +13,7 @@ import javax.mail.util.ByteArrayDataSource;
 import com.lapsa.mailutil.MailMessagePart;
 import com.lapsa.mailutil.MailMessageStreamPart;
 
-class MultiPartStreamProvider implements MultiPartProvider {
+class MailMessageStreamPartProvider implements MultiPartProvider {
     @Override
     public BodyPart getBodyPart(MailMessagePart part) throws MessagingException {
 	MimeBodyPart result = new MimeBodyPart();

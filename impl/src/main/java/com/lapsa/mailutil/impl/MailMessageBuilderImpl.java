@@ -11,6 +11,7 @@ import java.nio.charset.Charset;
 
 import org.w3c.dom.Document;
 
+import com.lapsa.mailutil.AttachementType;
 import com.lapsa.mailutil.MailAddress;
 import com.lapsa.mailutil.MailException;
 import com.lapsa.mailutil.MailMessage;
@@ -18,7 +19,7 @@ import com.lapsa.mailutil.MailMessageBuilder;
 import com.lapsa.mailutil.MailMessageByteArrayPart;
 import com.lapsa.mailutil.MailMessageFilePart;
 import com.lapsa.mailutil.MailMessageHTMLPart;
-import com.lapsa.mailutil.MailMessageInlineImagePart;
+import com.lapsa.mailutil.MailMessageAttachementPart;
 import com.lapsa.mailutil.MailMessageStreamPart;
 import com.lapsa.mailutil.MailMessageTextPart;
 import com.lapsa.mailutil.MailMessageXMLPart;
@@ -220,20 +221,21 @@ public class MailMessageBuilderImpl implements MailMessageBuilder {
      */
 
     @Override
-    public MailMessageInlineImagePart createInlineImagePart(String contentType, File file)
+    public MailMessageAttachementPart createInlineImagePart(String contentType, File file)
 	    throws MailException, IOException {
 	try (FileInputStream fis = new FileInputStream(file)) {
 	    byte[] bytes = readBytes(fis);
-	    return new MailMessageInlineImagePartImpl(contentType, bytes, file.getName(), null);
+	    return new MailMessageAttachementPartImpl(contentType, bytes, file.getName(), null, AttachementType.INLINE);
 	}
     }
 
     @Override
-    public MailMessageInlineImagePart createInlineImagePart(String contentType, File file, String contentId)
+    public MailMessageAttachementPart createInlineImagePart(String contentType, File file, String contentId)
 	    throws MailException, IOException {
 	try (FileInputStream fis = new FileInputStream(file)) {
 	    byte[] bytes = readBytes(fis);
-	    return new MailMessageInlineImagePartImpl(contentType, bytes, file.getName(), contentId);
+	    return new MailMessageAttachementPartImpl(contentType, bytes, file.getName(), contentId,
+		    AttachementType.INLINE);
 	}
     }
 
@@ -242,17 +244,61 @@ public class MailMessageBuilderImpl implements MailMessageBuilder {
      */
 
     @Override
-    public MailMessageInlineImagePart createInlineImagePart(String contentType, InputStream inputStream,
+    public MailMessageAttachementPart createInlineImagePart(String contentType, InputStream inputStream,
 	    String fileName) throws MailException, IOException {
 	byte[] bytes = readBytes(inputStream);
-	return new MailMessageInlineImagePartImpl(contentType, bytes, fileName, null);
+	return new MailMessageAttachementPartImpl(contentType, bytes, fileName, null, AttachementType.INLINE);
     }
 
     @Override
-    public MailMessageInlineImagePart createInlineImagePart(String contentType, InputStream inputStream,
+    public MailMessageAttachementPart createInlineImagePart(String contentType, InputStream inputStream,
 	    String fileName, String contentId) throws MailException, IOException {
 	byte[] bytes = readBytes(inputStream);
-	return new MailMessageInlineImagePartImpl(contentType, bytes, fileName, contentId);
+	return new MailMessageAttachementPartImpl(contentType, bytes, fileName, contentId, AttachementType.INLINE);
+    }
+
+    // createAttachement methods
+
+    @Override
+    public MailMessageAttachementPart createTextAttachement(String content, String contentType, String fileName) {
+	byte[] bytes = content.getBytes();
+	return createBytesAttachement(bytes, contentType, fileName);
+    }
+
+    @Override
+    public MailMessageAttachementPart createTextAttachement(String content, String contentType, String fileName,
+	    String contentId) {
+	byte[] bytes = content.getBytes();
+	return createBytesAttachement(bytes, contentType, fileName, contentId);
+    }
+
+    @Override
+    public MailMessageAttachementPart createBytesAttachement(byte[] content, String contentType, String fileName) {
+	return new MailMessageAttachementPartImpl(contentType, content, fileName, null, AttachementType.ATTACHEMENT);
+    }
+
+    @Override
+    public MailMessageAttachementPart createBytesAttachement(byte[] content, String contentType, String fileName,
+	    String contentId) {
+	return new MailMessageAttachementPartImpl(contentType, content, fileName, contentId,
+		AttachementType.ATTACHEMENT);
+    }
+
+    @Override
+    public MailMessageAttachementPart createStreamAttachement(InputStream content, String contentType,
+	    String fileName) throws IOException {
+	return createStreamAttachement(content, contentType, fileName, null);
+    }
+
+    @Override
+    public MailMessageAttachementPart createStreamAttachement(InputStream content, String contentType, String fileName,
+	    String contentId) throws IOException {
+	ByteArrayOutputStream baos = new ByteArrayOutputStream();
+	int readed = -1;
+	byte[] buff = new byte[256];
+	while ((readed = content.read(buff)) != -1)
+	    baos.write(buff, 0, readed);
+	return createBytesAttachement(baos.toByteArray(), contentType, fileName, contentId);
     }
 
     // PRIVATE
@@ -265,4 +311,5 @@ public class MailMessageBuilderImpl implements MailMessageBuilder {
 	    baos.write(buff, 0, readed);
 	return baos.toByteArray();
     }
+
 }

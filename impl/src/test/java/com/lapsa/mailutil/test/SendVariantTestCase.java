@@ -33,7 +33,7 @@ public class SendVariantTestCase {
     }
 
     @Test
-    public void testSendHtmlMessageWithImage() throws MailException, IOException, InvalidMessageException {
+    public void testSendHtmlMessageWithImage_Inline() throws MailException, IOException, InvalidMessageException {
 	MailFactory mf = MailFactory.getDefaultMailFactory();
 	MailService ms = mf.getService(session);
 
@@ -45,7 +45,7 @@ public class SendVariantTestCase {
 	// subject
 	{
 	    message.addTORecipient(builder.createAddress(MAIL_TEST_RECIPIENT_ADDRESS));
-	    message.setSubject("testSendHtmlMessageWithImage");
+	    message.setSubject("testSendHtmlMessageWithImage_Inline");
 	}
 
 	// image part
@@ -60,13 +60,85 @@ public class SendVariantTestCase {
 		    "<!doctype html>"
 			    + "<html>"
 			    + "<body>"
-			    + "<h1>This is an image '%1$s'</h1>"
+			    + "<h1>This is an image '%1$s' as inline</h1>"
 			    + "<p align=\"center\"><img src=\"cid:%1$s\" border=\"2\" width=\"100\" height=\"100\"/></p>"
 			    + "</body>"
 			    + "</html>",
 		    IMAGE_FILE_NAME);
 
 	    MailMessagePart part = builder.createHTMLPart(html);
+	    message.addPart(part);
+	}
+
+	// send
+	try (MailSender sender = ms.createSender()) {
+	    sender.send(message);
+	}
+    }
+
+    @Test
+    public void testSendHtmlMessageWithImage_Attachement() throws MailException, IOException, InvalidMessageException {
+	MailFactory mf = MailFactory.getDefaultMailFactory();
+	MailService ms = mf.getService(session);
+
+	// builder & message
+	MailMessageBuilder builder = ms.createBuilder();
+
+	MailMessage message = builder.createMessage();
+
+	// subject
+	{
+	    message.addTORecipient(builder.createAddress(MAIL_TEST_RECIPIENT_ADDRESS));
+	    message.setSubject("testSendHtmlMessageWithImage_Attachement");
+	}
+
+	// image part
+	try (InputStream is = SendVariantTestCase.class.getResourceAsStream(IMAGE_RESOURCE_PATH)) {
+	    MailMessagePart part = builder.createStreamAttachement(is, IMAGE_CONTENT_TYPE, IMAGE_FILE_NAME);
+	    message.addPart(part);
+	}
+
+	// html part
+	{
+	    String html = String.format(
+		    "<!doctype html>"
+			    + "<html>"
+			    + "<body>"
+			    + "<h1>This is an image '%1$s' as attachement</h1>"
+			    + "</body>"
+			    + "</html>",
+		    IMAGE_FILE_NAME);
+
+	    MailMessagePart part = builder.createHTMLPart(html);
+	    message.addPart(part);
+	}
+
+	// send
+	try (MailSender sender = ms.createSender()) {
+	    sender.send(message);
+	}
+    }
+
+    @Test
+    public void testSendException() throws MailException, IOException, InvalidMessageException {
+	MailFactory mf = MailFactory.getDefaultMailFactory();
+	MailService ms = mf.getService(session);
+
+	// builder & message
+	MailMessageBuilder builder = ms.createBuilder();
+
+	MailMessage message = builder.createMessage();
+
+	// subject
+	{
+	    message.addTORecipient(builder.createAddress(MAIL_TEST_RECIPIENT_ADDRESS));
+	    message.setSubject("testSendException");
+	}
+
+	// exception part
+	{
+	    Exception e = new Exception("Test exception");
+	    MailMessagePart part = builder.createTextPart(e);
 	    message.addPart(part);
 	}
 

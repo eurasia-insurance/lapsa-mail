@@ -3,21 +3,25 @@ package com.lapsa.mailutil.impl;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 
-import com.lapsa.mailutil.MailMessageInlineImagePart;
+import com.lapsa.mailutil.AttachementType;
+import com.lapsa.mailutil.MailMessageAttachementPart;
 
-class MailMessageInlineImagePartImpl implements MailMessageInlineImagePart {
+class MailMessageAttachementPartImpl implements MailMessageAttachementPart {
 
     private final String contentType;
     private final String fileName;
     private final String contentId;
     private final byte[] bytes;
 
-    MailMessageInlineImagePartImpl(String contentType, byte[] bytes, String fileName,
-	    String contentId) {
+    private final AttachementType type;
+
+    MailMessageAttachementPartImpl(String contentType, byte[] bytes, String fileName,
+	    String contentId, AttachementType type) {
 	this.contentType = contentType;
 	this.fileName = fileName;
 	this.contentId = contentId;
 	this.bytes = bytes;
+	this.type = type;
     }
 
     @Override
@@ -31,17 +35,21 @@ class MailMessageInlineImagePartImpl implements MailMessageInlineImagePart {
     }
 
     @Override
-    public InputStream getNewInputStream() {
+    public InputStream getNewContentsInputStream() {
 	return new ByteArrayInputStream(bytes);
     }
 
     @Override
-    public String getFileName() {
+    public String getAttachementFileName() {
 	return fileName;
     }
 
     @Override
-    public byte[] getByteArray() {
+    public byte[] getContents() {
 	return bytes.clone();
+    }
+
+    public AttachementType getType() {
+	return type;
     }
 }
