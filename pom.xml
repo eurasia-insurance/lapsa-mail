@@ -9,7 +9,7 @@
 
 	<groupId>com.lapsa.mail-helper</groupId>
 	<artifactId>parent</artifactId>
-	<version>1.6.3-rc1-SNAPSHOT</version>
+	<version>1.6.3-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
 	<name>LAPSA Mail utility</name>
