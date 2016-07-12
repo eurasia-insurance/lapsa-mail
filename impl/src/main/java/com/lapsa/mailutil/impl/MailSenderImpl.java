@@ -38,6 +38,9 @@ class MailSenderImpl implements MailSender {
     private MailAddress bccAddress;
     private boolean alwaysBlindCopy = false;
 
+    private MailAddress forceMailAddress;
+    private boolean alwaysForceMail = false;
+
     private Transport transport;
 
     MailSenderImpl(MailService service, Session session) {
@@ -48,6 +51,13 @@ class MailSenderImpl implements MailSender {
 	    try {
 		bccAddress = service.createBuilder().createAddress(session.getProperty(MAIL_BCC));
 		alwaysBlindCopy = true;
+	    } catch (MailException ignored) {
+	    }
+	}
+	if (session.getProperty(MAIL_FORCETO) != null) {
+	    try {
+		forceMailAddress = service.createBuilder().createAddress(session.getProperty(MAIL_FORCETO));
+		alwaysForceMail = true;
 	    } catch (MailException ignored) {
 	    }
 	}
@@ -68,16 +78,25 @@ class MailSenderImpl implements MailSender {
 	    if (subject != null)
 		msg.setSubject(subject, message.getCharset().name());
 
-	    Address[] toRecipients = convertAddressList(message.getTORecipients(), message.getCharset());
-	    Address[] ccRecipients = convertAddressList(message.getCCRecipients(), message.getCharset());
-	    Address[] bccRecipients = convertAddressList(message.getBCCRecipients(), message.getCharset());
+	    if (alwaysForceMail) {
+		// if mail must be forced
+		if (forceMailAddress == null)
+		    // but force mail address is empty
+		    throw new MailException("Always force mail is set to 'true' but forceMailAddress is empty");
+		msg.addRecipient(RecipientType.TO, convertAddress(forceMailAddress, message.getCharset()));
+	    } else {
+		// other cases (default)
+		Address[] toRecipients = convertAddressList(message.getTORecipients(), message.getCharset());
+		Address[] ccRecipients = convertAddressList(message.getCCRecipients(), message.getCharset());
+		Address[] bccRecipients = convertAddressList(message.getBCCRecipients(), message.getCharset());
 
-	    if (toRecipients.length + ccRecipients.length + bccRecipients.length == 0)
-		throw new InvalidMessageException("Not specified any recipient", message);
+		if (toRecipients.length + ccRecipients.length + bccRecipients.length == 0)
+		    throw new InvalidMessageException("Not specified any recipient", message);
 
-	    msg.addRecipients(RecipientType.TO, toRecipients);
-	    msg.addRecipients(RecipientType.CC, ccRecipients);
-	    msg.addRecipients(RecipientType.BCC, bccRecipients);
+		msg.addRecipients(RecipientType.TO, toRecipients);
+		msg.addRecipients(RecipientType.CC, ccRecipients);
+		msg.addRecipients(RecipientType.BCC, bccRecipients);
+	    }
 
 	    if (alwaysBlindCopy && bccAddress != null)
 		msg.addRecipient(RecipientType.BCC, convertAddress(bccAddress, message.getCharset()));
@@ -170,6 +189,26 @@ class MailSenderImpl implements MailSender {
     @Override
     public void setAlwaysBlindCopy(boolean alwaysBlindCopy) {
 	this.alwaysBlindCopy = alwaysBlindCopy;
+    }
+
+    @Override
+    public MailAddress getForceMailAddress() {
+	return forceMailAddress;
+    }
+
+    @Override
+    public void setForceMailAddress(MailAddress forceMailAddress) {
+	this.forceMailAddress = forceMailAddress;
+    }
+
+    @Override
+    public boolean isAlwaysForceMail() {
+	return alwaysForceMail;
+    }
+
+    @Override
+    public void setAlwaysForceMail(boolean alwaysForceMail) {
+	this.alwaysForceMail = alwaysForceMail;
     }
 
     private void autoConnect() throws MessagingException {

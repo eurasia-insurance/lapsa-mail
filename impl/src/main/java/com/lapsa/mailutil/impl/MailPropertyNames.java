@@ -6,4 +6,5 @@ public class MailPropertyNames {
     public static final String MAIL_BCC = "mail.bcc";
     public static final String MAIL_PASSWORD = "mail.password";
     public static final String MAIL_USER = "mail.user";
+    public static final String MAIL_FORCETO = "mail.forceto";
 }

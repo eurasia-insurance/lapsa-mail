@@ -12,6 +12,14 @@ public interface MailSender extends AutoCloseable {
 
     void setAlwaysBlindCopy(boolean alwaysBlindCopy);
 
+    MailAddress getForceMailAddress();
+
+    void setForceMailAddress(MailAddress forceMailAddress);
+
+    boolean isAlwaysForceMail();
+
+    void setAlwaysForceMail(boolean alwaysForceMail);
+
     @Deprecated
     MailAddress getDefaultSender();
 
