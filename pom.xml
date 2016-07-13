@@ -37,14 +37,14 @@
 	</dependencyManagement>
 
 	<scm>
-		<connection>scm:git:https://gitrepo.theeurasia.kz/vadim.isaev/mail-helper.git</connection>
-		<developerConnection>scm:git:https://gitrepo.theeurasia.kz/vadim.isaev/mail-helper.git</developerConnection>
+		<connection>scm:git:https://gitrepo.theeurasia.kz/lapsa/mail-lib.git</connection>
+		<developerConnection>scm:git:https://gitrepo.theeurasia.kz/lapsa/mail-lib.git</developerConnection>
 		<tag>HEAD</tag>
 	</scm>
 
 	<issueManagement>
 		<system>gitlab</system>
-		<url>https://gitrepo.theeurasia.kz/vadim.isaev/mail-helper/issues</url>
+		<url>https://gitrepo.theeurasia.kz/lapsa/mail-lib/issues</url>
 	</issueManagement>
 
 </project>
