@@ -10,7 +10,7 @@
 
 	<groupId>com.lapsa.mail-lib</groupId>
 	<artifactId>parent</artifactId>
-	<version>1.6.3-SNAPSHOT</version>
+	<version>1.7-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
 	<name>Mail Lib</name>
