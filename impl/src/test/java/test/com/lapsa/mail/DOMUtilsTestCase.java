@@ -1,4 +1,4 @@
-package com.lapsa.mailutil.xml.test;
+package test.com.lapsa.mail;
 
 import static org.junit.Assert.*;
 

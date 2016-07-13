@@ -1,6 +1,6 @@
-package com.lapsa.mailutil.test;
+package test.com.lapsa.mail;
 
-import static com.lapsa.mailutil.test.MailSessionFactory.*;
+import static test.com.lapsa.mail.MailSessionFactory.*;
 
 import java.io.IOException;
 import java.io.InputStream;
