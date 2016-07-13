@@ -8,12 +8,12 @@
 		<version>1.3.4</version>
 	</parent>
 
-	<groupId>com.lapsa.mail-helper</groupId>
+	<groupId>com.lapsa.mail-lib</groupId>
 	<artifactId>parent</artifactId>
 	<version>1.6.3-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
-	<name>LAPSA Mail utility</name>
+	<name>Mail Lib</name>
 
 	<modules>
 		<module>api</module>
@@ -25,12 +25,12 @@
 			<!-- own -->
 			<dependency>
 				<groupId>${project.groupId}</groupId>
-				<artifactId>mail-helper-api</artifactId>
+				<artifactId>mail-lib-api</artifactId>
 				<version>${project.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>${project.groupId}</groupId>
-				<artifactId>mail-helper-impl</artifactId>
+				<artifactId>mail-lib-impl</artifactId>
 				<version>${project.version}</version>
 			</dependency>
 		</dependencies>
