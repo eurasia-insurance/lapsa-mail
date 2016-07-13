@@ -1,4 +1,4 @@
-package com.lapsa.mailutil.impl;
+package com.lapsa.mail.impl;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -10,8 +10,8 @@ import javax.mail.MessagingException;
 import javax.mail.internet.MimeBodyPart;
 import javax.mail.util.ByteArrayDataSource;
 
-import com.lapsa.mailutil.MailMessagePart;
-import com.lapsa.mailutil.MailMessageStreamPart;
+import com.lapsa.mail.MailMessagePart;
+import com.lapsa.mail.MailMessageStreamPart;
 
 class MailMessageStreamPartProvider implements MultiPartProvider {
     @Override

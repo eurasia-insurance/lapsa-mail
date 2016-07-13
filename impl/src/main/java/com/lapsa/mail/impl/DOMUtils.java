@@ -1,4 +1,4 @@
-package com.lapsa.mailutil.impl;
+package com.lapsa.mail.impl;
 
 import java.io.ByteArrayOutputStream;
 import java.io.OutputStream;

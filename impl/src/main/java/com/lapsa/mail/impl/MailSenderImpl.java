@@ -1,6 +1,6 @@
-package com.lapsa.mailutil.impl;
+package com.lapsa.mail.impl;
 
-import static com.lapsa.mailutil.impl.MailPropertyNames.*;
+import static com.lapsa.mail.impl.MailPropertyNames.*;
 
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.Charset;
@@ -21,13 +21,13 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 
-import com.lapsa.mailutil.InvalidMessageException;
-import com.lapsa.mailutil.MailAddress;
-import com.lapsa.mailutil.MailException;
-import com.lapsa.mailutil.MailMessage;
-import com.lapsa.mailutil.MailMessagePart;
-import com.lapsa.mailutil.MailSender;
-import com.lapsa.mailutil.MailService;
+import com.lapsa.mail.InvalidMessageException;
+import com.lapsa.mail.MailAddress;
+import com.lapsa.mail.MailException;
+import com.lapsa.mail.MailMessage;
+import com.lapsa.mail.MailMessagePart;
+import com.lapsa.mail.MailSender;
+import com.lapsa.mail.MailService;
 
 class MailSenderImpl implements MailSender {
 

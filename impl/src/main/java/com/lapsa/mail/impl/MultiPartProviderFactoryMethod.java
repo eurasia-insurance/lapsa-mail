@@ -1,13 +1,13 @@
-package com.lapsa.mailutil.impl;
+package com.lapsa.mail.impl;
 
-import com.lapsa.mailutil.MailMessageAttachementPart;
-import com.lapsa.mailutil.MailMessageByteArrayPart;
-import com.lapsa.mailutil.MailMessageFilePart;
-import com.lapsa.mailutil.MailMessageHTMLPart;
-import com.lapsa.mailutil.MailMessagePart;
-import com.lapsa.mailutil.MailMessageStreamPart;
-import com.lapsa.mailutil.MailMessageTextPart;
-import com.lapsa.mailutil.MailMessageXMLPart;
+import com.lapsa.mail.MailMessageAttachementPart;
+import com.lapsa.mail.MailMessageByteArrayPart;
+import com.lapsa.mail.MailMessageFilePart;
+import com.lapsa.mail.MailMessageHTMLPart;
+import com.lapsa.mail.MailMessagePart;
+import com.lapsa.mail.MailMessageStreamPart;
+import com.lapsa.mail.MailMessageTextPart;
+import com.lapsa.mail.MailMessageXMLPart;
 
 abstract class MultiPartProviderFactoryMethod {
     static MultiPartProvider getProviderFor(MailMessagePart part) {

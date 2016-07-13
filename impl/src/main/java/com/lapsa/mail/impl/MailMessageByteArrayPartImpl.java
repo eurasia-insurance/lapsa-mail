@@ -1,6 +1,6 @@
-package com.lapsa.mailutil.impl;
+package com.lapsa.mail.impl;
 
-import com.lapsa.mailutil.MailMessageByteArrayPart;
+import com.lapsa.mail.MailMessageByteArrayPart;
 
 class MailMessageByteArrayPartImpl implements MailMessageByteArrayPart {
 

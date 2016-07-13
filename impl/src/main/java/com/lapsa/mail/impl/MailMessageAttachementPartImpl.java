@@ -1,10 +1,10 @@
-package com.lapsa.mailutil.impl;
+package com.lapsa.mail.impl;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 
-import com.lapsa.mailutil.AttachementType;
-import com.lapsa.mailutil.MailMessageAttachementPart;
+import com.lapsa.mail.AttachementType;
+import com.lapsa.mail.MailMessageAttachementPart;
 
 class MailMessageAttachementPartImpl implements MailMessageAttachementPart {
 

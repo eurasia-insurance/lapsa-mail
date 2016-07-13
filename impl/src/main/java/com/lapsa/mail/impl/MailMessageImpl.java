@@ -1,4 +1,4 @@
-package com.lapsa.mailutil.impl;
+package com.lapsa.mail.impl;
 
 import java.nio.charset.Charset;
 import java.util.HashMap;
@@ -6,10 +6,10 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-import com.lapsa.mailutil.MailAddress;
-import com.lapsa.mailutil.MailMessage;
-import com.lapsa.mailutil.MailMessageBuilder;
-import com.lapsa.mailutil.MailMessagePart;
+import com.lapsa.mail.MailAddress;
+import com.lapsa.mail.MailMessage;
+import com.lapsa.mail.MailMessageBuilder;
+import com.lapsa.mail.MailMessagePart;
 
 class MailMessageImpl implements MailMessage {
 

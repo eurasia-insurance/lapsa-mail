@@ -1,11 +1,11 @@
-package com.lapsa.mailutil.impl;
+package com.lapsa.mail.impl;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
-import com.lapsa.mailutil.MailMessageStreamPart;
+import com.lapsa.mail.MailMessageStreamPart;
 
 class MailMessageStreamPartImpl implements MailMessageStreamPart {
 

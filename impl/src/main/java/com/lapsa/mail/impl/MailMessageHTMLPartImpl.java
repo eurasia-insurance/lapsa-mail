@@ -1,8 +1,8 @@
-package com.lapsa.mailutil.impl;
+package com.lapsa.mail.impl;
 
 import java.nio.charset.Charset;
 
-import com.lapsa.mailutil.MailMessageHTMLPart;
+import com.lapsa.mail.MailMessageHTMLPart;
 
 class MailMessageHTMLPartImpl implements MailMessageHTMLPart {
 

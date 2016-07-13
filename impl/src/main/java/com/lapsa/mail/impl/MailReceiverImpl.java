@@ -1,20 +1,21 @@
-package com.lapsa.mailutil.impl;
+package com.lapsa.mail.impl;
 
-import static com.lapsa.mailutil.impl.MailPropertyNames.*;
+import static com.lapsa.mail.impl.MailPropertyNames.*;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.mail.Flags.Flag;
+
+import com.lapsa.mail.MailException;
+import com.lapsa.mail.MailReceiver;
+import com.lapsa.mail.MailService;
+
 import javax.mail.Folder;
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.Session;
 import javax.mail.Store;
-
-import com.lapsa.mailutil.MailException;
-import com.lapsa.mailutil.MailReceiver;
-import com.lapsa.mailutil.MailService;
 
 class MailReceiverImpl implements MailReceiver {
 

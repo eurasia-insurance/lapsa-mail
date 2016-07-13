@@ -1,15 +1,15 @@
-package com.lapsa.mailutil.impl;
+package com.lapsa.mail.impl;
 
-import static com.lapsa.mailutil.impl.MailPropertyNames.*;
+import static com.lapsa.mail.impl.MailPropertyNames.*;
 
 import javax.mail.Session;
 
-import com.lapsa.mailutil.MailAddress;
-import com.lapsa.mailutil.MailException;
-import com.lapsa.mailutil.MailMessageBuilder;
-import com.lapsa.mailutil.MailReceiver;
-import com.lapsa.mailutil.MailSender;
-import com.lapsa.mailutil.MailService;
+import com.lapsa.mail.MailAddress;
+import com.lapsa.mail.MailException;
+import com.lapsa.mail.MailMessageBuilder;
+import com.lapsa.mail.MailReceiver;
+import com.lapsa.mail.MailSender;
+import com.lapsa.mail.MailService;
 
 public abstract class BaseMailHelperImpl implements MailService {
 

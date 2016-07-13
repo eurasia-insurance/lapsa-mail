@@ -1,4 +1,4 @@
-package com.lapsa.mailutil.impl;
+package com.lapsa.mail.impl;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -11,19 +11,19 @@ import java.nio.charset.Charset;
 
 import org.w3c.dom.Document;
 
-import com.lapsa.mailutil.AttachementType;
-import com.lapsa.mailutil.MailAddress;
-import com.lapsa.mailutil.MailException;
-import com.lapsa.mailutil.MailMessage;
-import com.lapsa.mailutil.MailMessageBuilder;
-import com.lapsa.mailutil.MailMessageByteArrayPart;
-import com.lapsa.mailutil.MailMessageFilePart;
-import com.lapsa.mailutil.MailMessageHTMLPart;
-import com.lapsa.mailutil.MailMessageAttachementPart;
-import com.lapsa.mailutil.MailMessageStreamPart;
-import com.lapsa.mailutil.MailMessageTextPart;
-import com.lapsa.mailutil.MailMessageXMLPart;
-import com.lapsa.mailutil.MailService;
+import com.lapsa.mail.AttachementType;
+import com.lapsa.mail.MailAddress;
+import com.lapsa.mail.MailException;
+import com.lapsa.mail.MailMessage;
+import com.lapsa.mail.MailMessageAttachementPart;
+import com.lapsa.mail.MailMessageBuilder;
+import com.lapsa.mail.MailMessageByteArrayPart;
+import com.lapsa.mail.MailMessageFilePart;
+import com.lapsa.mail.MailMessageHTMLPart;
+import com.lapsa.mail.MailMessageStreamPart;
+import com.lapsa.mail.MailMessageTextPart;
+import com.lapsa.mail.MailMessageXMLPart;
+import com.lapsa.mail.MailService;
 
 public class MailMessageBuilderImpl implements MailMessageBuilder {
 

@@ -12,14 +12,14 @@ import javax.mail.Session;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import com.lapsa.mailutil.InvalidMessageException;
-import com.lapsa.mailutil.MailException;
-import com.lapsa.mailutil.MailFactory;
-import com.lapsa.mailutil.MailMessage;
-import com.lapsa.mailutil.MailMessageBuilder;
-import com.lapsa.mailutil.MailMessagePart;
-import com.lapsa.mailutil.MailSender;
-import com.lapsa.mailutil.MailService;
+import com.lapsa.mail.InvalidMessageException;
+import com.lapsa.mail.MailException;
+import com.lapsa.mail.MailFactory;
+import com.lapsa.mail.MailMessage;
+import com.lapsa.mail.MailMessageBuilder;
+import com.lapsa.mail.MailMessagePart;
+import com.lapsa.mail.MailSender;
+import com.lapsa.mail.MailService;
 
 public class SendTestCase {
 

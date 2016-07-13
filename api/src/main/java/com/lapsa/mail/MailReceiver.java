@@ -1,4 +1,4 @@
-package com.lapsa.mailutil;
+package com.lapsa.mail;
 
 public interface MailReceiver extends AutoCloseable {
 

@@ -1,11 +1,11 @@
-package com.lapsa.mailutil.impl;
+package com.lapsa.mail.impl;
 
 import javax.mail.BodyPart;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeBodyPart;
 
-import com.lapsa.mailutil.MailMessagePart;
-import com.lapsa.mailutil.MailMessageTextPart;
+import com.lapsa.mail.MailMessagePart;
+import com.lapsa.mail.MailMessageTextPart;
 
 class MailMessageTextPartProvider implements MultiPartProvider {
     public BodyPart getBodyPart(MailMessagePart part) throws MessagingException {

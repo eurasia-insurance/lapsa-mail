@@ -1,4 +1,4 @@
-package com.lapsa.mailutil.impl;
+package com.lapsa.mail.impl;
 
 import javax.activation.DataHandler;
 import javax.activation.DataSource;
@@ -7,8 +7,8 @@ import javax.mail.MessagingException;
 import javax.mail.internet.MimeBodyPart;
 import javax.mail.util.ByteArrayDataSource;
 
-import com.lapsa.mailutil.MailMessageAttachementPart;
-import com.lapsa.mailutil.MailMessagePart;
+import com.lapsa.mail.MailMessageAttachementPart;
+import com.lapsa.mail.MailMessagePart;
 
 public class MailMessageAttachementPartProvider implements MultiPartProvider {
 

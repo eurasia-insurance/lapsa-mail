@@ -1,8 +1,8 @@
-package com.lapsa.mailutil.impl;
+package com.lapsa.mail.impl;
 
 import java.io.File;
 
-import com.lapsa.mailutil.MailMessageFilePart;
+import com.lapsa.mail.MailMessageFilePart;
 
 class MailMessageFilePartImpl implements MailMessageFilePart {
 

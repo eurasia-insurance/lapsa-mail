@@ -1,10 +1,10 @@
-package com.lapsa.mailutil.impl;
+package com.lapsa.mail.impl;
 
 import java.nio.charset.Charset;
 
 import org.w3c.dom.Document;
 
-import com.lapsa.mailutil.MailMessageXMLPart;
+import com.lapsa.mail.MailMessageXMLPart;
 
 class MailMessageXMLPartImpl implements MailMessageXMLPart {
 

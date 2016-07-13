@@ -1,4 +1,4 @@
-package com.lapsa.mailutil.impl;
+package com.lapsa.mail.impl;
 
 import java.io.UnsupportedEncodingException;
 
@@ -6,8 +6,8 @@ import javax.mail.BodyPart;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeBodyPart;
 
-import com.lapsa.mailutil.MailMessagePart;
-import com.lapsa.mailutil.MailMessageXMLPart;
+import com.lapsa.mail.MailMessagePart;
+import com.lapsa.mail.MailMessageXMLPart;
 
 class MailMessageXMLPartProvider implements MultiPartProvider {
     public BodyPart getBodyPart(MailMessagePart part) throws MessagingException {

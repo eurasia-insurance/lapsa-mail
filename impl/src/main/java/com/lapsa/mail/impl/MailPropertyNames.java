@@ -1,4 +1,4 @@
-package com.lapsa.mailutil.impl;
+package com.lapsa.mail.impl;
 
 public class MailPropertyNames {
     public static final String MAIL_FROM = "mail.from";

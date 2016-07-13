@@ -1,6 +1,6 @@
-package com.lapsa.mailutil.impl;
+package com.lapsa.mail.impl;
 
-import com.lapsa.mailutil.MailAddress;
+import com.lapsa.mail.MailAddress;
 
 class MailAddressImpl implements MailAddress {
 

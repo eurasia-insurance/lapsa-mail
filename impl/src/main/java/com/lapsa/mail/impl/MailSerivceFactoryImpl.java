@@ -1,8 +1,8 @@
-package com.lapsa.mailutil.impl;
+package com.lapsa.mail.impl;
 
 import javax.mail.Session;
 
-import com.lapsa.mailutil.MailService;
+import com.lapsa.mail.MailService;
 
 public class MailSerivceFactoryImpl extends BaseMailHelperImpl implements MailService {
 
