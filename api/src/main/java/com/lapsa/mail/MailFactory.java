@@ -12,13 +12,11 @@ public abstract class MailFactory {
 	return getMailFactory(DEFAULT_IMPL_NAME);
     }
 
-    public static final MailFactory getMailFactory(String name) throws MailException {
-	ServiceLoader<MailFactory> mailFactorySPI = ServiceLoader.load(MailFactory.class);
-	for (MailFactory factory : mailFactorySPI) {
-	    if (factory.getName().equals(name)) {
+    public static final MailFactory getMailFactory(final String name) throws MailException {
+	final ServiceLoader<MailFactory> mailFactorySPI = ServiceLoader.load(MailFactory.class);
+	for (final MailFactory factory : mailFactorySPI)
+	    if (factory.getName().equals(name))
 		return factory;
-	    }
-	}
 	throw new MailException("There is no any registered MailFactory service provider");
     }
 

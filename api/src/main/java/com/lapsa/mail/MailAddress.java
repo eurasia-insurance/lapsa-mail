@@ -4,7 +4,7 @@ public interface MailAddress {
 
     /**
      * Use getFriendlyName() instead
-     * 
+     *
      * @return friendly name
      */
     @Deprecated
@@ -12,14 +12,14 @@ public interface MailAddress {
 
     /**
      * Returns friendly name of the address owner
-     * 
+     *
      * @return friendly name of the address owner
      */
     String getFriendlyName();
 
     /**
      * Use getSmtpAddress() instead
-     * 
+     *
      * @return SMTP address
      */
     @Deprecated
@@ -27,7 +27,7 @@ public interface MailAddress {
 
     /**
      * Returns smtp address in RFC format associated with address
-     * 
+     *
      * @return smtp address
      */
     String getSmtpAddress();

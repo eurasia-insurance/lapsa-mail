@@ -6,7 +6,7 @@ public class InvalidMessageException extends Exception {
     private final MailMessage mailMessage;
     private final String exceptionMessage;
 
-    public InvalidMessageException(String exceptionMessage, MailMessage mailMessage) {
+    public InvalidMessageException(final String exceptionMessage, final MailMessage mailMessage) {
 	super(exceptionMessage);
 	this.exceptionMessage = exceptionMessage;
 	this.mailMessage = mailMessage;

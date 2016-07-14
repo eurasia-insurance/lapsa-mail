@@ -12,6 +12,6 @@ public interface MailMessageAttachementPart extends MailMessagePart {
     String getContentType();
 
     String getAttachementFileName();
-    
+
     AttachementType getType();
 }
