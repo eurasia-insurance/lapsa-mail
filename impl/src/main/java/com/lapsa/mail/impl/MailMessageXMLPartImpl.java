@@ -8,26 +8,28 @@ import com.lapsa.mail.MailMessageXMLPart;
 
 class MailMessageXMLPartImpl implements MailMessageXMLPart {
 
-    private Charset charset;
-    private Document doc;
-    private String contentId;
+    private final Charset charset;
+    private final Document doc;
+    private final String contentId;
 
-    MailMessageXMLPartImpl(Document doc, Charset charset) {
+    MailMessageXMLPartImpl(final Document doc, final Charset charset) {
 	this.doc = doc;
 	this.charset = charset;
-	this.contentId = null;
+	contentId = null;
     }
 
-    MailMessageXMLPartImpl(Document doc, Charset charset, String contentId) {
+    MailMessageXMLPartImpl(final Document doc, final Charset charset, final String contentId) {
 	this.doc = doc;
 	this.charset = charset;
 	this.contentId = contentId;
     }
 
+    @Override
     public Charset getCharset() {
 	return charset;
     }
 
+    @Override
     public Document getDocument() {
 	return doc;
     }

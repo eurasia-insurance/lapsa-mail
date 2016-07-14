@@ -7,16 +7,17 @@ class MailMessageByteArrayPartImpl implements MailMessageByteArrayPart {
     private final String name;
     private final String contentType;
     private final byte[] bytes;
-    private String contentId;
+    private final String contentId;
 
-    MailMessageByteArrayPartImpl(String name, String contentType, byte[] bytes) {
+    MailMessageByteArrayPartImpl(final String name, final String contentType, final byte[] bytes) {
 	this.name = name;
 	this.contentType = contentType;
 	this.bytes = bytes;
-	this.contentId = null;
+	contentId = null;
     }
 
-    MailMessageByteArrayPartImpl(String name, String contentType, byte[] bytes, String contentId) {
+    MailMessageByteArrayPartImpl(final String name, final String contentType, final byte[] bytes,
+	    final String contentId) {
 	this.name = name;
 	this.contentType = contentType;
 	this.bytes = bytes;

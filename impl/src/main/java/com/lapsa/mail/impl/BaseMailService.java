@@ -32,28 +32,25 @@ public abstract class BaseMailService implements MailService {
 
     @Override
     public MailAddress getDefaultSender() {
-	String from = getSession().getProperty(MAIL_FROM);
-	if (from != null) {
+	final String from = getSession().getProperty(MAIL_FROM);
+	if (from != null)
 	    return new MailAddressImpl(from, "");
-	}
 	return null;
     }
 
     @Override
     public MailAddress getDefaultRecipient() {
-	String from = getSession().getProperty(MAIL_TO);
-	if (from != null) {
+	final String from = getSession().getProperty(MAIL_TO);
+	if (from != null)
 	    return new MailAddressImpl(from, "");
-	}
 	return null;
     }
 
     @Override
     public MailAddress getDefaultBCCRecipient() {
-	String from = getSession().getProperty(MAIL_BCC);
-	if (from != null) {
+	final String from = getSession().getProperty(MAIL_BCC);
+	if (from != null)
 	    return new MailAddressImpl(from, "");
-	}
 	return null;
     }
 }

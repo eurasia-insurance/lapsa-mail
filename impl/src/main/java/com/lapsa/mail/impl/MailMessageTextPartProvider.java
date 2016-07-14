@@ -8,9 +8,10 @@ import com.lapsa.mail.MailMessagePart;
 import com.lapsa.mail.MailMessageTextPart;
 
 class MailMessageTextPartProvider implements MultiPartProvider {
-    public BodyPart getBodyPart(MailMessagePart part) throws MessagingException {
-	MimeBodyPart result = new MimeBodyPart();
-	MailMessageTextPart p = (MailMessageTextPart) part;
+    @Override
+    public BodyPart getBodyPart(final MailMessagePart part) throws MessagingException {
+	final MimeBodyPart result = new MimeBodyPart();
+	final MailMessageTextPart p = (MailMessageTextPart) part;
 
 	// result.setText(mmtp.getText(), "UTF-8", "plain");
 	result.setText(p.getText(), p.getCharset().name(), "plain");

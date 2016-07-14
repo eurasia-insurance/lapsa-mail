@@ -14,44 +14,50 @@ class MailMessageStreamPartImpl implements MailMessageStreamPart {
     private final String name;
     private final String contentId;
 
-    MailMessageStreamPartImpl(String name, String contentType, InputStream inputStream, String contentId)
+    MailMessageStreamPartImpl(final String name, final String contentType, final InputStream inputStream,
+	    final String contentId)
 	    throws IOException {
 	this(name, contentType, inputStream, false, contentId);
     }
 
-    MailMessageStreamPartImpl(String name, String contentType, InputStream inputStream) throws IOException {
+    MailMessageStreamPartImpl(final String name, final String contentType, final InputStream inputStream)
+	    throws IOException {
 	this(name, contentType, inputStream, false, null);
     }
 
-    MailMessageStreamPartImpl(String name, String contentType, InputStream inputStream, boolean immediatlyRead) throws IOException {
+    MailMessageStreamPartImpl(final String name, final String contentType, final InputStream inputStream,
+	    final boolean immediatlyRead) throws IOException {
 	this(name, contentType, inputStream, immediatlyRead, null);
     }
 
-    MailMessageStreamPartImpl(String name, String contentType, InputStream inputStream, boolean readImmediately,
-	    String contentId) throws IOException {
+    MailMessageStreamPartImpl(final String name, final String contentType, final InputStream inputStream,
+	    final boolean readImmediately,
+	    final String contentId) throws IOException {
 	this.name = name;
 	this.contentType = contentType;
 	this.contentId = contentId;
 	if (readImmediately) {
-	    ByteArrayOutputStream bais = new ByteArrayOutputStream();
+	    final ByteArrayOutputStream bais = new ByteArrayOutputStream();
 	    int readed = -1;
-	    byte[] buff = new byte[256];
-	    while ((readed = inputStream.read(buff))!=-1)
+	    final byte[] buff = new byte[256];
+	    while ((readed = inputStream.read(buff)) != -1)
 		bais.write(buff, 0, readed);
 	    this.inputStream = new ByteArrayInputStream(bais.toByteArray());
-	} else {
+	} else
 	    this.inputStream = inputStream;
-	}
     }
 
+    @Override
     public InputStream getInputStream() throws IOException {
 	return inputStream;
     }
 
+    @Override
     public String getContentType() {
 	return contentType;
     }
 
+    @Override
     public String getName() {
 	return name;
     }

@@ -13,12 +13,12 @@ import com.lapsa.mail.MailMessagePart;
 class MailMessageByteArrayProvider implements MultiPartProvider {
 
     @Override
-    public BodyPart getBodyPart(MailMessagePart part) throws MessagingException {
-	MimeBodyPart result = new MimeBodyPart();
-	MailMessageByteArrayPart p = (MailMessageByteArrayPart) part;
+    public BodyPart getBodyPart(final MailMessagePart part) throws MessagingException {
+	final MimeBodyPart result = new MimeBodyPart();
+	final MailMessageByteArrayPart p = (MailMessageByteArrayPart) part;
 
-	DataSource source = new ByteArrayDataSource(p.getBytes(), p.getContentType());
-	DataHandler dh = new DataHandler(source);
+	final DataSource source = new ByteArrayDataSource(p.getBytes(), p.getContentType());
+	final DataHandler dh = new DataHandler(source);
 	result.setDataHandler(dh);
 	if (p.getName() != null)
 	    result.setFileName(p.getName());

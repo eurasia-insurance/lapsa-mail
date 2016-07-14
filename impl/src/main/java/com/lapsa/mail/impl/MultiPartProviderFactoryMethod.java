@@ -10,7 +10,7 @@ import com.lapsa.mail.MailMessageTextPart;
 import com.lapsa.mail.MailMessageXMLPart;
 
 abstract class MultiPartProviderFactoryMethod {
-    static MultiPartProvider getProviderFor(MailMessagePart part) {
+    static MultiPartProvider getProviderFor(final MailMessagePart part) {
 	if (part instanceof MailMessageFilePart)
 	    return new MailMessageFilePartProvider();
 	if (part instanceof MailMessageTextPart)

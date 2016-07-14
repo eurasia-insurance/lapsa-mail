@@ -6,26 +6,28 @@ import com.lapsa.mail.MailMessageTextPart;
 
 class MailMessageTextPartImpl implements MailMessageTextPart {
 
-    private String text;
-    private Charset charset;
-    private String contentId;
+    private final String text;
+    private final Charset charset;
+    private final String contentId;
 
-    MailMessageTextPartImpl(String text, Charset charset, String contentId) {
+    MailMessageTextPartImpl(final String text, final Charset charset, final String contentId) {
 	this.text = text;
 	this.charset = charset;
 	this.contentId = contentId;
     }
 
-    MailMessageTextPartImpl(String text, Charset charset) {
+    MailMessageTextPartImpl(final String text, final Charset charset) {
 	this.text = text;
 	this.charset = charset;
-	this.contentId = null;
-   }
+	contentId = null;
+    }
 
+    @Override
     public String getText() {
 	return text;
     }
 
+    @Override
     public Charset getCharset() {
 	return charset;
     }

@@ -14,7 +14,7 @@ public class DefaultMailFactory extends MailFactory {
     }
 
     @Override
-    public MailService getService(Session session) throws MailException {
+    public MailService getService(final Session session) throws MailException {
 	return new MailSerivceFactoryImpl(session);
     }
 

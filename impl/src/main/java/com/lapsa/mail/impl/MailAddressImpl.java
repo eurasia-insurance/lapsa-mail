@@ -15,14 +15,14 @@ class MailAddressImpl implements MailAddress, Serializable {
     private final String friendlyName;
     private final String smtpAddress;
 
-    MailAddressImpl(String smtpAddress, String friendlyName) {
+    MailAddressImpl(final String smtpAddress, final String friendlyName) {
 	this.smtpAddress = smtpAddress;
 	this.friendlyName = friendlyName;
     }
 
-    MailAddressImpl(String smtpAddress) {
+    MailAddressImpl(final String smtpAddress) {
 	this.smtpAddress = smtpAddress;
-	this.friendlyName = null;
+	friendlyName = null;
     }
 
     @Override
@@ -33,12 +33,12 @@ class MailAddressImpl implements MailAddress, Serializable {
     }
 
     @Override
-    public boolean equals(Object other) {
+    public boolean equals(final Object other) {
 	if (other == null || other.getClass() != getClass())
 	    return false;
 	if (other == this)
 	    return true;
-	MailAddressImpl that = (MailAddressImpl) other;
+	final MailAddressImpl that = (MailAddressImpl) other;
 	return new EqualsBuilder()
 		.append(smtpAddress, that.smtpAddress)
 		.isEquals();

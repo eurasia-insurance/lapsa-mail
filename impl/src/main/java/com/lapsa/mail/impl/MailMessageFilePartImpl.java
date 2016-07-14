@@ -6,19 +6,20 @@ import com.lapsa.mail.MailMessageFilePart;
 
 class MailMessageFilePartImpl implements MailMessageFilePart {
 
-    private File file;
-    private String contentId;
+    private final File file;
+    private final String contentId;
 
-    MailMessageFilePartImpl(File file, String contentId) {
+    MailMessageFilePartImpl(final File file, final String contentId) {
 	this.file = file;
 	this.contentId = contentId;
     }
 
-    MailMessageFilePartImpl(File file) {
+    MailMessageFilePartImpl(final File file) {
 	this.file = file;
-	this.contentId = null;
+	contentId = null;
     }
 
+    @Override
     public File getFile() {
 	return file;
     }

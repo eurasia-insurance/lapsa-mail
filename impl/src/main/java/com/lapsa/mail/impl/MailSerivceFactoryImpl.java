@@ -6,9 +6,9 @@ import com.lapsa.mail.MailService;
 
 public class MailSerivceFactoryImpl extends BaseMailService implements MailService {
 
-    private Session session;
+    private final Session session;
 
-    MailSerivceFactoryImpl(Session session) {
+    MailSerivceFactoryImpl(final Session session) {
 	this.session = session;
     }
 

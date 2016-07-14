@@ -15,8 +15,8 @@ class MailMessageAttachementPartImpl implements MailMessageAttachementPart {
 
     private final AttachementType type;
 
-    MailMessageAttachementPartImpl(String contentType, byte[] bytes, String fileName,
-	    String contentId, AttachementType type) {
+    MailMessageAttachementPartImpl(final String contentType, final byte[] bytes, final String fileName,
+	    final String contentId, final AttachementType type) {
 	this.contentType = contentType;
 	this.fileName = fileName;
 	this.contentId = contentId;
@@ -49,6 +49,7 @@ class MailMessageAttachementPartImpl implements MailMessageAttachementPart {
 	return bytes.clone();
     }
 
+    @Override
     public AttachementType getType() {
 	return type;
     }

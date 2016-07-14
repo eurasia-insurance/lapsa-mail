@@ -6,26 +6,28 @@ import com.lapsa.mail.MailMessageHTMLPart;
 
 class MailMessageHTMLPartImpl implements MailMessageHTMLPart {
 
-    private Charset charset;
-    private String html;
-    private String contentId;
+    private final Charset charset;
+    private final String html;
+    private final String contentId;
 
-    MailMessageHTMLPartImpl(String html, Charset charset, String contentId) {
+    MailMessageHTMLPartImpl(final String html, final Charset charset, final String contentId) {
 	this.charset = charset;
 	this.html = html;
 	this.contentId = contentId;
     }
 
-    MailMessageHTMLPartImpl(String html, Charset charset) {
+    MailMessageHTMLPartImpl(final String html, final Charset charset) {
 	this.charset = charset;
 	this.html = html;
-	this.contentId = null;
-   }
+	contentId = null;
+    }
 
+    @Override
     public String getHTML() {
 	return html;
     }
 
+    @Override
     public Charset getCharset() {
 	return charset;
     }

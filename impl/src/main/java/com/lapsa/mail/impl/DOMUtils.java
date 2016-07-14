@@ -26,13 +26,13 @@ public final class DOMUtils {
     private DOMUtils() {
 	try {
 	    domImplementationRegistry = DOMImplementationRegistry.newInstance();
-	} catch (ClassNotFoundException e) {
+	} catch (final ClassNotFoundException e) {
 	    throw new RuntimeException(e);
-	} catch (InstantiationException e) {
+	} catch (final InstantiationException e) {
 	    throw new RuntimeException(e);
-	} catch (IllegalAccessException e) {
+	} catch (final IllegalAccessException e) {
 	    throw new RuntimeException(e);
-	} catch (ClassCastException e) {
+	} catch (final ClassCastException e) {
 	    throw new RuntimeException(e);
 	}
 	domImplementation = domImplementationRegistry.getDOMImplementation(DOM_IMPLEMENTATION_VERSION);
@@ -45,48 +45,49 @@ public final class DOMUtils {
     }
 
     @Deprecated
-    public static final Document createDocument(String namespaceURI, String qualifiedName) {
+    public static final Document createDocument(final String namespaceURI, final String qualifiedName) {
 	return DOMUtils.getInstance().createDoc(namespaceURI, qualifiedName);
     }
 
-    public final Document createDoc(String namespaceURI, String qualifiedName) {
+    public final Document createDoc(final String namespaceURI, final String qualifiedName) {
 	return domImplementation.createDocument(namespaceURI, qualifiedName, null);
     }
 
     @Deprecated
-    public static final Document createDocument(String qualifiedName) {
+    public static final Document createDocument(final String qualifiedName) {
 	return DOMUtils.getInstance().createDoc(qualifiedName);
     }
 
-    public final Document createDoc(String qualifiedName) {
+    public final Document createDoc(final String qualifiedName) {
 	return domImplementation.createDocument(null, qualifiedName, null);
     }
 
     @Deprecated
-    public static final String writeToString(Document doc, String xmlEncoding) throws UnsupportedEncodingException {
+    public static final String writeToString(final Document doc, final String xmlEncoding)
+	    throws UnsupportedEncodingException {
 	return DOMUtils.getInstance().getAsString(doc, xmlEncoding);
     }
 
-    public final String getAsString(Document doc, String xmlEncoding) throws UnsupportedEncodingException {
-	ByteArrayOutputStream baos = new ByteArrayOutputStream();
+    public final String getAsString(final Document doc, final String xmlEncoding) throws UnsupportedEncodingException {
+	final ByteArrayOutputStream baos = new ByteArrayOutputStream();
 	writeToOutputStream(doc, baos, xmlEncoding);
 	return baos.toString(Charset.defaultCharset().name());
     }
 
     @Deprecated
-    public static final boolean writeToByteStream(Document doc, OutputStream os, String xmlEncoding) {
+    public static final boolean writeToByteStream(final Document doc, final OutputStream os, final String xmlEncoding) {
 	return DOMUtils.getInstance().writeToOutputStream(doc, os, xmlEncoding);
     }
 
-    public final boolean writeToOutputStream(Document doc, OutputStream os, String xmlEncoding) {
-	LSOutput lsOutput = domImplementationLS.createLSOutput();
+    public final boolean writeToOutputStream(final Document doc, final OutputStream os, final String xmlEncoding) {
+	final LSOutput lsOutput = domImplementationLS.createLSOutput();
 	lsOutput.setByteStream(os);
 	lsOutput.setEncoding(xmlEncoding);
 	return _save(lsOutput, doc.getDocumentElement());
     }
 
-    private boolean _save(LSOutput lsOutput, Node node) {
-	LSSerializer lsSerializer = _getLSSerializer();
+    private boolean _save(final LSOutput lsOutput, final Node node) {
+	final LSSerializer lsSerializer = _getLSSerializer();
 	return lsSerializer.write(node, lsOutput);
     }
 

@@ -25,17 +25,17 @@ class MailMessageImpl implements MailMessage {
     }
 
     @Override
-    public void addTORecipient(MailAddress recipient) {
+    public void addTORecipient(final MailAddress recipient) {
 	to.put(recipient.getSmtpAddress(), recipient);
     }
 
     @Override
-    public void removeTORecipient(MailAddress recipient) {
+    public void removeTORecipient(final MailAddress recipient) {
 	to.remove(recipient.getSmtpAddress());
     }
 
     @Override
-    public void addPart(MailMessagePart mailMessagePart) {
+    public void addPart(final MailMessagePart mailMessagePart) {
 	parts.add(mailMessagePart);
     }
 
@@ -50,12 +50,12 @@ class MailMessageImpl implements MailMessage {
     }
 
     @Override
-    public void removePart(MailMessagePart mailMessagePart) {
+    public void removePart(final MailMessagePart mailMessagePart) {
 	parts.remove(mailMessagePart);
     }
 
     @Override
-    public void setFrom(MailAddress from) {
+    public void setFrom(final MailAddress from) {
 	this.from = from;
     }
 
@@ -65,7 +65,7 @@ class MailMessageImpl implements MailMessage {
     }
 
     @Override
-    public void addCCRecipient(MailAddress recipient) {
+    public void addCCRecipient(final MailAddress recipient) {
 	cc.put(recipient.getSmtpAddress(), recipient);
     }
 
@@ -75,12 +75,12 @@ class MailMessageImpl implements MailMessage {
     }
 
     @Override
-    public void removeCCRecipient(MailAddress recipient) {
+    public void removeCCRecipient(final MailAddress recipient) {
 	cc.remove(recipient.getSmtpAddress());
     }
 
     @Override
-    public void addBCCRecipient(MailAddress recipient) {
+    public void addBCCRecipient(final MailAddress recipient) {
 	bcc.put(recipient.getSmtpAddress(), recipient);
     }
 
@@ -90,7 +90,7 @@ class MailMessageImpl implements MailMessage {
     }
 
     @Override
-    public void removeBCCRecipient(MailAddress recipient) {
+    public void removeBCCRecipient(final MailAddress recipient) {
 	bcc.remove(recipient.getSmtpAddress());
     }
 
@@ -100,28 +100,28 @@ class MailMessageImpl implements MailMessage {
     }
 
     @Override
-    public void setSubject(String subject) {
+    public void setSubject(final String subject) {
 	this.subject = subject;
     }
 
     @Override
     public String toString() {
-	StringBuffer sb = new StringBuffer();
+	final StringBuffer sb = new StringBuffer();
 	if (from != null)
 	    sb.append("FROM: " + from + " ");
 	if (!to.isEmpty()) {
 	    sb.append("TO: ");
-	    for (MailAddress ma : to.values())
+	    for (final MailAddress ma : to.values())
 		sb.append(ma + " ");
 	}
 	if (!cc.isEmpty()) {
 	    sb.append("CC: ");
-	    for (MailAddress ma : cc.values())
+	    for (final MailAddress ma : cc.values())
 		sb.append(ma + " ");
 	}
 	if (!bcc.isEmpty()) {
 	    sb.append("BCC: ");
-	    for (MailAddress ma : bcc.values())
+	    for (final MailAddress ma : bcc.values())
 		sb.append(ma + " ");
 	}
 	if (subject != null)
@@ -135,7 +135,7 @@ class MailMessageImpl implements MailMessage {
     }
 
     @Override
-    public void setCharset(Charset charset) {
+    public void setCharset(final Charset charset) {
 	this.charset = charset;
     }
 }

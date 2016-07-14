@@ -6,16 +6,15 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.mail.Flags.Flag;
-
-import com.lapsa.mail.MailException;
-import com.lapsa.mail.MailReceiver;
-import com.lapsa.mail.MailService;
-
 import javax.mail.Folder;
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.Session;
 import javax.mail.Store;
+
+import com.lapsa.mail.MailException;
+import com.lapsa.mail.MailReceiver;
+import com.lapsa.mail.MailService;
 
 class MailReceiverImpl implements MailReceiver {
 
@@ -25,18 +24,18 @@ class MailReceiverImpl implements MailReceiver {
     private Store store = null;
     private Folder folder = null;
 
-    MailReceiverImpl(MailService mailService, Session session) {
+    MailReceiverImpl(final MailService mailService, final Session session) {
 	this.session = session;
-	this.logger = Logger.getLogger(this.getClass().getCanonicalName());
+	logger = Logger.getLogger(this.getClass().getCanonicalName());
     }
 
     @Override
     public boolean hasMessages() throws MailException {
 	try {
 	    autoConnect();
-	    int count = folder.getMessageCount();
+	    final int count = folder.getMessageCount();
 	    return count > 0;
-	} catch (MessagingException e) {
+	} catch (final MessagingException e) {
 	    logger.log(Level.SEVERE, "MAIL_RECEIVE_ERROR", e);
 	    throw new MailException(e);
 	}
@@ -46,13 +45,12 @@ class MailReceiverImpl implements MailReceiver {
     public void сlearMessages() throws MailException {
 	try {
 	    autoConnect();
-	    Message[] messages = folder.getMessages();
-	    for (int i = 0, n = messages.length; i < n; i++) {
-		Message message = messages[i];
+	    final Message[] messages = folder.getMessages();
+	    for (final Message message : messages) {
 		message.setFlag(Flag.DELETED, true);
 	    }
 	    folder.expunge();
-	} catch (MessagingException e) {
+	} catch (final MessagingException e) {
 	    logger.log(Level.SEVERE, "MAIL_RECEIVE_ERROR", e);
 	    throw new MailException(e);
 	}
@@ -63,7 +61,7 @@ class MailReceiverImpl implements MailReceiver {
 	try {
 	    autoConnect();
 	    return folder.getMessageCount();
-	} catch (MessagingException e) {
+	} catch (final MessagingException e) {
 	    logger.log(Level.SEVERE, "MAIL_RECEIVE_ERROR", e);
 	    throw new MailException(e);
 	}
@@ -90,7 +88,7 @@ class MailReceiverImpl implements MailReceiver {
 	    try {
 		folder.close(false);
 		logger.log(Level.FINE, "MAIL_CHECK folder closed OK");
-	    } catch (MessagingException e) {
+	    } catch (final MessagingException e) {
 		logger.log(Level.SEVERE, "MAIL_RECEIVE_ERROR", e);
 		throw new MailException(e);
 	    }
@@ -98,7 +96,7 @@ class MailReceiverImpl implements MailReceiver {
 	    try {
 		store.close();
 		logger.log(Level.FINE, "MAIL_CHECK store disconnected OK");
-	    } catch (MessagingException e) {
+	    } catch (final MessagingException e) {
 		logger.log(Level.SEVERE, "MAIL_RECEIVE_ERROR", e);
 		throw new MailException(e);
 	    }

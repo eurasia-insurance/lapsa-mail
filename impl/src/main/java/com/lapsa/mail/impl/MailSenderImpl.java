@@ -43,38 +43,37 @@ class MailSenderImpl implements MailSender {
 
     private Transport transport;
 
-    MailSenderImpl(MailService service, Session session) {
+    MailSenderImpl(final MailService service, final Session session) {
 	this.session = session;
 	this.service = service;
-	this.logger = Logger.getLogger(this.getClass().getCanonicalName());
-	if (session.getProperty(MAIL_BCC) != null) {
+	logger = Logger.getLogger(this.getClass().getCanonicalName());
+	if (session.getProperty(MAIL_BCC) != null)
 	    try {
 		bccAddress = service.createBuilder().createAddress(session.getProperty(MAIL_BCC));
 		alwaysBlindCopy = true;
-	    } catch (MailException ignored) {
+	    } catch (final MailException ignored) {
 	    }
-	}
-	if (session.getProperty(MAIL_FORCETO) != null) {
+	if (session.getProperty(MAIL_FORCETO) != null)
 	    try {
 		forceMailAddress = service.createBuilder().createAddress(session.getProperty(MAIL_FORCETO));
 		alwaysForceMail = true;
-	    } catch (MailException ignored) {
+	    } catch (final MailException ignored) {
 	    }
-	}
     }
 
-    private JobForTransport buildJobForTransport(MailMessage message) throws MailException, InvalidMessageException {
+    private JobForTransport buildJobForTransport(final MailMessage message)
+	    throws MailException, InvalidMessageException {
 	try {
-	    MimeMessage msg = new MimeMessage(session);
+	    final MimeMessage msg = new MimeMessage(session);
 
-	    MailAddress from = message.getFrom();
+	    final MailAddress from = message.getFrom();
 	    if (from != null) {
-		Address sender = convertAddress(from, message.getCharset());
+		final Address sender = convertAddress(from, message.getCharset());
 		msg.setReplyTo(new Address[] { sender });
 		msg.setFrom(sender);
 	    }
 
-	    String subject = message.getSubject();
+	    final String subject = message.getSubject();
 	    if (subject != null)
 		msg.setSubject(subject, message.getCharset().name());
 
@@ -86,9 +85,9 @@ class MailSenderImpl implements MailSender {
 		msg.addRecipient(RecipientType.TO, convertAddress(forceMailAddress, message.getCharset()));
 	    } else {
 		// other cases (default)
-		Address[] toRecipients = convertAddressList(message.getTORecipients(), message.getCharset());
-		Address[] ccRecipients = convertAddressList(message.getCCRecipients(), message.getCharset());
-		Address[] bccRecipients = convertAddressList(message.getBCCRecipients(), message.getCharset());
+		final Address[] toRecipients = convertAddressList(message.getTORecipients(), message.getCharset());
+		final Address[] ccRecipients = convertAddressList(message.getCCRecipients(), message.getCharset());
+		final Address[] bccRecipients = convertAddressList(message.getBCCRecipients(), message.getCharset());
 
 		if (toRecipients.length + ccRecipients.length + bccRecipients.length == 0)
 		    throw new InvalidMessageException("Not specified any recipient", message);
@@ -104,70 +103,69 @@ class MailSenderImpl implements MailSender {
 	    if (message.getParts() == null || message.getParts().length == 0)
 		msg.setContent("", "text/plain");
 	    else {
-		Multipart multipart = new MimeMultipart();
-		MailMessagePart[] parts = message.getParts();
+		final Multipart multipart = new MimeMultipart();
+		final MailMessagePart[] parts = message.getParts();
 
-		for (MailMessagePart part : parts) {
-		    MultiPartProvider provider = MultiPartProviderFactoryMethod.getProviderFor(part);
+		for (final MailMessagePart part : parts) {
+		    final MultiPartProvider provider = MultiPartProviderFactoryMethod.getProviderFor(part);
 		    if (provider != null) {
-			BodyPart bodyPart = provider.getBodyPart(part);
+			final BodyPart bodyPart = provider.getBodyPart(part);
 			multipart.addBodyPart(bodyPart);
 		    }
 		}
 		msg.setContent(multipart);
 	    }
 
-	    Address[] adrs = msg.getAllRecipients();
+	    final Address[] adrs = msg.getAllRecipients();
 	    return new JobForTransport(msg, adrs);
 
-	} catch (MessagingException e) {
+	} catch (final MessagingException e) {
 	    logger.log(Level.SEVERE, "MAIL_SEND_ERROR " + message, e);
 	    throw new MailException(e);
-	} catch (UnsupportedEncodingException e) {
+	} catch (final UnsupportedEncodingException e) {
 	    logger.log(Level.SEVERE, "MAIL_SEND_ERROR " + message, e);
 	    throw new MailException(e);
 	}
     }
 
-    private static Address convertAddress(MailAddress ma, Charset charset) throws UnsupportedEncodingException {
+    private static Address convertAddress(final MailAddress ma, final Charset charset)
+	    throws UnsupportedEncodingException {
 	return new InternetAddress(ma.getSmtpAddress(), ma.getFriendlyName(), charset.name());
     }
 
-    private static Address[] convertAddressList(MailAddress[] mas, Charset charset)
+    private static Address[] convertAddressList(final MailAddress[] mas, final Charset charset)
 	    throws UnsupportedEncodingException {
-	Collection<Address> result = new ArrayList<Address>(1);
-	for (MailAddress ma : mas) {
+	final Collection<Address> result = new ArrayList<Address>(1);
+	for (final MailAddress ma : mas)
 	    result.add(convertAddress(ma, charset));
-	}
 	return result.toArray(new Address[0]);
     }
 
     @Override
-    public void send(MailMessage[] messages) throws MailException, InvalidMessageException {
-	JobForTransport[] jobs = new JobForTransport[messages.length];
-	for (int i = 0; i < messages.length; i++) {
+    public void send(final MailMessage[] messages) throws MailException, InvalidMessageException {
+	final JobForTransport[] jobs = new JobForTransport[messages.length];
+	for (int i = 0; i < messages.length; i++)
 	    jobs[i] = buildJobForTransport(messages[i]);
-	}
 	try {
 	    autoConnect();
-	    for (JobForTransport jfs : jobs) {
+	    for (final JobForTransport jfs : jobs) {
 		transport.sendMessage(jfs.msg, jfs.adrs);
 		logger.fine("MAIL_SEND_OK " + jfs.msg.getMessageID());
 	    }
-	} catch (NoSuchProviderException e) {
+	} catch (final NoSuchProviderException e) {
 	    throw new MailException(e);
-	} catch (MessagingException e) {
+	} catch (final MessagingException e) {
 	    throw new MailException(e);
 	}
     }
 
     @Override
-    public void send(MailMessage message) throws MailException, InvalidMessageException {
+    public void send(final MailMessage message) throws MailException, InvalidMessageException {
 	send(new MailMessage[] { message });
     }
 
     @Override
-    public void send(Collection<MailMessage> messages) throws MailException, InvalidMessageException {
+    public void send(final Collection<MailMessage> messages) throws MailException, InvalidMessageException {
 	send(messages.toArray(new MailMessage[0]));
     }
 
@@ -177,7 +175,7 @@ class MailSenderImpl implements MailSender {
     }
 
     @Override
-    public void setAlwaysBlindCopyTo(MailAddress bccAddress) {
+    public void setAlwaysBlindCopyTo(final MailAddress bccAddress) {
 	this.bccAddress = bccAddress;
     }
 
@@ -187,7 +185,7 @@ class MailSenderImpl implements MailSender {
     }
 
     @Override
-    public void setAlwaysBlindCopy(boolean alwaysBlindCopy) {
+    public void setAlwaysBlindCopy(final boolean alwaysBlindCopy) {
 	this.alwaysBlindCopy = alwaysBlindCopy;
     }
 
@@ -197,7 +195,7 @@ class MailSenderImpl implements MailSender {
     }
 
     @Override
-    public void setForceMailAddress(MailAddress forceMailAddress) {
+    public void setForceMailAddress(final MailAddress forceMailAddress) {
 	this.forceMailAddress = forceMailAddress;
     }
 
@@ -207,7 +205,7 @@ class MailSenderImpl implements MailSender {
     }
 
     @Override
-    public void setAlwaysForceMail(boolean alwaysForceMail) {
+    public void setAlwaysForceMail(final boolean alwaysForceMail) {
 	this.alwaysForceMail = alwaysForceMail;
     }
 
@@ -222,15 +220,14 @@ class MailSenderImpl implements MailSender {
 
     @Override
     public void close() throws MailException {
-	if (transport != null && transport.isConnected()) {
+	if (transport != null && transport.isConnected())
 	    try {
 		transport.close();
 		logger.fine("MAIL_SEND transport disconnected OK");
-	    } catch (MessagingException e) {
+	    } catch (final MessagingException e) {
 		logger.log(Level.SEVERE, "MAIL_SEND_ERROR", e);
 		throw new MailException(e);
 	    }
-	}
     }
 
     @Deprecated
@@ -257,7 +254,7 @@ class JobForTransport {
     MimeMessage msg;
     Address[] adrs;
 
-    public JobForTransport(MimeMessage msg, Address[] adrs) {
+    public JobForTransport(final MimeMessage msg, final Address[] adrs) {
 	this.msg = msg;
 	this.adrs = adrs;
     }
