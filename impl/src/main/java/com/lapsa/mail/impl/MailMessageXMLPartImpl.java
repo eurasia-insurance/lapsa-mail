@@ -15,6 +15,7 @@ class MailMessageXMLPartImpl implements MailMessageXMLPart {
     MailMessageXMLPartImpl(Document doc, Charset charset) {
 	this.doc = doc;
 	this.charset = charset;
+	this.contentId = null;
     }
 
     MailMessageXMLPartImpl(Document doc, Charset charset, String contentId) {

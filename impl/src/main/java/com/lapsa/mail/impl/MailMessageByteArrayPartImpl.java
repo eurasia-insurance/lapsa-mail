@@ -13,6 +13,7 @@ class MailMessageByteArrayPartImpl implements MailMessageByteArrayPart {
 	this.name = name;
 	this.contentType = contentType;
 	this.bytes = bytes;
+	this.contentId = null;
     }
 
     MailMessageByteArrayPartImpl(String name, String contentType, byte[] bytes, String contentId) {

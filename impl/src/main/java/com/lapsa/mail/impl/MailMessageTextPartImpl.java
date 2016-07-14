@@ -19,7 +19,8 @@ class MailMessageTextPartImpl implements MailMessageTextPart {
     MailMessageTextPartImpl(String text, Charset charset) {
 	this.text = text;
 	this.charset = charset;
-    }
+	this.contentId = null;
+   }
 
     public String getText() {
 	return text;

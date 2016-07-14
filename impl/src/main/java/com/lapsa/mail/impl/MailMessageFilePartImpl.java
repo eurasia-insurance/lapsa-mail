@@ -16,6 +16,7 @@ class MailMessageFilePartImpl implements MailMessageFilePart {
 
     MailMessageFilePartImpl(File file) {
 	this.file = file;
+	this.contentId = null;
     }
 
     public File getFile() {

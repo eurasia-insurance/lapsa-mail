@@ -19,7 +19,8 @@ class MailMessageHTMLPartImpl implements MailMessageHTMLPart {
     MailMessageHTMLPartImpl(String html, Charset charset) {
 	this.charset = charset;
 	this.html = html;
-    }
+	this.contentId = null;
+   }
 
     public String getHTML() {
 	return html;
