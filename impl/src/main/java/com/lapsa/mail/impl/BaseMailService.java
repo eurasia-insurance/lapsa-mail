@@ -11,7 +11,7 @@ import com.lapsa.mail.MailReceiver;
 import com.lapsa.mail.MailSender;
 import com.lapsa.mail.MailService;
 
-public abstract class BaseMailHelperImpl implements MailService {
+public abstract class BaseMailService implements MailService {
 
     protected abstract Session getSession();
 
