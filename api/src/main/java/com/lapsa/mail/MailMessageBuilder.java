@@ -10,6 +10,16 @@ import org.w3c.dom.Document;
 public interface MailMessageBuilder {
     public static final Charset DEFAULT_CHARSET = Charset.forName("UTF-8");
 
+    /*
+     * createAddress methods
+     */
+    MailAddress createAddress(String smtpAddress) throws MailException;
+
+    MailAddress createAddress(String smtpAddress, String friendlyName) throws MailException;
+
+    /*
+     * createMessage methods
+     */
     MailMessage createMessage() throws MailException;
 
     MailMessage createMessage(Charset charset) throws MailException;
@@ -26,6 +36,9 @@ public interface MailMessageBuilder {
 
     MailMessage createMessage(MailAddress from, MailAddress to, String subject, Charset charset) throws MailException;
 
+    /*
+     * createTextPart methods
+     */
     MailMessageTextPart createTextPart(String text) throws MailException;
 
     MailMessageTextPart createTextPart(String text, String contentId) throws MailException;
@@ -38,6 +51,9 @@ public interface MailMessageBuilder {
 
     MailMessageTextPart createTextPart(Exception e, String contentId) throws MailException;
 
+    /*
+     * createHTMLPart methods
+     */
     MailMessageHTMLPart createHTMLPart(String html) throws MailException;
 
     MailMessageHTMLPart createHTMLPart(String html, String contentId) throws MailException;
@@ -46,6 +62,9 @@ public interface MailMessageBuilder {
 
     MailMessageHTMLPart createHTMLPart(String html, Charset charset, String contentId) throws MailException;
 
+    /*
+     * createXMLPart methods
+     */
     MailMessagePart createXMLPart(Document doc) throws MailException;
 
     MailMessagePart createXMLPart(Document doc, String contentId) throws MailException;
@@ -54,10 +73,16 @@ public interface MailMessageBuilder {
 
     MailMessagePart createXMLPart(Document doc, Charset charset, String contentId) throws MailException;
 
+    /*
+     * createFilePart methods
+     */
     MailMessageFilePart createFilePart(File file) throws MailException;
 
     MailMessageFilePart createFilePart(File file, String contentId) throws MailException;
 
+    /*
+     * createStreamPart methods
+     */
     MailMessageStreamPart createStreamPart(String name, String contentType, InputStream inputStream)
 	    throws MailException, IOException;
 
@@ -72,15 +97,14 @@ public interface MailMessageBuilder {
 	    boolean readImmediately, String contentId)
 	    throws MailException, IOException;
 
+    /*
+     * createByteArrayPart methods
+     */
     MailMessageByteArrayPart createByteArrayPart(String name, String contentType, byte[] bytes)
 	    throws MailException, IOException;
 
     MailMessageByteArrayPart createByteArrayPart(String name, String contentType, byte[] bytes, String contentId)
 	    throws MailException, IOException;
-
-    MailAddress createAddress(String eMail) throws MailException;
-
-    MailAddress createAddress(String eMail, String name) throws MailException;
 
     /*
      * createInlineImagePart methods
@@ -89,7 +113,6 @@ public interface MailMessageBuilder {
     /*
      * source File
      */
-
     MailMessageAttachementPart createInlineImagePart(String contentType, File file) throws MailException, IOException;
 
     MailMessageAttachementPart createInlineImagePart(String contentType, File file, String contentId)
@@ -117,7 +140,8 @@ public interface MailMessageBuilder {
     MailMessageAttachementPart createBytesAttachement(byte[] content, String contentType, String fileName,
 	    String contentId);
 
-    MailMessageAttachementPart createStreamAttachement(InputStream content, String contentType, String fileName) throws IOException;
+    MailMessageAttachementPart createStreamAttachement(InputStream content, String contentType, String fileName)
+	    throws IOException;
 
     MailMessageAttachementPart createStreamAttachement(InputStream content, String contentType, String fileName,
 	    String contentId) throws IOException;
