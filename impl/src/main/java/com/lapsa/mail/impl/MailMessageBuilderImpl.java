@@ -30,146 +30,22 @@ public class MailMessageBuilderImpl implements MailMessageBuilder {
     MailMessageBuilderImpl(final MailService mailService) {
     }
 
-    @Override
-    public MailMessageFilePart createFilePart(final File file) throws MailException {
-	return new MailMessageFilePartImpl(file);
-    }
-
-    @Override
-    public MailMessageFilePart createFilePart(final File file, final String contentId) throws MailException {
-	return new MailMessageFilePartImpl(file, contentId);
-    }
-
-    @Override
-    public MailMessageHTMLPart createHTMLPart(final String html) throws MailException {
-	return new MailMessageHTMLPartImpl(html, Charset.defaultCharset());
-    }
-
-    @Override
-    public MailMessageHTMLPart createHTMLPart(final String html, final String contentId) throws MailException {
-	return new MailMessageHTMLPartImpl(html, Charset.defaultCharset(), contentId);
-    }
-
-    @Override
-    public MailAddress createAddress(final String eMail, final String name) throws MailException {
-	return new MailAddressImpl(eMail, name);
-    }
-
-    @Override
-    public MailMessageTextPart createTextPart(final String text) throws MailException {
-	return new MailMessageTextPartImpl(text, Charset.defaultCharset());
-    }
-
-    @Override
-    public MailMessageTextPart createTextPart(final String text, final String contentId) throws MailException {
-	return new MailMessageTextPartImpl(text, Charset.defaultCharset(), contentId);
-    }
-
-    @Override
-    public MailMessageHTMLPart createHTMLPart(final String html, final Charset charset) throws MailException {
-	return new MailMessageHTMLPartImpl(html, charset);
-    }
-
-    @Override
-    public MailMessageHTMLPart createHTMLPart(final String html, final Charset charset, final String contentId)
-	    throws MailException {
-	return new MailMessageHTMLPartImpl(html, charset, contentId);
-    }
-
-    @Override
-    public MailMessageTextPart createTextPart(final String text, final Charset charset) throws MailException {
-	return new MailMessageTextPartImpl(text, charset);
-    }
-
-    @Override
-    public MailMessageTextPart createTextPart(final String text, final Charset charset, final String contentId)
-	    throws MailException {
-	return new MailMessageTextPartImpl(text, charset, contentId);
-    }
-
-    @Override
-    public MailMessageTextPart createTextPart(final Exception e) throws MailException {
-	final StringWriter sw = new StringWriter();
-	final PrintWriter pw = new PrintWriter(sw);
-	e.printStackTrace(pw);
-	return createTextPart(sw.toString());
-    }
-
-    @Override
-    public MailMessageTextPart createTextPart(final Exception e, final String contentId) throws MailException {
-	final StringWriter sw = new StringWriter();
-	final PrintWriter pw = new PrintWriter(sw);
-	e.printStackTrace(pw);
-	return createTextPart(sw.toString(), contentId);
-    }
-
-    @Override
-    public MailMessageXMLPart createXMLPart(final Document doc) throws MailException {
-	return new MailMessageXMLPartImpl(doc, Charset.defaultCharset());
-    }
-
-    @Override
-    public MailMessageXMLPart createXMLPart(final Document doc, final String contentId) throws MailException {
-	return new MailMessageXMLPartImpl(doc, Charset.defaultCharset(), contentId);
-    }
-
-    @Override
-    public MailMessageXMLPart createXMLPart(final Document doc, final Charset charset) throws MailException {
-	return new MailMessageXMLPartImpl(doc, charset);
-    }
-
-    @Override
-    public MailMessageXMLPart createXMLPart(final Document doc, final Charset charset, final String contentId)
-	    throws MailException {
-	return new MailMessageXMLPartImpl(doc, charset, contentId);
-    }
-
+    /*
+     * createAddress methods
+     */
     @Override
     public MailAddress createAddress(final String eMail) throws MailException {
 	return new MailAddressImpl(eMail, "");
     }
 
     @Override
-    public MailMessageStreamPart createStreamPart(final String name, final String contentType,
-	    final InputStream inputStream)
-	    throws MailException, IOException {
-	return new MailMessageStreamPartImpl(name, contentType, inputStream);
+    public MailAddress createAddress(final String smtpAddress, final String friendlyName) throws MailException {
+	return new MailAddressImpl(smtpAddress, friendlyName);
     }
 
-    @Override
-    public MailMessageStreamPart createStreamPart(final String name, final String contentType,
-	    final InputStream inputStream,
-	    final boolean readImmediately) throws MailException, IOException {
-	return new MailMessageStreamPartImpl(name, contentType, inputStream, readImmediately);
-    }
-
-    @Override
-    public MailMessageStreamPart createStreamPart(final String name, final String contentType,
-	    final InputStream inputStream,
-	    final String contentId) throws MailException, IOException {
-	return new MailMessageStreamPartImpl(name, contentType, inputStream, contentId);
-    }
-
-    @Override
-    public MailMessageStreamPart createStreamPart(final String name, final String contentType,
-	    final InputStream inputStream,
-	    final boolean readImmediately, final String contentId) throws MailException, IOException {
-	return new MailMessageStreamPartImpl(name, contentType, inputStream, readImmediately, contentId);
-    }
-
-    @Override
-    public MailMessageByteArrayPart createByteArrayPart(final String name, final String contentType, final byte[] bytes)
-	    throws MailException, IOException {
-	return new MailMessageByteArrayPartImpl(name, contentType, bytes);
-    }
-
-    @Override
-    public MailMessageByteArrayPart createByteArrayPart(final String name, final String contentType, final byte[] bytes,
-	    final String contentId)
-	    throws MailException, IOException {
-	return new MailMessageByteArrayPartImpl(name, contentType, bytes, contentId);
-    }
-
+    /*
+     * createMessage methods
+     */
     @Override
     public MailMessage createMessage() throws MailException {
 	return createMessage(null, null, null, null);
@@ -221,6 +97,155 @@ public class MailMessageBuilderImpl implements MailMessageBuilder {
     public MailMessage createMessage(final MailAddress to, final String subject, final Charset charset)
 	    throws MailException {
 	return createMessage(null, to, subject, charset);
+    }
+
+    /*
+     * createTextPart methods
+     */
+    @Override
+    public MailMessageTextPart createTextPart(final String text) throws MailException {
+	return new MailMessageTextPartImpl(text, Charset.defaultCharset());
+    }
+
+    @Override
+    public MailMessageTextPart createTextPart(final String text, final String contentId) throws MailException {
+	return new MailMessageTextPartImpl(text, Charset.defaultCharset(), contentId);
+    }
+
+    @Override
+    public MailMessageTextPart createTextPart(final String text, final Charset charset) throws MailException {
+	return new MailMessageTextPartImpl(text, charset);
+    }
+
+    @Override
+    public MailMessageTextPart createTextPart(final String text, final Charset charset, final String contentId)
+	    throws MailException {
+	return new MailMessageTextPartImpl(text, charset, contentId);
+    }
+
+    @Override
+    public MailMessageTextPart createTextPart(final Exception e) throws MailException {
+	final StringWriter sw = new StringWriter();
+	final PrintWriter pw = new PrintWriter(sw);
+	e.printStackTrace(pw);
+	return createTextPart(sw.toString());
+    }
+
+    @Override
+    public MailMessageTextPart createTextPart(final Exception e, final String contentId) throws MailException {
+	final StringWriter sw = new StringWriter();
+	final PrintWriter pw = new PrintWriter(sw);
+	e.printStackTrace(pw);
+	return createTextPart(sw.toString(), contentId);
+    }
+
+    /*
+     * createHTMLPart methods
+     */
+    @Override
+    public MailMessageHTMLPart createHTMLPart(final String html) throws MailException {
+	return new MailMessageHTMLPartImpl(html, Charset.defaultCharset());
+    }
+
+    @Override
+    public MailMessageHTMLPart createHTMLPart(final String html, final String contentId) throws MailException {
+	return new MailMessageHTMLPartImpl(html, Charset.defaultCharset(), contentId);
+    }
+
+    @Override
+    public MailMessageHTMLPart createHTMLPart(final String html, final Charset charset) throws MailException {
+	return new MailMessageHTMLPartImpl(html, charset);
+    }
+
+    @Override
+    public MailMessageHTMLPart createHTMLPart(final String html, final Charset charset, final String contentId)
+	    throws MailException {
+	return new MailMessageHTMLPartImpl(html, charset, contentId);
+    }
+
+    /*
+     * createXMLPart methods
+     */
+    @Override
+    public MailMessageXMLPart createXMLPart(final Document doc) throws MailException {
+	return new MailMessageXMLPartImpl(doc, Charset.defaultCharset());
+    }
+
+    @Override
+    public MailMessageXMLPart createXMLPart(final Document doc, final String contentId) throws MailException {
+	return new MailMessageXMLPartImpl(doc, Charset.defaultCharset(), contentId);
+    }
+
+    @Override
+    public MailMessageXMLPart createXMLPart(final Document doc, final Charset charset) throws MailException {
+	return new MailMessageXMLPartImpl(doc, charset);
+    }
+
+    @Override
+    public MailMessageXMLPart createXMLPart(final Document doc, final Charset charset, final String contentId)
+	    throws MailException {
+	return new MailMessageXMLPartImpl(doc, charset, contentId);
+    }
+
+    /*
+     * createFilePart methods
+     */
+
+    @Override
+    public MailMessageFilePart createFilePart(final File file) throws MailException {
+	return new MailMessageFilePartImpl(file);
+    }
+
+    @Override
+    public MailMessageFilePart createFilePart(final File file, final String contentId) throws MailException {
+	return new MailMessageFilePartImpl(file, contentId);
+    }
+
+    /*
+     * createStreamPart methods
+     */
+    @Override
+    public MailMessageStreamPart createStreamPart(final String name, final String contentType,
+	    final InputStream inputStream)
+	    throws MailException, IOException {
+	return new MailMessageStreamPartImpl(name, contentType, inputStream);
+    }
+
+    @Override
+    public MailMessageStreamPart createStreamPart(final String name, final String contentType,
+	    final InputStream inputStream,
+	    final boolean readImmediately) throws MailException, IOException {
+	return new MailMessageStreamPartImpl(name, contentType, inputStream, readImmediately);
+    }
+
+    @Override
+    public MailMessageStreamPart createStreamPart(final String name, final String contentType,
+	    final InputStream inputStream,
+	    final String contentId) throws MailException, IOException {
+	return new MailMessageStreamPartImpl(name, contentType, inputStream, contentId);
+    }
+
+    @Override
+    public MailMessageStreamPart createStreamPart(final String name, final String contentType,
+	    final InputStream inputStream,
+	    final boolean readImmediately, final String contentId) throws MailException, IOException {
+	return new MailMessageStreamPartImpl(name, contentType, inputStream, readImmediately, contentId);
+    }
+
+    /*
+     * createByteArrayPart methods
+     */
+    @Override
+    public MailMessageByteArrayPart createByteArrayPart(final String name, final String contentType, final byte[] bytes)
+	    throws MailException, IOException {
+	return new MailMessageByteArrayPartImpl(name, contentType, bytes);
+    }
+
+    @Override
+    public MailMessageByteArrayPart createByteArrayPart(final String name, final String contentType, final byte[] bytes,
+	    final String contentId)
+	    throws MailException, IOException {
+	return new MailMessageByteArrayPartImpl(name, contentType, bytes, contentId);
     }
 
     /*
