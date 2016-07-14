@@ -31,7 +31,7 @@ public class BasicTestCase {
     }
 
     @Test
-    public void testgetService() throws MailException {
+    public void testCreateService() throws MailException {
 	MailServiceFactory mhf = MailServiceFactory.getDefaultInstance();
 	MailService mh = mhf.createService(session);
 	assertNotNull(mh);
