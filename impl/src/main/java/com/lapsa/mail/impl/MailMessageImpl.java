@@ -26,12 +26,12 @@ class MailMessageImpl implements MailMessage {
 
     @Override
     public void addTORecipient(MailAddress recipient) {
-	to.put(recipient.getEMail(), recipient);
+	to.put(recipient.getSmtpAddress(), recipient);
     }
 
     @Override
     public void removeTORecipient(MailAddress recipient) {
-	to.remove(recipient.getEMail());
+	to.remove(recipient.getSmtpAddress());
     }
 
     @Override
@@ -66,7 +66,7 @@ class MailMessageImpl implements MailMessage {
 
     @Override
     public void addCCRecipient(MailAddress recipient) {
-	cc.put(recipient.getEMail(), recipient);
+	cc.put(recipient.getSmtpAddress(), recipient);
     }
 
     @Override
@@ -76,12 +76,12 @@ class MailMessageImpl implements MailMessage {
 
     @Override
     public void removeCCRecipient(MailAddress recipient) {
-	cc.remove(recipient.getEMail());
+	cc.remove(recipient.getSmtpAddress());
     }
 
     @Override
     public void addBCCRecipient(MailAddress recipient) {
-	bcc.put(recipient.getEMail(), recipient);
+	bcc.put(recipient.getSmtpAddress(), recipient);
     }
 
     @Override
@@ -91,7 +91,7 @@ class MailMessageImpl implements MailMessage {
 
     @Override
     public void removeBCCRecipient(MailAddress recipient) {
-	bcc.remove(recipient.getEMail());
+	bcc.remove(recipient.getSmtpAddress());
     }
 
     @Override

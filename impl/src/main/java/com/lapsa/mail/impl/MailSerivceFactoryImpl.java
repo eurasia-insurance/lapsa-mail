@@ -4,7 +4,7 @@ import javax.mail.Session;
 
 import com.lapsa.mail.MailService;
 
-public class MailSerivceFactoryImpl extends BaseMailHelperImpl implements MailService {
+public class MailSerivceFactoryImpl extends BaseMailService implements MailService {
 
     private Session session;
 

@@ -130,7 +130,7 @@ class MailSenderImpl implements MailSender {
     }
 
     private static Address convertAddress(MailAddress ma, Charset charset) throws UnsupportedEncodingException {
-	return new InternetAddress(ma.getEMail(), ma.getName(), charset.name());
+	return new InternetAddress(ma.getSmtpAddress(), ma.getFriendlyName(), charset.name());
     }
 
     private static Address[] convertAddressList(MailAddress[] mas, Charset charset)
