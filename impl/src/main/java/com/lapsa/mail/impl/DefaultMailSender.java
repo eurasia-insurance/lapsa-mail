@@ -1,6 +1,6 @@
 package com.lapsa.mail.impl;
 
-import static com.lapsa.mail.impl.MailPropertyNames.*;
+import static com.lapsa.mail.impl.MailSessionCustomProperties.*;
 
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.Charset;

@@ -1,6 +1,6 @@
 package com.lapsa.mail.impl;
 
-public class MailPropertyNames {
+public class MailSessionCustomProperties {
     public static final String MAIL_FROM = "mail.from";
     public static final String MAIL_TO = "mail.to";
     public static final String MAIL_BCC = "mail.bcc";

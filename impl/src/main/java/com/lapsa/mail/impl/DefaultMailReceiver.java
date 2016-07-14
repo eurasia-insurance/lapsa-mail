@@ -1,6 +1,6 @@
 package com.lapsa.mail.impl;
 
-import static com.lapsa.mail.impl.MailPropertyNames.*;
+import static com.lapsa.mail.impl.MailSessionCustomProperties.*;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
