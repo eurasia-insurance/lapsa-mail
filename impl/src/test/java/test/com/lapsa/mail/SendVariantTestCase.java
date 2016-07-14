@@ -12,7 +12,7 @@ import org.junit.Test;
 
 import com.lapsa.mail.InvalidMessageException;
 import com.lapsa.mail.MailException;
-import com.lapsa.mail.MailFactory;
+import com.lapsa.mail.MailServiceFactory;
 import com.lapsa.mail.MailMessage;
 import com.lapsa.mail.MailMessageBuilder;
 import com.lapsa.mail.MailMessagePart;
@@ -34,8 +34,8 @@ public class SendVariantTestCase {
 
     @Test
     public void testSendHtmlMessageWithImage_Inline() throws MailException, IOException, InvalidMessageException {
-	MailFactory mf = MailFactory.getDefaultMailFactory();
-	MailService ms = mf.getService(session);
+	MailServiceFactory mf = MailServiceFactory.getDefaultInstance();
+	MailService ms = mf.createService(session);
 
 	// builder & message
 	MailMessageBuilder builder = ms.createBuilder();
@@ -78,8 +78,8 @@ public class SendVariantTestCase {
 
     @Test
     public void testSendHtmlMessageWithImage_Attachement() throws MailException, IOException, InvalidMessageException {
-	MailFactory mf = MailFactory.getDefaultMailFactory();
-	MailService ms = mf.getService(session);
+	MailServiceFactory mf = MailServiceFactory.getDefaultInstance();
+	MailService ms = mf.createService(session);
 
 	// builder & message
 	MailMessageBuilder builder = ms.createBuilder();
@@ -121,8 +121,8 @@ public class SendVariantTestCase {
 
     @Test
     public void testSendException() throws MailException, IOException, InvalidMessageException {
-	MailFactory mf = MailFactory.getDefaultMailFactory();
-	MailService ms = mf.getService(session);
+	MailServiceFactory mf = MailServiceFactory.getDefaultInstance();
+	MailService ms = mf.createService(session);
 
 	// builder & message
 	MailMessageBuilder builder = ms.createBuilder();

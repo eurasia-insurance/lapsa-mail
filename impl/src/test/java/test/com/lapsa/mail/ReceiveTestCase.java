@@ -9,7 +9,7 @@ import org.junit.Test;
 
 import com.lapsa.mail.InvalidMessageException;
 import com.lapsa.mail.MailException;
-import com.lapsa.mail.MailFactory;
+import com.lapsa.mail.MailServiceFactory;
 import com.lapsa.mail.MailMessageBuilder;
 import com.lapsa.mail.MailReceiver;
 import com.lapsa.mail.MailSender;
@@ -26,8 +26,8 @@ public class ReceiveTestCase {
 
     @Test
     public void testHasMessages() throws MailException, InvalidMessageException, InterruptedException {
-	MailFactory mhf = MailFactory.getDefaultMailFactory();
-	MailService mh = mhf.getService(session);
+	MailServiceFactory mhf = MailServiceFactory.getDefaultInstance();
+	MailService mh = mhf.createService(session);
 	sendOneMessageForTestPurposes(mh);
 	try (MailReceiver receiver = mh.createReceiver()) {
 	    boolean hasMessages = receiver.hasMessages();
@@ -37,8 +37,8 @@ public class ReceiveTestCase {
 
     @Test
     public void testClearMessages() throws MailException, InterruptedException, InvalidMessageException {
-	MailFactory mhf = MailFactory.getDefaultMailFactory();
-	MailService mh = mhf.getService(session);
+	MailServiceFactory mhf = MailServiceFactory.getDefaultInstance();
+	MailService mh = mhf.createService(session);
 	sendOneMessageForTestPurposes(mh);
 	try (MailReceiver receiver = mh.createReceiver()) {
 	    boolean hasMessages = receiver.hasMessages();

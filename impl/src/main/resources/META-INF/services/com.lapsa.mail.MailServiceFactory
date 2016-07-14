@@ -1,1 +1,1 @@
-com.lapsa.mail.impl.DefaultMailFactory
+com.lapsa.mail.impl.DefaultMailServiceFactory

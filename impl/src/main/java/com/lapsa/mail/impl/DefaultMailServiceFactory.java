@@ -3,18 +3,18 @@ package com.lapsa.mail.impl;
 import javax.mail.Session;
 
 import com.lapsa.mail.MailException;
-import com.lapsa.mail.MailFactory;
+import com.lapsa.mail.MailServiceFactory;
 import com.lapsa.mail.MailService;
 
-public class DefaultMailFactory extends MailFactory {
+public class DefaultMailServiceFactory extends MailServiceFactory {
 
     @Override
     public String getName() {
-	return MailFactory.DEFAULT_IMPL_NAME;
+	return MailServiceFactory.DEFAULT_IMPL_NAME;
     }
 
     @Override
-    public MailService getService(final Session session) throws MailException {
+    public MailService createService(final Session session) throws MailException {
 	return new DefaultMailSerivce(session);
     }
 

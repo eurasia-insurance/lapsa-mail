@@ -10,7 +10,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import com.lapsa.mail.MailException;
-import com.lapsa.mail.MailFactory;
+import com.lapsa.mail.MailServiceFactory;
 import com.lapsa.mail.MailMessageBuilder;
 import com.lapsa.mail.MailSender;
 import com.lapsa.mail.MailService;
@@ -26,29 +26,29 @@ public class BasicTestCase {
 
     @Test
     public void testCreateFactory() throws MailException {
-	MailFactory mhf = MailFactory.getDefaultMailFactory();
+	MailServiceFactory mhf = MailServiceFactory.getDefaultInstance();
 	assertNotNull(mhf);
     }
 
     @Test
     public void testgetService() throws MailException {
-	MailFactory mhf = MailFactory.getDefaultMailFactory();
-	MailService mh = mhf.getService(session);
+	MailServiceFactory mhf = MailServiceFactory.getDefaultInstance();
+	MailService mh = mhf.createService(session);
 	assertNotNull(mh);
     }
 
     @Test
     public void testCreateSender() throws MailException {
-	MailFactory mhf = MailFactory.getDefaultMailFactory();
-	MailService mh = mhf.getService(session);
+	MailServiceFactory mhf = MailServiceFactory.getDefaultInstance();
+	MailService mh = mhf.createService(session);
 	MailSender ms = mh.createSender();
 	assertNotNull(ms);
     }
 
     @Test
     public void testCreateBuilder() throws MailException {
-	MailFactory mhf = MailFactory.getDefaultMailFactory();
-	MailService mh = mhf.getService(session);
+	MailServiceFactory mhf = MailServiceFactory.getDefaultInstance();
+	MailService mh = mhf.createService(session);
 	MailMessageBuilder mmb = mh.createBuilder();
 	assertNotNull(mmb);
     }
