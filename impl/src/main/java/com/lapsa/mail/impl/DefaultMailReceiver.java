@@ -16,7 +16,7 @@ import com.lapsa.mail.MailException;
 import com.lapsa.mail.MailReceiver;
 import com.lapsa.mail.MailService;
 
-class MailReceiverImpl implements MailReceiver {
+class DefaultMailReceiver implements MailReceiver {
 
     private final Session session;
     private final Logger logger;
@@ -24,7 +24,7 @@ class MailReceiverImpl implements MailReceiver {
     private Store store = null;
     private Folder folder = null;
 
-    MailReceiverImpl(final MailService mailService, final Session session) {
+    DefaultMailReceiver(final MailService mailService, final Session session) {
 	this.session = session;
 	logger = Logger.getLogger(this.getClass().getCanonicalName());
     }

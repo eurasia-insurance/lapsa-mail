@@ -4,17 +4,17 @@ import java.io.File;
 
 import com.lapsa.mail.MailMessageFilePart;
 
-class MailMessageFilePartImpl implements MailMessageFilePart {
+class DefaultMailMessageFilePart implements MailMessageFilePart {
 
     private final File file;
     private final String contentId;
 
-    MailMessageFilePartImpl(final File file, final String contentId) {
+    DefaultMailMessageFilePart(final File file, final String contentId) {
 	this.file = file;
 	this.contentId = contentId;
     }
 
-    MailMessageFilePartImpl(final File file) {
+    DefaultMailMessageFilePart(final File file) {
 	this.file = file;
 	contentId = null;
     }

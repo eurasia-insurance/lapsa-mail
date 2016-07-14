@@ -4,11 +4,11 @@ import javax.mail.Session;
 
 import com.lapsa.mail.MailService;
 
-public class MailSerivceImpl extends BaseMailService implements MailService {
+public class DefaultMailSerivce extends BaseMailService implements MailService {
 
     private final Session session;
 
-    MailSerivceImpl(final Session session) {
+    DefaultMailSerivce(final Session session) {
 	this.session = session;
     }
 

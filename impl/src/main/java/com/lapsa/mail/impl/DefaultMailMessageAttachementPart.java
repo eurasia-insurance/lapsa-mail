@@ -6,7 +6,7 @@ import java.io.InputStream;
 import com.lapsa.mail.AttachementType;
 import com.lapsa.mail.MailMessageAttachementPart;
 
-class MailMessageAttachementPartImpl implements MailMessageAttachementPart {
+class DefaultMailMessageAttachementPart implements MailMessageAttachementPart {
 
     private final String contentType;
     private final String fileName;
@@ -15,7 +15,7 @@ class MailMessageAttachementPartImpl implements MailMessageAttachementPart {
 
     private final AttachementType type;
 
-    MailMessageAttachementPartImpl(final String contentType, final byte[] bytes, final String fileName,
+    DefaultMailMessageAttachementPart(final String contentType, final byte[] bytes, final String fileName,
 	    final String contentId, final AttachementType type) {
 	this.contentType = contentType;
 	this.fileName = fileName;

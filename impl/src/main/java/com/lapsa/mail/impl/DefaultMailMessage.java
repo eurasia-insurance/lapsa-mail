@@ -11,7 +11,7 @@ import com.lapsa.mail.MailMessage;
 import com.lapsa.mail.MailMessageBuilder;
 import com.lapsa.mail.MailMessagePart;
 
-class MailMessageImpl implements MailMessage {
+class DefaultMailMessage implements MailMessage {
 
     private MailAddress from = null;
     private final Map<String, MailAddress> to = new HashMap<String, MailAddress>();
@@ -21,7 +21,7 @@ class MailMessageImpl implements MailMessage {
     private String subject = null;
     private Charset charset = MailMessageBuilder.DEFAULT_CHARSET;
 
-    MailMessageImpl() {
+    DefaultMailMessage() {
     }
 
     @Override

@@ -7,30 +7,30 @@ import java.io.InputStream;
 
 import com.lapsa.mail.MailMessageStreamPart;
 
-class MailMessageStreamPartImpl implements MailMessageStreamPart {
+class DefaultMailMessageStreamPart implements MailMessageStreamPart {
 
     private final InputStream inputStream;
     private final String contentType;
     private final String name;
     private final String contentId;
 
-    MailMessageStreamPartImpl(final String name, final String contentType, final InputStream inputStream,
+    DefaultMailMessageStreamPart(final String name, final String contentType, final InputStream inputStream,
 	    final String contentId)
 	    throws IOException {
 	this(name, contentType, inputStream, false, contentId);
     }
 
-    MailMessageStreamPartImpl(final String name, final String contentType, final InputStream inputStream)
+    DefaultMailMessageStreamPart(final String name, final String contentType, final InputStream inputStream)
 	    throws IOException {
 	this(name, contentType, inputStream, false, null);
     }
 
-    MailMessageStreamPartImpl(final String name, final String contentType, final InputStream inputStream,
+    DefaultMailMessageStreamPart(final String name, final String contentType, final InputStream inputStream,
 	    final boolean immediatlyRead) throws IOException {
 	this(name, contentType, inputStream, immediatlyRead, null);
     }
 
-    MailMessageStreamPartImpl(final String name, final String contentType, final InputStream inputStream,
+    DefaultMailMessageStreamPart(final String name, final String contentType, final InputStream inputStream,
 	    final boolean readImmediately,
 	    final String contentId) throws IOException {
 	this.name = name;

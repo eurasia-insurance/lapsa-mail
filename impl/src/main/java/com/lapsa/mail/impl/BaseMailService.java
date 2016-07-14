@@ -17,24 +17,24 @@ public abstract class BaseMailService implements MailService {
 
     @Override
     public MailSender createSender() throws MailException {
-	return new MailSenderImpl(this, getSession());
+	return new DefaultMailSender(this, getSession());
     }
 
     @Override
     public MailReceiver createReceiver() throws MailException {
-	return new MailReceiverImpl(this, getSession());
+	return new DefaultMailReceiver(this, getSession());
     }
 
     @Override
     public MailMessageBuilder createBuilder() throws MailException {
-	return new MailMessageBuilderImpl(this);
+	return new DefaultMailMessageBuilder(this);
     }
 
     @Override
     public MailAddress getDefaultSender() {
 	final String from = getSession().getProperty(MAIL_FROM);
 	if (from != null)
-	    return new MailAddressImpl(from, "");
+	    return new DefaultMailAddress(from, "");
 	return null;
     }
 
@@ -42,7 +42,7 @@ public abstract class BaseMailService implements MailService {
     public MailAddress getDefaultRecipient() {
 	final String from = getSession().getProperty(MAIL_TO);
 	if (from != null)
-	    return new MailAddressImpl(from, "");
+	    return new DefaultMailAddress(from, "");
 	return null;
     }
 
@@ -50,7 +50,7 @@ public abstract class BaseMailService implements MailService {
     public MailAddress getDefaultBCCRecipient() {
 	final String from = getSession().getProperty(MAIL_BCC);
 	if (from != null)
-	    return new MailAddressImpl(from, "");
+	    return new DefaultMailAddress(from, "");
 	return null;
     }
 }

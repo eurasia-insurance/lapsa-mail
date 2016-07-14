@@ -6,19 +6,19 @@ import org.w3c.dom.Document;
 
 import com.lapsa.mail.MailMessageXMLPart;
 
-class MailMessageXMLPartImpl implements MailMessageXMLPart {
+class DefaultMailMessageXMLPart implements MailMessageXMLPart {
 
     private final Charset charset;
     private final Document doc;
     private final String contentId;
 
-    MailMessageXMLPartImpl(final Document doc, final Charset charset) {
+    DefaultMailMessageXMLPart(final Document doc, final Charset charset) {
 	this.doc = doc;
 	this.charset = charset;
 	contentId = null;
     }
 
-    MailMessageXMLPartImpl(final Document doc, final Charset charset, final String contentId) {
+    DefaultMailMessageXMLPart(final Document doc, final Charset charset, final String contentId) {
 	this.doc = doc;
 	this.charset = charset;
 	this.contentId = contentId;

@@ -29,7 +29,7 @@ import com.lapsa.mail.MailMessagePart;
 import com.lapsa.mail.MailSender;
 import com.lapsa.mail.MailService;
 
-class MailSenderImpl implements MailSender {
+class DefaultMailSender implements MailSender {
 
     private final Session session;
     private final MailService service;
@@ -43,7 +43,7 @@ class MailSenderImpl implements MailSender {
 
     private Transport transport;
 
-    MailSenderImpl(final MailService service, final Session session) {
+    DefaultMailSender(final MailService service, final Session session) {
 	this.session = session;
 	this.service = service;
 	logger = Logger.getLogger(this.getClass().getCanonicalName());

@@ -7,7 +7,7 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import com.lapsa.mail.MailAddress;
 
-class MailAddressImpl implements MailAddress, Serializable {
+class DefaultMailAddress implements MailAddress, Serializable {
     private static final long serialVersionUID = -4867263883521799488L;
     private static final int PRIME = 3;
     private static final int MULTIPLIER = 3;
@@ -15,12 +15,12 @@ class MailAddressImpl implements MailAddress, Serializable {
     private final String friendlyName;
     private final String smtpAddress;
 
-    MailAddressImpl(final String smtpAddress, final String friendlyName) {
+    DefaultMailAddress(final String smtpAddress, final String friendlyName) {
 	this.smtpAddress = smtpAddress;
 	this.friendlyName = friendlyName;
     }
 
-    MailAddressImpl(final String smtpAddress) {
+    DefaultMailAddress(final String smtpAddress) {
 	this.smtpAddress = smtpAddress;
 	friendlyName = null;
     }
@@ -38,7 +38,7 @@ class MailAddressImpl implements MailAddress, Serializable {
 	    return false;
 	if (other == this)
 	    return true;
-	final MailAddressImpl that = (MailAddressImpl) other;
+	final DefaultMailAddress that = (DefaultMailAddress) other;
 	return new EqualsBuilder()
 		.append(smtpAddress, that.smtpAddress)
 		.isEquals();

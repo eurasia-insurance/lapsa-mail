@@ -4,19 +4,19 @@ import java.nio.charset.Charset;
 
 import com.lapsa.mail.MailMessageTextPart;
 
-class MailMessageTextPartImpl implements MailMessageTextPart {
+class DefaultMailMessageTextPart implements MailMessageTextPart {
 
     private final String text;
     private final Charset charset;
     private final String contentId;
 
-    MailMessageTextPartImpl(final String text, final Charset charset, final String contentId) {
+    DefaultMailMessageTextPart(final String text, final Charset charset, final String contentId) {
 	this.text = text;
 	this.charset = charset;
 	this.contentId = contentId;
     }
 
-    MailMessageTextPartImpl(final String text, final Charset charset) {
+    DefaultMailMessageTextPart(final String text, final Charset charset) {
 	this.text = text;
 	this.charset = charset;
 	contentId = null;
