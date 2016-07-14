@@ -10,7 +10,7 @@ import javax.mail.util.ByteArrayDataSource;
 import com.lapsa.mail.MailMessageByteArrayPart;
 import com.lapsa.mail.MailMessagePart;
 
-class MailMessageByteArrayProvider implements MultiPartProvider {
+class MailMessageByteArrayMultiPartProvider implements MultiPartProvider {
 
     @Override
     public BodyPart getBodyPart(final MailMessagePart part) throws MessagingException {

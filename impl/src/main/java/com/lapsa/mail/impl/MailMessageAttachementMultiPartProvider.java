@@ -11,7 +11,7 @@ import javax.mail.util.ByteArrayDataSource;
 import com.lapsa.mail.MailMessageAttachementPart;
 import com.lapsa.mail.MailMessagePart;
 
-public class MailMessageAttachementPartProvider implements MultiPartProvider {
+public class MailMessageAttachementMultiPartProvider implements MultiPartProvider {
 
     @Override
     public BodyPart getBodyPart(final MailMessagePart part) throws MessagingException {

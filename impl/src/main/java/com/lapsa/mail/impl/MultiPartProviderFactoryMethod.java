@@ -12,19 +12,19 @@ import com.lapsa.mail.MailMessageXMLPart;
 abstract class MultiPartProviderFactoryMethod {
     static MultiPartProvider getProviderFor(final MailMessagePart part) {
 	if (part instanceof MailMessageFilePart)
-	    return new MailMessageFilePartProvider();
+	    return new MailMessageFilePartMultiPartProvider();
 	if (part instanceof MailMessageTextPart)
-	    return new MailMessageTextPartProvider();
+	    return new MailMessageTextPartMultiPartProvider();
 	if (part instanceof MailMessageHTMLPart)
-	    return new MailMessageHTMLPartProvider();
+	    return new MailMessageHTMLPartMultiPartProvider();
 	if (part instanceof MailMessageXMLPart)
-	    return new MailMessageXMLPartProvider();
+	    return new MailMessageXMLPartMultiPartProvider();
 	if (part instanceof MailMessageStreamPart)
-	    return new MailMessageStreamPartProvider();
+	    return new MailMessageStreamPartMultiPartProvider();
 	if (part instanceof MailMessageByteArrayPart)
-	    return new MailMessageByteArrayProvider();
+	    return new MailMessageByteArrayMultiPartProvider();
 	if (part instanceof MailMessageAttachementPart)
-	    return new MailMessageAttachementPartProvider();
+	    return new MailMessageAttachementMultiPartProvider();
 	return null;
     }
 }

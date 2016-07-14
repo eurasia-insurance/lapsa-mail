@@ -7,7 +7,7 @@ import javax.mail.internet.MimeBodyPart;
 import com.lapsa.mail.MailMessagePart;
 import com.lapsa.mail.MailMessageTextPart;
 
-class MailMessageTextPartProvider implements MultiPartProvider {
+class MailMessageTextPartMultiPartProvider implements MultiPartProvider {
     @Override
     public BodyPart getBodyPart(final MailMessagePart part) throws MessagingException {
 	final MimeBodyPart result = new MimeBodyPart();
