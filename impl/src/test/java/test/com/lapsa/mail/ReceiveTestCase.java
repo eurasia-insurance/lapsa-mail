@@ -21,7 +21,7 @@ public class ReceiveTestCase {
 
     @BeforeClass
     public static void prepareSession() {
-	session = MailSessionFactory.createSession();
+	session = MailSessionHelper.createDefaultSession();
     }
 
     @Test
@@ -55,7 +55,7 @@ public class ReceiveTestCase {
 	    throws MailException, InterruptedException, InvalidMessageException {
 	try (MailSender sender = mh.createSender()) {
 	    MailMessageBuilder b = mh.createBuilder();
-	    sender.send(b.createMessage(b.createAddress(MailSessionFactory.MAIL_TEST_TO_ADDRESS),
+	    sender.send(b.createMessage(b.createAddress(MailSessionHelper.MAIL_TEST_TO_ADDRESS),
 		    "Test for receive and clean"));
 	    Thread.sleep(2000);
 	}

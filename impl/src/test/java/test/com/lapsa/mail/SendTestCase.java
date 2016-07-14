@@ -1,6 +1,6 @@
 package test.com.lapsa.mail;
 
-import static test.com.lapsa.mail.MailSessionFactory.*;
+import static test.com.lapsa.mail.MailSessionHelper.*;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -30,7 +30,7 @@ public class SendTestCase {
 
     @BeforeClass
     public static void prepareSession() {
-	session = MailSessionFactory.createSession();
+	session = MailSessionHelper.createDefaultSession();
     }
 
     @Test(expected = InvalidMessageException.class)

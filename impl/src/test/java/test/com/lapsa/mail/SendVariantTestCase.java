@@ -1,6 +1,6 @@
 package test.com.lapsa.mail;
 
-import static test.com.lapsa.mail.MailSessionFactory.*;
+import static test.com.lapsa.mail.MailSessionHelper.*;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -29,7 +29,7 @@ public class SendVariantTestCase {
 
     @BeforeClass
     public static void prepareSession() {
-	session = MailSessionFactory.createSession();
+	session = MailSessionHelper.createDefaultSession();
     }
 
     @Test
