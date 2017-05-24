@@ -13,21 +13,21 @@ abstract class DefaultMailMessagePart implements MailMessagePart, MultiPartProvi
 	this.contentId = contentId;
     }
 
-    final void putContentId(final MimeBodyPart result, final String defaultContentId) throws MessagingException {
+    final void putContentId(final MimeBodyPart mimeBodyPart, final String defaultContentId) throws MessagingException {
 	if (contentId != null)
-	    _putContentId(result, contentId);
+	    _putContentId(mimeBodyPart, contentId);
 	else if (defaultContentId != null)
-	    _putContentId(result, defaultContentId);
+	    _putContentId(mimeBodyPart, defaultContentId);
     }
 
-    final void putContentId(final MimeBodyPart result) throws MessagingException {
-	putContentId(result, null);
+    final void putContentId(final MimeBodyPart mimeBodyPart) throws MessagingException {
+	putContentId(mimeBodyPart, null);
     }
 
     // PRIVATE
 
-    private static void _putContentId(final MimeBodyPart result, final String contentId) throws MessagingException {
-	result.setContentID(String.format("<%1$s>", contentId));
+    private static void _putContentId(final MimeBodyPart mimeBodyPart, final String contentId) throws MessagingException {
+	mimeBodyPart.setContentID(String.format("<%1$s>", contentId));
     }
 
 }
