@@ -11,7 +11,7 @@ import com.lapsa.mail.MailMessage;
 import com.lapsa.mail.MailMessageBuilder;
 import com.lapsa.mail.MailMessagePart;
 
-class DefaultMailMessage implements MailMessage {
+final class DefaultMailMessage implements MailMessage {
 
     private MailAddress from = null;
     private final Map<String, MailAddress> to = new HashMap<String, MailAddress>();

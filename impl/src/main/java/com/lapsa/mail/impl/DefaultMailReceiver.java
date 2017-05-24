@@ -16,7 +16,7 @@ import com.lapsa.mail.MailException;
 import com.lapsa.mail.MailReceiver;
 import com.lapsa.mail.MailService;
 
-class DefaultMailReceiver implements MailReceiver {
+final class DefaultMailReceiver implements MailReceiver {
 
     private final Session session;
     private final Logger logger;

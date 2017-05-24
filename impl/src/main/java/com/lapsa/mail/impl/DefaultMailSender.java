@@ -29,7 +29,7 @@ import com.lapsa.mail.MailMessagePart;
 import com.lapsa.mail.MailSender;
 import com.lapsa.mail.MailService;
 
-class DefaultMailSender implements MailSender {
+final class DefaultMailSender implements MailSender {
 
     private final Session session;
     private final MailService service;
@@ -107,9 +107,9 @@ class DefaultMailSender implements MailSender {
 		final MailMessagePart[] parts = message.getParts();
 
 		for (final MailMessagePart part : parts) {
-		    final MultiPartProvider provider = MultiPartProviderFactoryMethod.getProviderFor(part);
-		    if (provider != null) {
-			final BodyPart bodyPart = provider.getBodyPart(part);
+		    if (part instanceof MultiPartProvider) {
+			MultiPartProvider provider = (MultiPartProvider) part;
+			final BodyPart bodyPart = provider.getBodyPart();
 			multipart.addBodyPart(bodyPart);
 		    }
 		}

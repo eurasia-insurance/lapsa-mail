@@ -4,7 +4,7 @@ import javax.mail.Session;
 
 import com.lapsa.mail.MailService;
 
-class DefaultMailSerivce extends BaseMailService implements MailService {
+final class DefaultMailSerivce extends BaseMailService implements MailService {
 
     private final Session session;
 

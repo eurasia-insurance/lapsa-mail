@@ -25,7 +25,7 @@ import com.lapsa.mail.MailMessageTextPart;
 import com.lapsa.mail.MailMessageXMLPart;
 import com.lapsa.mail.MailService;
 
-public class DefaultMailMessageBuilder implements MailMessageBuilder {
+final class DefaultMailMessageBuilder implements MailMessageBuilder {
 
     DefaultMailMessageBuilder(final MailService mailService) {
     }

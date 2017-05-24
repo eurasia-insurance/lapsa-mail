@@ -7,7 +7,7 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import com.lapsa.mail.MailAddress;
 
-class DefaultMailAddress implements MailAddress, Serializable {
+final class DefaultMailAddress implements MailAddress, Serializable {
     private static final long serialVersionUID = -4867263883521799488L;
     private static final int PRIME = 3;
     private static final int MULTIPLIER = 3;
