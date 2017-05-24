@@ -5,19 +5,16 @@ import static test.com.lapsa.mail.MailSessionHelper.*;
 import java.io.IOException;
 import java.io.InputStream;
 
-import javax.mail.Session;
-
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 import com.lapsa.mail.InvalidMessageException;
 import com.lapsa.mail.MailException;
-import com.lapsa.mail.MailServiceFactory;
 import com.lapsa.mail.MailMessage;
 import com.lapsa.mail.MailMessageBuilder;
 import com.lapsa.mail.MailMessagePart;
 import com.lapsa.mail.MailSender;
 import com.lapsa.mail.MailService;
+import com.lapsa.mail.MailServiceFactory;
 
 public class SendVariantTestCase {
 
@@ -25,17 +22,10 @@ public class SendVariantTestCase {
     private static final String IMAGE_CONTENT_TYPE = "image/jpeg";
     private static final String IMAGE_RESOURCE_PATH = "/" + IMAGE_FILE_NAME;
 
-    private static Session session;
-
-    @BeforeClass
-    public static void prepareSession() {
-	session = MailSessionHelper.createDefaultSession();
-    }
-
     @Test
     public void testSendHtmlMessageWithImage_Inline() throws MailException, IOException, InvalidMessageException {
-	MailServiceFactory mf = MailServiceFactory.getDefaultInstance();
-	MailService ms = mf.createService(session);
+	MailServiceFactory mf = MailServiceFactory.getInstance();
+	MailService ms = mf.createService();
 
 	// builder & message
 	MailMessageBuilder builder = ms.createBuilder();
@@ -78,8 +68,8 @@ public class SendVariantTestCase {
 
     @Test
     public void testSendHtmlMessageWithImage_Attachement() throws MailException, IOException, InvalidMessageException {
-	MailServiceFactory mf = MailServiceFactory.getDefaultInstance();
-	MailService ms = mf.createService(session);
+	MailServiceFactory mf = MailServiceFactory.getInstance();
+	MailService ms = mf.createService();
 
 	// builder & message
 	MailMessageBuilder builder = ms.createBuilder();
@@ -121,8 +111,8 @@ public class SendVariantTestCase {
 
     @Test
     public void testSendException() throws MailException, IOException, InvalidMessageException {
-	MailServiceFactory mf = MailServiceFactory.getDefaultInstance();
-	MailService ms = mf.createService(session);
+	MailServiceFactory mf = MailServiceFactory.getInstance();
+	MailService ms = mf.createService();
 
 	// builder & message
 	MailMessageBuilder builder = ms.createBuilder();
