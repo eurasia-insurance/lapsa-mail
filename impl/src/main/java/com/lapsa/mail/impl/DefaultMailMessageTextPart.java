@@ -2,38 +2,33 @@ package com.lapsa.mail.impl;
 
 import java.nio.charset.Charset;
 
+import javax.mail.BodyPart;
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeBodyPart;
+
 import com.lapsa.mail.MailMessageTextPart;
 
-class DefaultMailMessageTextPart implements MailMessageTextPart {
+final class DefaultMailMessageTextPart extends DefaultMailMessagePart implements MailMessageTextPart {
 
-    private final String text;
-    private final Charset charset;
-    private final String contentId;
-
-    DefaultMailMessageTextPart(final String text, final Charset charset, final String contentId) {
-	this.text = text;
-	this.charset = charset;
-	this.contentId = contentId;
-    }
+    final String text;
+    final Charset charset;
 
     DefaultMailMessageTextPart(final String text, final Charset charset) {
+	this(text, charset, null);
+    }
+
+    DefaultMailMessageTextPart(final String text, final Charset charset, final String contentId) {
+	super(contentId);
 	this.text = text;
 	this.charset = charset;
-	contentId = null;
     }
 
     @Override
-    public String getText() {
-	return text;
-    }
-
-    @Override
-    public Charset getCharset() {
-	return charset;
-    }
-
-    @Override
-    public String getContentID() {
-	return contentId;
+    public BodyPart getBodyPart() throws MessagingException {
+	final MimeBodyPart result = new MimeBodyPart();
+	// result.setText(mmtp.getText(), "UTF-8", "plain");
+	result.setText(text, charset.name(), "plain");
+	putContentId(result);
+	return result;
     }
 }

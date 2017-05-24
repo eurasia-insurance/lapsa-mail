@@ -1,56 +1,57 @@
 package com.lapsa.mail.impl;
 
-import java.io.ByteArrayInputStream;
-import java.io.InputStream;
+import javax.activation.DataHandler;
+import javax.activation.DataSource;
+import javax.mail.BodyPart;
+import javax.mail.MessagingException;
+import javax.mail.Part;
+import javax.mail.internet.MimeBodyPart;
+import javax.mail.util.ByteArrayDataSource;
 
 import com.lapsa.mail.AttachementType;
 import com.lapsa.mail.MailMessageAttachementPart;
 
-class DefaultMailMessageAttachementPart implements MailMessageAttachementPart {
+final class DefaultMailMessageAttachementPart extends DefaultMailMessagePart
+	implements MailMessageAttachementPart, MultiPartProvider {
 
-    private final String contentType;
-    private final String fileName;
-    private final String contentId;
-    private final byte[] bytes;
+    final String contentType;
+    final String fileName;
+    final byte[] bytes;
+    final AttachementType type;
 
-    private final AttachementType type;
+    DefaultMailMessageAttachementPart(final String contentType, final byte[] bytes, final String fileName,
+	    final AttachementType type) {
+	this(contentType, bytes, fileName, null, type);
+    }
 
     DefaultMailMessageAttachementPart(final String contentType, final byte[] bytes, final String fileName,
 	    final String contentId, final AttachementType type) {
+	super(contentId);
 	this.contentType = contentType;
 	this.fileName = fileName;
-	this.contentId = contentId;
 	this.bytes = bytes;
 	this.type = type;
     }
 
     @Override
-    public String getContentID() {
-	return contentId;
-    }
+    public BodyPart getBodyPart() throws MessagingException {
+	final MimeBodyPart result = new MimeBodyPart();
+	final DataSource source = new ByteArrayDataSource(bytes.clone(), contentType);
+	final DataHandler dh = new DataHandler(source);
+	result.setDataHandler(dh);
+	result.setFileName(fileName);
 
-    @Override
-    public String getContentType() {
-	return contentType;
-    }
+	putContentId(result, fileName);
 
-    @Override
-    public InputStream getNewContentsInputStream() {
-	return new ByteArrayInputStream(bytes);
-    }
-
-    @Override
-    public String getAttachementFileName() {
-	return fileName;
-    }
-
-    @Override
-    public byte[] getContents() {
-	return bytes.clone();
-    }
-
-    @Override
-    public AttachementType getType() {
-	return type;
+	switch (type) {
+	case INLINE:
+	    result.setDisposition(Part.INLINE);
+	    break;
+	case ATTACHEMENT:
+	default:
+	    result.setDisposition(Part.ATTACHMENT);
+	    break;
+	}
+	return result;
     }
 }

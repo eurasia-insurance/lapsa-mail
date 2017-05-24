@@ -5,14 +5,20 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
+import javax.activation.DataHandler;
+import javax.activation.DataSource;
+import javax.mail.BodyPart;
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeBodyPart;
+import javax.mail.util.ByteArrayDataSource;
+
 import com.lapsa.mail.MailMessageStreamPart;
 
-class DefaultMailMessageStreamPart implements MailMessageStreamPart {
+final class DefaultMailMessageStreamPart extends DefaultMailMessagePart implements MailMessageStreamPart {
 
-    private final InputStream inputStream;
-    private final String contentType;
-    private final String name;
-    private final String contentId;
+    final InputStream inputStream;
+    final String contentType;
+    final String name;
 
     DefaultMailMessageStreamPart(final String name, final String contentType, final InputStream inputStream,
 	    final String contentId)
@@ -33,9 +39,9 @@ class DefaultMailMessageStreamPart implements MailMessageStreamPart {
     DefaultMailMessageStreamPart(final String name, final String contentType, final InputStream inputStream,
 	    final boolean readImmediately,
 	    final String contentId) throws IOException {
+	super(contentId);
 	this.name = name;
 	this.contentType = contentType;
-	this.contentId = contentId;
 	if (readImmediately) {
 	    final ByteArrayOutputStream bais = new ByteArrayOutputStream();
 	    int readed = -1;
@@ -48,23 +54,19 @@ class DefaultMailMessageStreamPart implements MailMessageStreamPart {
     }
 
     @Override
-    public InputStream getInputStream() throws IOException {
-	return inputStream;
-    }
+    public BodyPart getBodyPart() throws MessagingException {
+	final MimeBodyPart result = new MimeBodyPart();
 
-    @Override
-    public String getContentType() {
-	return contentType;
+	try (InputStream is = inputStream) {
+	    final DataSource source = new ByteArrayDataSource(is, contentType);
+	    final DataHandler dh = new DataHandler(source);
+	    result.setDataHandler(dh);
+	    if (name != null)
+		result.setFileName(name);
+	    putContentId(result);
+	    return result;
+	} catch (final IOException e) {
+	    throw new MessagingException(e.getMessage(), e);
+	}
     }
-
-    @Override
-    public String getName() {
-	return name;
-    }
-
-    @Override
-    public String getContentID() {
-	return contentId;
-    }
-
 }
