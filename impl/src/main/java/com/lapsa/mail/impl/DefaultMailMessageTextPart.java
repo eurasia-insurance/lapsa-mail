@@ -9,6 +9,7 @@ import javax.mail.internet.MimeBodyPart;
 import com.lapsa.mail.MailMessageTextPart;
 
 final class DefaultMailMessageTextPart extends AMailMessagePart implements MailMessageTextPart {
+    private static final long serialVersionUID = 1307985859507746378L;
 
     final String text;
     final Charset charset;

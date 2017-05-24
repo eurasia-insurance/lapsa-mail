@@ -35,26 +35,30 @@ final class DefaultMailSender implements MailSender {
     private transient Transport transport;
 
     private MailAddress bccAddress;
-    private boolean alwaysBlindCopy = false;
+    private boolean alwaysBlindCopy;
 
     private MailAddress forceMailAddress;
-    private boolean alwaysForceMail = false;
+    private boolean alwaysForceMail;
 
     DefaultMailSender(final DefaultMailService service) {
 	this.service = service;
-	logger = Logger.getLogger(this.getClass().getCanonicalName());
+	this.logger = Logger.getLogger(this.getClass().getCanonicalName());
+
 	if (service.session.getProperty(MAIL_BCC) != null)
 	    try {
-		bccAddress = service.createBuilder().createAddress(service.session.getProperty(MAIL_BCC));
-		alwaysBlindCopy = true;
+		this.bccAddress = service.createBuilder().createAddress(service.session.getProperty(MAIL_BCC));
+		this.alwaysBlindCopy = true;
 	    } catch (final MailException ignored) {
 	    }
+
 	if (service.session.getProperty(MAIL_FORCETO) != null)
 	    try {
-		forceMailAddress = service.createBuilder().createAddress(service.session.getProperty(MAIL_FORCETO));
-		alwaysForceMail = true;
+		this.forceMailAddress = service.createBuilder()
+			.createAddress(service.session.getProperty(MAIL_FORCETO));
+		this.alwaysForceMail = true;
 	    } catch (final MailException ignored) {
 	    }
+
     }
 
     private JobForTransport buildJobForTransport(final MailMessage message)
@@ -247,8 +251,8 @@ final class DefaultMailSender implements MailSender {
 
 class JobForTransport {
 
-    MimeMessage msg;
-    Address[] adrs;
+    final MimeMessage msg;
+    final Address[] adrs;
 
     public JobForTransport(final MimeMessage msg, final Address[] adrs) {
 	this.msg = msg;

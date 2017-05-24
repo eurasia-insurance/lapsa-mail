@@ -1,11 +1,17 @@
 package com.lapsa.mail.impl;
 
+import java.io.Serializable;
+
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeBodyPart;
 
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+
 import com.lapsa.mail.MailMessagePart;
 
-abstract class AMailMessagePart implements MailMessagePart, MultiPartProvider {
+abstract class AMailMessagePart implements MailMessagePart, MultiPartProvider, Serializable {
+    private static final long serialVersionUID = -2790508720253272737L;
 
     final transient DefaultMailService service;
 
@@ -14,6 +20,16 @@ abstract class AMailMessagePart implements MailMessagePart, MultiPartProvider {
     AMailMessagePart(final DefaultMailService service, final String contentId) {
 	this.service = service;
 	this.contentId = contentId;
+    }
+
+    @Override
+    public int hashCode() {
+	return HashCodeBuilder.reflectionHashCode(this, false);
+    }
+
+    @Override
+    public boolean equals(final Object other) {
+	return EqualsBuilder.reflectionEquals(this, other, false);
     }
 
     final void putContentId(final MimeBodyPart mimeBodyPart, final String defaultContentId) throws MessagingException {

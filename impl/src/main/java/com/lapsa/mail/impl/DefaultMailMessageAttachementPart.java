@@ -12,6 +12,7 @@ import com.lapsa.mail.AttachementType;
 import com.lapsa.mail.MailMessageAttachementPart;
 
 final class DefaultMailMessageAttachementPart extends AMailMessagePart implements MailMessageAttachementPart {
+    private static final long serialVersionUID = -918478604594999916L;
 
     final String contentType;
     final String fileName;

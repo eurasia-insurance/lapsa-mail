@@ -15,6 +15,7 @@ import javax.mail.util.ByteArrayDataSource;
 import com.lapsa.mail.MailMessageStreamPart;
 
 final class DefaultMailMessageStreamPart extends AMailMessagePart implements MailMessageStreamPart {
+    private static final long serialVersionUID = -4401483237794473011L;
 
     final transient InputStream inputStream;
     final String contentType;

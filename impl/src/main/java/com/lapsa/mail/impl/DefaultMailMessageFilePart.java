@@ -10,6 +10,7 @@ import javax.mail.internet.MimeBodyPart;
 import com.lapsa.mail.MailMessageFilePart;
 
 final class DefaultMailMessageFilePart extends AMailMessagePart implements MailMessageFilePart {
+    private static final long serialVersionUID = 4611441096903782036L;
 
     final File file;
     final String contentId;

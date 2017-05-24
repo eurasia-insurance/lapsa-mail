@@ -10,6 +10,7 @@ import javax.mail.util.ByteArrayDataSource;
 import com.lapsa.mail.MailMessageByteArrayPart;
 
 final class DefaultMailMessageByteArrayPart extends AMailMessagePart implements MailMessageByteArrayPart {
+    private static final long serialVersionUID = -6121847538061202388L;
 
     final String name;
     final String contentType;
