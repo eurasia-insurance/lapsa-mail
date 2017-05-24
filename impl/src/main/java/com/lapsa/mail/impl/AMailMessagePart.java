@@ -5,11 +5,11 @@ import javax.mail.internet.MimeBodyPart;
 
 import com.lapsa.mail.MailMessagePart;
 
-abstract class DefaultMailMessagePart implements MailMessagePart, MultiPartProvider {
+abstract class AMailMessagePart implements MailMessagePart, MultiPartProvider {
 
     final String contentId;
 
-    DefaultMailMessagePart(String contentId) {
+    AMailMessagePart(String contentId) {
 	this.contentId = contentId;
     }
 

@@ -14,7 +14,7 @@ import javax.mail.util.ByteArrayDataSource;
 
 import com.lapsa.mail.MailMessageStreamPart;
 
-final class DefaultMailMessageStreamPart extends DefaultMailMessagePart implements MailMessageStreamPart {
+final class DefaultMailMessageStreamPart extends AMailMessagePart implements MailMessageStreamPart {
 
     final InputStream inputStream;
     final String contentType;

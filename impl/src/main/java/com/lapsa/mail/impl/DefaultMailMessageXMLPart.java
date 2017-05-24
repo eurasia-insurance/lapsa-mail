@@ -11,7 +11,7 @@ import org.w3c.dom.Document;
 
 import com.lapsa.mail.MailMessageXMLPart;
 
-final class DefaultMailMessageXMLPart extends DefaultMailMessagePart implements MailMessageXMLPart {
+final class DefaultMailMessageXMLPart extends AMailMessagePart implements MailMessageXMLPart {
 
     final Charset charset;
     final Document doc;

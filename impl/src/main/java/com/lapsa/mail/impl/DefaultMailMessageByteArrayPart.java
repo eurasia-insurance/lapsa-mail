@@ -9,7 +9,7 @@ import javax.mail.util.ByteArrayDataSource;
 
 import com.lapsa.mail.MailMessageByteArrayPart;
 
-final class DefaultMailMessageByteArrayPart extends DefaultMailMessagePart
+final class DefaultMailMessageByteArrayPart extends AMailMessagePart
 	implements MailMessageByteArrayPart, MultiPartProvider {
 
     final String name;

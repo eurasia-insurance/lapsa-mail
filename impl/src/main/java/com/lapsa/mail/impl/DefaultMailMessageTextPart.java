@@ -8,7 +8,7 @@ import javax.mail.internet.MimeBodyPart;
 
 import com.lapsa.mail.MailMessageTextPart;
 
-final class DefaultMailMessageTextPart extends DefaultMailMessagePart implements MailMessageTextPart {
+final class DefaultMailMessageTextPart extends AMailMessagePart implements MailMessageTextPart {
 
     final String text;
     final Charset charset;
