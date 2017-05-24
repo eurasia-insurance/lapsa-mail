@@ -7,6 +7,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import com.lapsa.mail.InvalidMessageException;
@@ -23,12 +24,19 @@ public class SendTestCase {
     private static final String PATH_TO_TEST_RESOURCE = "policy_sample.jpg";
     private static final String PATH_TO_TEST_FILE = "src/test/resources/policy_sample.jpg";
 
+    private MailServiceFactory factory;
+    private MailService service;
+
+    @Before
+    public void prepareSession() throws MailException {
+	factory = MailServiceFactory.getInstance();
+	service = factory.createService(MailSessionHelper.createDefaultProperties());
+    }
+
     @Test(expected = InvalidMessageException.class)
     public void testEmptyRecipientsException() throws MailException, InvalidMessageException {
-	MailServiceFactory mhf = MailServiceFactory.getInstance();
-	MailService mh = mhf.createService();
-	try (MailSender sender = mh.createSender()) {
-	    MailMessageBuilder mmb = mh.createBuilder();
+	try (MailSender sender = service.createSender()) {
+	    MailMessageBuilder mmb = service.createBuilder();
 	    MailMessage message = mmb.createMessage();
 	    MailMessagePart part = mmb.createTextPart("Test message");
 	    message.addPart(part);
@@ -39,10 +47,8 @@ public class SendTestCase {
 
     @Test
     public void testEmptyBody() throws MailException, InvalidMessageException {
-	MailServiceFactory mhf = MailServiceFactory.getInstance();
-	MailService mh = mhf.createService();
-	try (MailSender sender = mh.createSender()) {
-	    MailMessageBuilder mmb = mh.createBuilder();
+	try (MailSender sender = service.createSender()) {
+	    MailMessageBuilder mmb = service.createBuilder();
 	    MailMessage message = mmb.createMessage();
 	    message.addTORecipient(mmb.createAddress(MAIL_TEST_RECIPIENT_ADDRESS));
 	    message.setSubject("testEmptyBody()");
@@ -52,10 +58,8 @@ public class SendTestCase {
 
     @Test
     public void testSend() throws MailException, InvalidMessageException {
-	MailServiceFactory mhf = MailServiceFactory.getInstance();
-	MailService mh = mhf.createService();
-	try (MailSender sender = mh.createSender()) {
-	    MailMessageBuilder mmb = mh.createBuilder();
+	try (MailSender sender = service.createSender()) {
+	    MailMessageBuilder mmb = service.createBuilder();
 	    MailMessage message = mmb.createMessage();
 	    message.addTORecipient(mmb.createAddress(MAIL_TEST_RECIPIENT_ADDRESS));
 	    message.setSubject("testSend()");
@@ -66,10 +70,8 @@ public class SendTestCase {
 
     @Test
     public void testSendAlwaysCopyTo() throws MailException, InvalidMessageException {
-	MailServiceFactory mhf = MailServiceFactory.getInstance();
-	MailService mh = mhf.createService();
-	try (MailSender sender = mh.createSender()) {
-	    MailMessageBuilder mmb = mh.createBuilder();
+	try (MailSender sender = service.createSender()) {
+	    MailMessageBuilder mmb = service.createBuilder();
 	    MailMessage message = mmb.createMessage();
 	    message.addTORecipient(mmb.createAddress(MAIL_TEST_RECIPIENT_ADDRESS));
 	    message.setSubject("testSendAlwaysCopyTo()");
@@ -81,10 +83,8 @@ public class SendTestCase {
 
     @Test
     public void testSendImage_InputStream() throws MailException, IOException, InvalidMessageException {
-	MailServiceFactory mf = MailServiceFactory.getInstance();
-	MailService ms = mf.createService();
-	try (MailSender sender = ms.createSender(); InputStream is = testFileInputStream()) {
-	    MailMessageBuilder builder = ms.createBuilder();
+	try (MailSender sender = service.createSender(); InputStream is = testFileInputStream()) {
+	    MailMessageBuilder builder = service.createBuilder();
 	    MailMessage message = builder.createMessage();
 	    message.addTORecipient(builder.createAddress(MAIL_TEST_RECIPIENT_ADDRESS));
 	    message.setSubject("testSendImage_InputStream()");
@@ -95,10 +95,8 @@ public class SendTestCase {
 
     @Test
     public void testSendImage_File() throws MailException, IOException, InvalidMessageException {
-	MailServiceFactory mf = MailServiceFactory.getInstance();
-	MailService ms = mf.createService();
-	try (MailSender sender = ms.createSender()) {
-	    MailMessageBuilder builder = ms.createBuilder();
+	try (MailSender sender = service.createSender()) {
+	    MailMessageBuilder builder = service.createBuilder();
 	    MailMessage message = builder.createMessage();
 	    message.addTORecipient(builder.createAddress(MAIL_TEST_RECIPIENT_ADDRESS));
 	    message.setSubject("testSendImage_File");
@@ -110,10 +108,8 @@ public class SendTestCase {
 
     @Test
     public void testSendImage_Bytes() throws MailException, IOException, InvalidMessageException {
-	MailServiceFactory mf = MailServiceFactory.getInstance();
-	MailService ms = mf.createService();
-	try (MailSender sender = ms.createSender()) {
-	    MailMessageBuilder builder = ms.createBuilder();
+	try (MailSender sender = service.createSender()) {
+	    MailMessageBuilder builder = service.createBuilder();
 	    MailMessage message = builder.createMessage();
 	    message.addTORecipient(builder.createAddress(MAIL_TEST_RECIPIENT_ADDRESS));
 	    message.setSubject("testSendImage_Bytes");

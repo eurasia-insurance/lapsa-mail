@@ -2,6 +2,7 @@ package test.com.lapsa.mail;
 
 import static org.junit.Assert.*;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import com.lapsa.mail.InvalidMessageException;
@@ -14,12 +15,19 @@ import com.lapsa.mail.MailServiceFactory;
 
 public class ReceiveTestCase {
 
+    private MailServiceFactory factory;
+    private MailService service;
+
+    @Before
+    public void prepareSession() throws MailException {
+	factory = MailServiceFactory.getInstance();
+	service = factory.createService(MailSessionHelper.createDefaultProperties());
+    }
+
     @Test
     public void testHasMessages() throws MailException, InvalidMessageException, InterruptedException {
-	MailServiceFactory mhf = MailServiceFactory.getInstance();
-	MailService mh = mhf.createService();
-	sendOneMessageForTestPurposes(mh);
-	try (MailReceiver receiver = mh.createReceiver()) {
+	sendOneMessageForTestPurposes();
+	try (MailReceiver receiver = service.createReceiver()) {
 	    boolean hasMessages = receiver.hasMessages();
 	    assertTrue(hasMessages);
 	}
@@ -27,10 +35,8 @@ public class ReceiveTestCase {
 
     @Test
     public void testClearMessages() throws MailException, InterruptedException, InvalidMessageException {
-	MailServiceFactory mhf = MailServiceFactory.getInstance();
-	MailService mh = mhf.createService();
-	sendOneMessageForTestPurposes(mh);
-	try (MailReceiver receiver = mh.createReceiver()) {
+	sendOneMessageForTestPurposes();
+	try (MailReceiver receiver = service.createReceiver()) {
 	    boolean hasMessages = receiver.hasMessages();
 	    if (hasMessages) {
 		receiver.сlearMessages();
@@ -41,10 +47,10 @@ public class ReceiveTestCase {
 	}
     }
 
-    private void sendOneMessageForTestPurposes(MailService mh)
+    private void sendOneMessageForTestPurposes()
 	    throws MailException, InterruptedException, InvalidMessageException {
-	try (MailSender sender = mh.createSender()) {
-	    MailMessageBuilder b = mh.createBuilder();
+	try (MailSender sender = service.createSender()) {
+	    MailMessageBuilder b = service.createBuilder();
 	    sender.send(b.createMessage(b.createAddress(MailSessionHelper.MAIL_TEST_TO_ADDRESS),
 		    "Test for receive and clean"));
 	    Thread.sleep(2000);

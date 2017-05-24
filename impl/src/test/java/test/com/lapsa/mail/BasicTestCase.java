@@ -2,6 +2,7 @@ package test.com.lapsa.mail;
 
 import static org.junit.Assert.*;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import com.lapsa.mail.MailException;
@@ -12,32 +13,35 @@ import com.lapsa.mail.MailServiceFactory;
 
 public class BasicTestCase {
 
+    private MailServiceFactory factory;
+    private MailService service;
+
+    @Before
+    public void prepareSession() throws MailException {
+	factory = MailServiceFactory.getInstance();
+	if (factory != null)
+	    service = factory.createService(MailSessionHelper.createDefaultProperties());
+    }
+
     @Test
     public void testCreateFactory() throws MailException {
-	MailServiceFactory mhf = MailServiceFactory.getInstance();
-	assertNotNull(mhf);
+	assertNotNull(factory);
     }
 
     @Test
     public void testCreateService() throws MailException {
-	MailServiceFactory mhf = MailServiceFactory.getInstance();
-	MailService mh = mhf.createService();
-	assertNotNull(mh);
+	assertNotNull(service);
     }
 
     @Test
     public void testCreateSender() throws MailException {
-	MailServiceFactory mhf = MailServiceFactory.getInstance();
-	MailService mh = mhf.createService();
-	MailSender ms = mh.createSender();
+	MailSender ms = service.createSender();
 	assertNotNull(ms);
     }
 
     @Test
     public void testCreateBuilder() throws MailException {
-	MailServiceFactory mhf = MailServiceFactory.getInstance();
-	MailService mh = mhf.createService();
-	MailMessageBuilder mmb = mh.createBuilder();
+	MailMessageBuilder mmb = service.createBuilder();
 	assertNotNull(mmb);
     }
 }

@@ -5,6 +5,7 @@ import static test.com.lapsa.mail.MailSessionHelper.*;
 import java.io.IOException;
 import java.io.InputStream;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import com.lapsa.mail.InvalidMessageException;
@@ -22,13 +23,20 @@ public class SendVariantTestCase {
     private static final String IMAGE_CONTENT_TYPE = "image/jpeg";
     private static final String IMAGE_RESOURCE_PATH = "/" + IMAGE_FILE_NAME;
 
+    private MailServiceFactory factory;
+    private MailService service;
+
+    @Before
+    public void prepareSession() throws MailException {
+	factory = MailServiceFactory.getInstance();
+	service = factory.createService(MailSessionHelper.createDefaultProperties());
+    }
+
     @Test
     public void testSendHtmlMessageWithImage_Inline() throws MailException, IOException, InvalidMessageException {
-	MailServiceFactory mf = MailServiceFactory.getInstance();
-	MailService ms = mf.createService();
 
 	// builder & message
-	MailMessageBuilder builder = ms.createBuilder();
+	MailMessageBuilder builder = service.createBuilder();
 
 	MailMessage message = builder.createMessage();
 
@@ -61,18 +69,16 @@ public class SendVariantTestCase {
 	}
 
 	// send
-	try (MailSender sender = ms.createSender()) {
+	try (MailSender sender = service.createSender()) {
 	    sender.send(message);
 	}
     }
 
     @Test
     public void testSendHtmlMessageWithImage_Attachement() throws MailException, IOException, InvalidMessageException {
-	MailServiceFactory mf = MailServiceFactory.getInstance();
-	MailService ms = mf.createService();
 
 	// builder & message
-	MailMessageBuilder builder = ms.createBuilder();
+	MailMessageBuilder builder = service.createBuilder();
 
 	MailMessage message = builder.createMessage();
 
@@ -104,18 +110,16 @@ public class SendVariantTestCase {
 	}
 
 	// send
-	try (MailSender sender = ms.createSender()) {
+	try (MailSender sender = service.createSender()) {
 	    sender.send(message);
 	}
     }
 
     @Test
     public void testSendException() throws MailException, IOException, InvalidMessageException {
-	MailServiceFactory mf = MailServiceFactory.getInstance();
-	MailService ms = mf.createService();
 
 	// builder & message
-	MailMessageBuilder builder = ms.createBuilder();
+	MailMessageBuilder builder = service.createBuilder();
 
 	MailMessage message = builder.createMessage();
 
@@ -133,7 +137,7 @@ public class SendVariantTestCase {
 	}
 
 	// send
-	try (MailSender sender = ms.createSender()) {
+	try (MailSender sender = service.createSender()) {
 	    sender.send(message);
 	}
     }

@@ -6,6 +6,8 @@ import javax.mail.Authenticator;
 import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
 
+import com.lapsa.mail.impl.MailSessionCustomProperties;
+
 public class MailSessionHelper {
 
     public static final boolean MAIL_DEBUG = true;
@@ -59,6 +61,10 @@ public class MailSessionHelper {
 	prop.put("mail." + MAIL_STORE_PROTOCOL + ".host", MAIL_STORE_HOST);
 	prop.put("mail." + MAIL_STORE_PROTOCOL + ".port", MAIL_STORE_PORT);
 	prop.put("mail." + MAIL_STORE_PROTOCOL + ".starttls.enable", MAIL_STORE_TLS);
+
+	prop.put(MailSessionCustomProperties.MAIL_USER, MAIL_TEST_USER);
+	prop.put(MailSessionCustomProperties.MAIL_PASSWORD, MAIL_TEST_PASSWORD);
+	prop.put(MailSessionCustomProperties.MAIL_AUTHENTIFICATOR_OBJECT, createDefaultAuthenticator());
 
 	return prop;
     }
