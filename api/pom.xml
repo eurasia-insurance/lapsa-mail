@@ -12,13 +12,4 @@
 
 	<name>Mail Lib : API</name>
 
-	<dependencies>
-		<!-- test -->
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<scope>test</scope>
-		</dependency>
-	</dependencies>
-
 </project>
