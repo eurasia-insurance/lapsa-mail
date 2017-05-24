@@ -13,12 +13,13 @@ final class DefaultMailMessageTextPart extends AMailMessagePart implements MailM
     final String text;
     final Charset charset;
 
-    DefaultMailMessageTextPart(final String text, final Charset charset) {
-	this(text, charset, null);
+    DefaultMailMessageTextPart(final DefaultMailService service, final String text, final Charset charset) {
+	this(service, text, charset, null);
     }
 
-    DefaultMailMessageTextPart(final String text, final Charset charset, final String contentId) {
-	super(contentId);
+    DefaultMailMessageTextPart(final DefaultMailService service, final String text, final Charset charset,
+	    final String contentId) {
+	super(service, contentId);
 	this.text = text;
 	this.charset = charset;
     }

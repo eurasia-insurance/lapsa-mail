@@ -13,6 +13,8 @@ import com.lapsa.mail.MailMessagePart;
 
 final class DefaultMailMessage implements MailMessage {
 
+    final transient DefaultMailService service;
+
     private MailAddress from = null;
     private final Map<String, MailAddress> to = new HashMap<String, MailAddress>();
     private final Map<String, MailAddress> cc = new HashMap<String, MailAddress>();
@@ -21,7 +23,8 @@ final class DefaultMailMessage implements MailMessage {
     private String subject = null;
     private Charset charset = MailMessageBuilder.DEFAULT_CHARSET;
 
-    DefaultMailMessage() {
+    DefaultMailMessage(final DefaultMailService service) {
+	this.service = service;
     }
 
     @Override

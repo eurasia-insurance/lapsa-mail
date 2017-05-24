@@ -15,13 +15,15 @@ final class DefaultMailMessageByteArrayPart extends AMailMessagePart implements 
     final String contentType;
     final byte[] bytes;
 
-    DefaultMailMessageByteArrayPart(final String name, final String contentType, final byte[] bytes) {
-	this(name, contentType, bytes, null);
+    DefaultMailMessageByteArrayPart(final DefaultMailService service, final String name, final String contentType,
+	    final byte[] bytes) {
+	this(service, name, contentType, bytes, null);
     }
 
-    DefaultMailMessageByteArrayPart(final String name, final String contentType, final byte[] bytes,
+    DefaultMailMessageByteArrayPart(final DefaultMailService service, final String name, final String contentType,
+	    final byte[] bytes,
 	    final String contentId) {
-	super(contentId);
+	super(service, contentId);
 	this.name = name;
 	this.contentType = contentType;
 	this.bytes = bytes;

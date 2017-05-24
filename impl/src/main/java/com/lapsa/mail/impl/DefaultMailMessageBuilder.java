@@ -23,11 +23,13 @@ import com.lapsa.mail.MailMessageHTMLPart;
 import com.lapsa.mail.MailMessageStreamPart;
 import com.lapsa.mail.MailMessageTextPart;
 import com.lapsa.mail.MailMessageXMLPart;
-import com.lapsa.mail.MailService;
 
 final class DefaultMailMessageBuilder implements MailMessageBuilder {
 
-    DefaultMailMessageBuilder(final MailService mailService) {
+    final transient DefaultMailService service;
+
+    DefaultMailMessageBuilder(final DefaultMailService service) {
+	this.service = service;
     }
 
     /*
@@ -35,12 +37,12 @@ final class DefaultMailMessageBuilder implements MailMessageBuilder {
      */
     @Override
     public MailAddress createAddress(final String eMail) throws MailException {
-	return new DefaultMailAddress(eMail, "");
+	return new DefaultMailAddress(service, eMail, "");
     }
 
     @Override
     public MailAddress createAddress(final String smtpAddress, final String friendlyName) throws MailException {
-	return new DefaultMailAddress(smtpAddress, friendlyName);
+	return new DefaultMailAddress(service, smtpAddress, friendlyName);
     }
 
     /*
@@ -76,7 +78,7 @@ final class DefaultMailMessageBuilder implements MailMessageBuilder {
     public MailMessage createMessage(final MailAddress from, final MailAddress to, final String subject,
 	    final Charset charset)
 	    throws MailException {
-	final MailMessage mm = new DefaultMailMessage();
+	final MailMessage mm = new DefaultMailMessage(service);
 	if (from != null)
 	    mm.setFrom(from);
 	if (to != null)
@@ -104,23 +106,23 @@ final class DefaultMailMessageBuilder implements MailMessageBuilder {
      */
     @Override
     public MailMessageTextPart createTextPart(final String text) throws MailException {
-	return new DefaultMailMessageTextPart(text, Charset.defaultCharset());
+	return new DefaultMailMessageTextPart(service, text, Charset.defaultCharset());
     }
 
     @Override
     public MailMessageTextPart createTextPart(final String text, final String contentId) throws MailException {
-	return new DefaultMailMessageTextPart(text, Charset.defaultCharset(), contentId);
+	return new DefaultMailMessageTextPart(service, text, Charset.defaultCharset(), contentId);
     }
 
     @Override
     public MailMessageTextPart createTextPart(final String text, final Charset charset) throws MailException {
-	return new DefaultMailMessageTextPart(text, charset);
+	return new DefaultMailMessageTextPart(service, text, charset);
     }
 
     @Override
     public MailMessageTextPart createTextPart(final String text, final Charset charset, final String contentId)
 	    throws MailException {
-	return new DefaultMailMessageTextPart(text, charset, contentId);
+	return new DefaultMailMessageTextPart(service, text, charset, contentId);
     }
 
     @Override
@@ -144,23 +146,23 @@ final class DefaultMailMessageBuilder implements MailMessageBuilder {
      */
     @Override
     public MailMessageHTMLPart createHTMLPart(final String html) throws MailException {
-	return new DefaultMailMessageHTMLPart(html, Charset.defaultCharset());
+	return new DefaultMailMessageHTMLPart(service, html, Charset.defaultCharset());
     }
 
     @Override
     public MailMessageHTMLPart createHTMLPart(final String html, final String contentId) throws MailException {
-	return new DefaultMailMessageHTMLPart(html, Charset.defaultCharset(), contentId);
+	return new DefaultMailMessageHTMLPart(service, html, Charset.defaultCharset(), contentId);
     }
 
     @Override
     public MailMessageHTMLPart createHTMLPart(final String html, final Charset charset) throws MailException {
-	return new DefaultMailMessageHTMLPart(html, charset);
+	return new DefaultMailMessageHTMLPart(service, html, charset);
     }
 
     @Override
     public MailMessageHTMLPart createHTMLPart(final String html, final Charset charset, final String contentId)
 	    throws MailException {
-	return new DefaultMailMessageHTMLPart(html, charset, contentId);
+	return new DefaultMailMessageHTMLPart(service, html, charset, contentId);
     }
 
     /*
@@ -168,23 +170,23 @@ final class DefaultMailMessageBuilder implements MailMessageBuilder {
      */
     @Override
     public MailMessageXMLPart createXMLPart(final Document doc) throws MailException {
-	return new DefaultMailMessageXMLPart(doc, Charset.defaultCharset());
+	return new DefaultMailMessageXMLPart(service, doc, Charset.defaultCharset());
     }
 
     @Override
     public MailMessageXMLPart createXMLPart(final Document doc, final String contentId) throws MailException {
-	return new DefaultMailMessageXMLPart(doc, Charset.defaultCharset(), contentId);
+	return new DefaultMailMessageXMLPart(service, doc, Charset.defaultCharset(), contentId);
     }
 
     @Override
     public MailMessageXMLPart createXMLPart(final Document doc, final Charset charset) throws MailException {
-	return new DefaultMailMessageXMLPart(doc, charset);
+	return new DefaultMailMessageXMLPart(service, doc, charset);
     }
 
     @Override
     public MailMessageXMLPart createXMLPart(final Document doc, final Charset charset, final String contentId)
 	    throws MailException {
-	return new DefaultMailMessageXMLPart(doc, charset, contentId);
+	return new DefaultMailMessageXMLPart(service, doc, charset, contentId);
     }
 
     /*
@@ -193,12 +195,12 @@ final class DefaultMailMessageBuilder implements MailMessageBuilder {
 
     @Override
     public MailMessageFilePart createFilePart(final File file) throws MailException {
-	return new DefaultMailMessageFilePart(file);
+	return new DefaultMailMessageFilePart(service, file);
     }
 
     @Override
     public MailMessageFilePart createFilePart(final File file, final String contentId) throws MailException {
-	return new DefaultMailMessageFilePart(file, contentId);
+	return new DefaultMailMessageFilePart(service, file, contentId);
     }
 
     /*
@@ -208,28 +210,28 @@ final class DefaultMailMessageBuilder implements MailMessageBuilder {
     public MailMessageStreamPart createStreamPart(final String name, final String contentType,
 	    final InputStream inputStream)
 	    throws MailException, IOException {
-	return new DefaultMailMessageStreamPart(name, contentType, inputStream);
+	return new DefaultMailMessageStreamPart(service, name, contentType, inputStream);
     }
 
     @Override
     public MailMessageStreamPart createStreamPart(final String name, final String contentType,
 	    final InputStream inputStream,
 	    final boolean readImmediately) throws MailException, IOException {
-	return new DefaultMailMessageStreamPart(name, contentType, inputStream, readImmediately);
+	return new DefaultMailMessageStreamPart(service, name, contentType, inputStream, readImmediately);
     }
 
     @Override
     public MailMessageStreamPart createStreamPart(final String name, final String contentType,
 	    final InputStream inputStream,
 	    final String contentId) throws MailException, IOException {
-	return new DefaultMailMessageStreamPart(name, contentType, inputStream, contentId);
+	return new DefaultMailMessageStreamPart(service, name, contentType, inputStream, contentId);
     }
 
     @Override
     public MailMessageStreamPart createStreamPart(final String name, final String contentType,
 	    final InputStream inputStream,
 	    final boolean readImmediately, final String contentId) throws MailException, IOException {
-	return new DefaultMailMessageStreamPart(name, contentType, inputStream, readImmediately, contentId);
+	return new DefaultMailMessageStreamPart(service, name, contentType, inputStream, readImmediately, contentId);
     }
 
     /*
@@ -238,14 +240,14 @@ final class DefaultMailMessageBuilder implements MailMessageBuilder {
     @Override
     public MailMessageByteArrayPart createByteArrayPart(final String name, final String contentType, final byte[] bytes)
 	    throws MailException, IOException {
-	return new DefaultMailMessageByteArrayPart(name, contentType, bytes);
+	return new DefaultMailMessageByteArrayPart(service, name, contentType, bytes);
     }
 
     @Override
     public MailMessageByteArrayPart createByteArrayPart(final String name, final String contentType, final byte[] bytes,
 	    final String contentId)
 	    throws MailException, IOException {
-	return new DefaultMailMessageByteArrayPart(name, contentType, bytes, contentId);
+	return new DefaultMailMessageByteArrayPart(service, name, contentType, bytes, contentId);
     }
 
     /*
@@ -261,7 +263,8 @@ final class DefaultMailMessageBuilder implements MailMessageBuilder {
 	    throws MailException, IOException {
 	try (FileInputStream fis = new FileInputStream(file)) {
 	    final byte[] bytes = readBytes(fis);
-	    return new DefaultMailMessageAttachementPart(contentType, bytes, file.getName(), null, AttachementType.INLINE);
+	    return new DefaultMailMessageAttachementPart(service, contentType, bytes, file.getName(), null,
+		    AttachementType.INLINE);
 	}
     }
 
@@ -271,7 +274,7 @@ final class DefaultMailMessageBuilder implements MailMessageBuilder {
 	    throws MailException, IOException {
 	try (FileInputStream fis = new FileInputStream(file)) {
 	    final byte[] bytes = readBytes(fis);
-	    return new DefaultMailMessageAttachementPart(contentType, bytes, file.getName(), contentId,
+	    return new DefaultMailMessageAttachementPart(service, contentType, bytes, file.getName(), contentId,
 		    AttachementType.INLINE);
 	}
     }
@@ -284,14 +287,16 @@ final class DefaultMailMessageBuilder implements MailMessageBuilder {
     public MailMessageAttachementPart createInlineImagePart(final String contentType, final InputStream inputStream,
 	    final String fileName) throws MailException, IOException {
 	final byte[] bytes = readBytes(inputStream);
-	return new DefaultMailMessageAttachementPart(contentType, bytes, fileName, null, AttachementType.INLINE);
+	return new DefaultMailMessageAttachementPart(service, contentType, bytes, fileName, null,
+		AttachementType.INLINE);
     }
 
     @Override
     public MailMessageAttachementPart createInlineImagePart(final String contentType, final InputStream inputStream,
 	    final String fileName, final String contentId) throws MailException, IOException {
 	final byte[] bytes = readBytes(inputStream);
-	return new DefaultMailMessageAttachementPart(contentType, bytes, fileName, contentId, AttachementType.INLINE);
+	return new DefaultMailMessageAttachementPart(service, contentType, bytes, fileName, contentId,
+		AttachementType.INLINE);
     }
 
     // createAttachement methods
@@ -314,14 +319,15 @@ final class DefaultMailMessageBuilder implements MailMessageBuilder {
     @Override
     public MailMessageAttachementPart createBytesAttachement(final byte[] content, final String contentType,
 	    final String fileName) {
-	return new DefaultMailMessageAttachementPart(contentType, content, fileName, null, AttachementType.ATTACHEMENT);
+	return new DefaultMailMessageAttachementPart(service, contentType, content, fileName, null,
+		AttachementType.ATTACHEMENT);
     }
 
     @Override
     public MailMessageAttachementPart createBytesAttachement(final byte[] content, final String contentType,
 	    final String fileName,
 	    final String contentId) {
-	return new DefaultMailMessageAttachementPart(contentType, content, fileName, contentId,
+	return new DefaultMailMessageAttachementPart(service, contentType, content, fileName, contentId,
 		AttachementType.ATTACHEMENT);
     }
 

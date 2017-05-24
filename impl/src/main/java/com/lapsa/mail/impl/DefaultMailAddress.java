@@ -9,40 +9,31 @@ import com.lapsa.mail.MailAddress;
 
 final class DefaultMailAddress implements MailAddress, Serializable {
     private static final long serialVersionUID = -4867263883521799488L;
-    private static final int PRIME = 3;
-    private static final int MULTIPLIER = 3;
 
+    final transient DefaultMailService service;
+
+    private transient final String smtpAddress;
     private final String friendlyName;
-    private final String smtpAddress;
 
-    DefaultMailAddress(final String smtpAddress, final String friendlyName) {
+    DefaultMailAddress(final DefaultMailService service, final String smtpAddress) {
+	this(service, smtpAddress, null);
+    }
+
+    DefaultMailAddress(final DefaultMailService service, final String smtpAddress, final String friendlyName) {
+	this.service = service;
 	this.smtpAddress = smtpAddress;
 	this.friendlyName = friendlyName;
     }
 
-    DefaultMailAddress(final String smtpAddress) {
-	this.smtpAddress = smtpAddress;
-	friendlyName = null;
-    }
-
     @Override
     public int hashCode() {
-	return new HashCodeBuilder(PRIME, MULTIPLIER)
-		.append(smtpAddress)
-		.toHashCode();
+	return HashCodeBuilder.reflectionHashCode(this, false);
     }
 
     @Override
     public boolean equals(final Object other) {
-	if (other == null || other.getClass() != getClass())
-	    return false;
-	if (other == this)
-	    return true;
-	final DefaultMailAddress that = (DefaultMailAddress) other;
-	return new EqualsBuilder()
-		.append(smtpAddress, that.smtpAddress)
-		.isEquals();
-    };
+	return EqualsBuilder.reflectionEquals(this, other, false);
+    }
 
     @Deprecated
     @Override

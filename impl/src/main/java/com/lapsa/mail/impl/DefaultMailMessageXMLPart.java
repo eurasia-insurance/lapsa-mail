@@ -16,12 +16,13 @@ final class DefaultMailMessageXMLPart extends AMailMessagePart implements MailMe
     final Charset charset;
     final Document doc;
 
-    DefaultMailMessageXMLPart(final Document doc, final Charset charset) {
-	this(doc, charset, null);
+    DefaultMailMessageXMLPart(final DefaultMailService service, final Document doc, final Charset charset) {
+	this(service, doc, charset, null);
     }
 
-    DefaultMailMessageXMLPart(final Document doc, final Charset charset, final String contentId) {
-	super(contentId);
+    DefaultMailMessageXMLPart(final DefaultMailService service, final Document doc, final Charset charset,
+	    final String contentId) {
+	super(service, contentId);
 	this.doc = doc;
 	this.charset = charset;
     }

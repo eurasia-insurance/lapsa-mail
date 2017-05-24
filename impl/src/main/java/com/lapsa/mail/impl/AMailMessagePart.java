@@ -7,9 +7,12 @@ import com.lapsa.mail.MailMessagePart;
 
 abstract class AMailMessagePart implements MailMessagePart, MultiPartProvider {
 
+    final transient DefaultMailService service;
+
     final String contentId;
 
-    AMailMessagePart(String contentId) {
+    AMailMessagePart(final DefaultMailService service, final String contentId) {
+	this.service = service;
 	this.contentId = contentId;
     }
 
@@ -26,7 +29,8 @@ abstract class AMailMessagePart implements MailMessagePart, MultiPartProvider {
 
     // PRIVATE
 
-    private static void _putContentId(final MimeBodyPart mimeBodyPart, final String contentId) throws MessagingException {
+    private static void _putContentId(final MimeBodyPart mimeBodyPart, final String contentId)
+	    throws MessagingException {
 	mimeBodyPart.setContentID(String.format("<%1$s>", contentId));
     }
 

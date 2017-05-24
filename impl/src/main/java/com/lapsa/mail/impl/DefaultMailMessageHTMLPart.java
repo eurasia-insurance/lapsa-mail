@@ -13,12 +13,13 @@ final class DefaultMailMessageHTMLPart extends AMailMessagePart implements MailM
     final Charset charset;
     final String html;
 
-    DefaultMailMessageHTMLPart(final String html, final Charset charset) {
-	this(html, charset, null);
+    DefaultMailMessageHTMLPart(final DefaultMailService service, final String html, final Charset charset) {
+	this(service, html, charset, null);
     }
 
-    DefaultMailMessageHTMLPart(final String html, final Charset charset, final String contentId) {
-	super(contentId);
+    DefaultMailMessageHTMLPart(final DefaultMailService service, final String html, final Charset charset,
+	    final String contentId) {
+	super(service, contentId);
 	this.charset = charset;
 	this.html = html;
     }

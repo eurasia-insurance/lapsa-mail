@@ -15,7 +15,6 @@ import javax.mail.Message.RecipientType;
 import javax.mail.MessagingException;
 import javax.mail.Multipart;
 import javax.mail.NoSuchProviderException;
-import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
@@ -27,13 +26,13 @@ import com.lapsa.mail.MailException;
 import com.lapsa.mail.MailMessage;
 import com.lapsa.mail.MailMessagePart;
 import com.lapsa.mail.MailSender;
-import com.lapsa.mail.MailService;
 
 final class DefaultMailSender implements MailSender {
 
-    private final Session session;
-    private final MailService service;
-    private final Logger logger;
+    final transient DefaultMailService service;
+
+    private transient final Logger logger;
+    private transient Transport transport;
 
     private MailAddress bccAddress;
     private boolean alwaysBlindCopy = false;
@@ -41,21 +40,18 @@ final class DefaultMailSender implements MailSender {
     private MailAddress forceMailAddress;
     private boolean alwaysForceMail = false;
 
-    private Transport transport;
-
-    DefaultMailSender(final MailService service, final Session session) {
-	this.session = session;
+    DefaultMailSender(final DefaultMailService service) {
 	this.service = service;
 	logger = Logger.getLogger(this.getClass().getCanonicalName());
-	if (session.getProperty(MAIL_BCC) != null)
+	if (service.session.getProperty(MAIL_BCC) != null)
 	    try {
-		bccAddress = service.createBuilder().createAddress(session.getProperty(MAIL_BCC));
+		bccAddress = service.createBuilder().createAddress(service.session.getProperty(MAIL_BCC));
 		alwaysBlindCopy = true;
 	    } catch (final MailException ignored) {
 	    }
-	if (session.getProperty(MAIL_FORCETO) != null)
+	if (service.session.getProperty(MAIL_FORCETO) != null)
 	    try {
-		forceMailAddress = service.createBuilder().createAddress(session.getProperty(MAIL_FORCETO));
+		forceMailAddress = service.createBuilder().createAddress(service.session.getProperty(MAIL_FORCETO));
 		alwaysForceMail = true;
 	    } catch (final MailException ignored) {
 	    }
@@ -64,7 +60,7 @@ final class DefaultMailSender implements MailSender {
     private JobForTransport buildJobForTransport(final MailMessage message)
 	    throws MailException, InvalidMessageException {
 	try {
-	    final MimeMessage msg = new MimeMessage(session);
+	    final MimeMessage msg = new MimeMessage(service.session);
 
 	    final MailAddress from = message.getFrom();
 	    if (from != null) {
@@ -211,9 +207,9 @@ final class DefaultMailSender implements MailSender {
 
     private void autoConnect() throws MessagingException {
 	if (transport == null)
-	    transport = session.getTransport();
+	    transport = service.session.getTransport();
 	if (!transport.isConnected()) {
-	    transport.connect(session.getProperty(MAIL_USER), session.getProperty(MAIL_PASSWORD));
+	    transport.connect(service.session.getProperty(MAIL_USER), service.session.getProperty(MAIL_PASSWORD));
 	    logger.fine("MAIL_SEND transport connected OK");
 	}
     }

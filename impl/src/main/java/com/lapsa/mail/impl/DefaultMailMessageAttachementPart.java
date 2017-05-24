@@ -18,14 +18,16 @@ final class DefaultMailMessageAttachementPart extends AMailMessagePart implement
     final byte[] bytes;
     final AttachementType type;
 
-    DefaultMailMessageAttachementPart(final String contentType, final byte[] bytes, final String fileName,
+    DefaultMailMessageAttachementPart(final DefaultMailService service, final String contentType, final byte[] bytes,
+	    final String fileName,
 	    final AttachementType type) {
-	this(contentType, bytes, fileName, null, type);
+	this(service, contentType, bytes, fileName, null, type);
     }
 
-    DefaultMailMessageAttachementPart(final String contentType, final byte[] bytes, final String fileName,
+    DefaultMailMessageAttachementPart(final DefaultMailService service, final String contentType, final byte[] bytes,
+	    final String fileName,
 	    final String contentId, final AttachementType type) {
-	super(contentId);
+	super(service, contentId);
 	this.contentType = contentType;
 	this.fileName = fileName;
 	this.bytes = bytes;

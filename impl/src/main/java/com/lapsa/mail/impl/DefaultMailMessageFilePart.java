@@ -14,12 +14,12 @@ final class DefaultMailMessageFilePart extends AMailMessagePart implements MailM
     final File file;
     final String contentId;
 
-    DefaultMailMessageFilePart(final File file) {
-	this(file, null);
+    DefaultMailMessageFilePart(final DefaultMailService service, final File file) {
+	this(service, file, null);
     }
 
-    DefaultMailMessageFilePart(final File file, final String contentId) {
-	super(contentId);
+    DefaultMailMessageFilePart(final DefaultMailService service, final File file, final String contentId) {
+	super(service, contentId);
 	this.file = file;
 	this.contentId = contentId;
     }

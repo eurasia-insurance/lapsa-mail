@@ -16,30 +16,46 @@ import com.lapsa.mail.MailMessageStreamPart;
 
 final class DefaultMailMessageStreamPart extends AMailMessagePart implements MailMessageStreamPart {
 
-    final InputStream inputStream;
+    final transient InputStream inputStream;
     final String contentType;
     final String name;
 
-    DefaultMailMessageStreamPart(final String name, final String contentType, final InputStream inputStream,
+    DefaultMailMessageStreamPart(
+	    final DefaultMailService service,
+	    final String name,
+	    final String contentType,
+	    final InputStream inputStream,
 	    final String contentId)
 	    throws IOException {
-	this(name, contentType, inputStream, false, contentId);
+	this(service, name, contentType, inputStream, false, contentId);
     }
 
-    DefaultMailMessageStreamPart(final String name, final String contentType, final InputStream inputStream)
+    DefaultMailMessageStreamPart(
+	    final DefaultMailService service,
+	    final String name,
+	    final String contentType,
+	    final InputStream inputStream)
 	    throws IOException {
-	this(name, contentType, inputStream, false, null);
+	this(service, name, contentType, inputStream, false, null);
     }
 
-    DefaultMailMessageStreamPart(final String name, final String contentType, final InputStream inputStream,
+    DefaultMailMessageStreamPart(
+	    final DefaultMailService service,
+	    final String name,
+	    final String contentType,
+	    final InputStream inputStream,
 	    final boolean immediatlyRead) throws IOException {
-	this(name, contentType, inputStream, immediatlyRead, null);
+	this(service, name, contentType, inputStream, immediatlyRead, null);
     }
 
-    DefaultMailMessageStreamPart(final String name, final String contentType, final InputStream inputStream,
+    DefaultMailMessageStreamPart(
+	    final DefaultMailService service,
+	    final String name,
+	    final String contentType,
+	    final InputStream inputStream,
 	    final boolean readImmediately,
 	    final String contentId) throws IOException {
-	super(contentId);
+	super(service, contentId);
 	this.name = name;
 	this.contentType = contentType;
 	if (readImmediately) {
