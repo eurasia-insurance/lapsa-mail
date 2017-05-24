@@ -1,13 +1,14 @@
 package com.lapsa.mail;
 
+import java.util.Properties;
 import java.util.ServiceLoader;
 import java.util.function.Predicate;
 
-import javax.mail.Session;
-
 public interface MailServiceFactory {
 
-    MailService createService(Session session) throws MailException;
+    MailService createService() throws MailException;
+
+    MailService createService(Properties props) throws MailException;
 
     static MailServiceFactory getInstance() throws MailException {
 	return getInstance(factory -> true);
