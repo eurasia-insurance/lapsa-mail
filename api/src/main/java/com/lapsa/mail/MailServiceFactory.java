@@ -10,6 +10,8 @@ public interface MailServiceFactory {
 
     MailService createService(Properties props) throws MailException;
 
+    MailService createService(Properties props, Object auth) throws MailException;
+
     static MailServiceFactory getInstance() throws MailException {
 	return getInstance(factory -> true);
     }
