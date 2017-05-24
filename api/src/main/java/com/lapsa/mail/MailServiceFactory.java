@@ -1,26 +1,34 @@
 package com.lapsa.mail;
 
 import java.util.ServiceLoader;
+import java.util.function.Predicate;
 
 import javax.mail.Session;
 
-public abstract class MailServiceFactory {
+public interface MailServiceFactory {
 
-    public static final String DEFAULT_IMPL_NAME = "DEFAULT";
+    MailService createService(Session session) throws MailException;
 
-    public static final MailServiceFactory getDefaultInstance() throws MailException {
-	return getInstanceByName(DEFAULT_IMPL_NAME);
+    static MailServiceFactory getInstance() throws MailException {
+	return getInstance(factory -> true);
     }
 
-    public static final MailServiceFactory getInstanceByName(final String name) throws MailException {
+    static MailServiceFactory getInstance(final Class<MailServiceFactory> clazz) throws MailException {
+	return getInstance(factory -> factory.getClass() == clazz);
+    }
+
+    @SuppressWarnings("unchecked")
+    static MailServiceFactory getInstance(final String implementationClass)
+	    throws MailException, ClassNotFoundException {
+	return getInstance((Class<MailServiceFactory>) Class.forName(implementationClass));
+    }
+
+    static MailServiceFactory getInstance(final Predicate<MailServiceFactory> func) throws MailException {
 	final ServiceLoader<MailServiceFactory> mailFactorySPI = ServiceLoader.load(MailServiceFactory.class);
 	for (final MailServiceFactory factory : mailFactorySPI)
-	    if (factory.getName().equals(name))
+	    if (func.test(factory))
 		return factory;
 	throw new MailException("There is no any registered MailServiceFactory service provider");
     }
 
-    public abstract String getName();
-
-    public abstract MailService createService(Session session) throws MailException;
 }
