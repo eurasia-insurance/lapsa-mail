@@ -1,17 +1,24 @@
 package com.lapsa.mail.impl;
 
+import java.io.Serializable;
 import java.nio.charset.Charset;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+
 import com.lapsa.mail.MailAddress;
 import com.lapsa.mail.MailMessage;
 import com.lapsa.mail.MailMessageBuilder;
 import com.lapsa.mail.MailMessagePart;
 
-class DefaultMailMessage implements MailMessage {
+final class DefaultMailMessage implements MailMessage, Serializable {
+    private static final long serialVersionUID = 7973611806769292344L;
+
+    final transient DefaultMailService service;
 
     private MailAddress from = null;
     private final Map<String, MailAddress> to = new HashMap<String, MailAddress>();
@@ -21,7 +28,18 @@ class DefaultMailMessage implements MailMessage {
     private String subject = null;
     private Charset charset = MailMessageBuilder.DEFAULT_CHARSET;
 
-    DefaultMailMessage() {
+    DefaultMailMessage(final DefaultMailService service) {
+	this.service = service;
+    }
+
+    @Override
+    public int hashCode() {
+	return HashCodeBuilder.reflectionHashCode(this, false);
+    }
+
+    @Override
+    public boolean equals(final Object other) {
+	return EqualsBuilder.reflectionEquals(this, other, false);
     }
 
     @Override

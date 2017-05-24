@@ -1,10 +1,11 @@
 package com.lapsa.mail.impl;
 
-public class MailSessionCustomProperties {
-    public static final String MAIL_FROM = "mail.from";
-    public static final String MAIL_TO = "mail.to";
-    public static final String MAIL_BCC = "mail.bcc";
-    public static final String MAIL_PASSWORD = "mail.password";
-    public static final String MAIL_USER = "mail.user";
-    public static final String MAIL_FORCETO = "mail.forceto";
+public interface MailSessionCustomProperties {
+    String MAIL_FROM = "mail.from";
+    String MAIL_TO = "mail.to";
+    String MAIL_BCC = "mail.bcc";
+    String MAIL_PASSWORD = "mail.password";
+    String MAIL_USER = "mail.user";
+    String MAIL_FORCETO = "mail.forceto";
+    Object MAIL_AUTHENTIFICATOR_OBJECT = "mail.authentificator";
 }

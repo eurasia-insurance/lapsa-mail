@@ -1,41 +1,44 @@
 package com.lapsa.mail.impl;
 
+import java.io.UnsupportedEncodingException;
 import java.nio.charset.Charset;
+
+import javax.mail.BodyPart;
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeBodyPart;
 
 import org.w3c.dom.Document;
 
 import com.lapsa.mail.MailMessageXMLPart;
 
-class DefaultMailMessageXMLPart implements MailMessageXMLPart {
+final class DefaultMailMessageXMLPart extends AMailMessagePart implements MailMessageXMLPart {
+    private static final long serialVersionUID = 7713991325528136449L;
 
-    private final Charset charset;
-    private final Document doc;
-    private final String contentId;
+    final Charset charset;
+    final Document doc;
 
-    DefaultMailMessageXMLPart(final Document doc, final Charset charset) {
+    DefaultMailMessageXMLPart(final DefaultMailService service, final Document doc, final Charset charset) {
+	this(service, doc, charset, null);
+    }
+
+    DefaultMailMessageXMLPart(final DefaultMailService service, final Document doc, final Charset charset,
+	    final String contentId) {
+	super(service, contentId);
 	this.doc = doc;
 	this.charset = charset;
-	contentId = null;
-    }
-
-    DefaultMailMessageXMLPart(final Document doc, final Charset charset, final String contentId) {
-	this.doc = doc;
-	this.charset = charset;
-	this.contentId = contentId;
     }
 
     @Override
-    public Charset getCharset() {
-	return charset;
-    }
-
-    @Override
-    public Document getDocument() {
-	return doc;
-    }
-
-    @Override
-    public String getContentID() {
-	return contentId;
+    public BodyPart getBodyPart() throws MessagingException {
+	final MimeBodyPart result = new MimeBodyPart();
+	String content;
+	try {
+	    content = DOMUtils.getInstance().getAsString(doc, charset.name());
+	} catch (final UnsupportedEncodingException e) {
+	    throw new MessagingException("Unsupported encoding '" + charset.name() + "'", e);
+	}
+	result.setText(content, charset.name(), "xml");
+	putContentId(result);
+	return result;
     }
 }

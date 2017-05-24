@@ -15,7 +15,6 @@ import javax.mail.Message.RecipientType;
 import javax.mail.MessagingException;
 import javax.mail.Multipart;
 import javax.mail.NoSuchProviderException;
-import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
@@ -27,44 +26,45 @@ import com.lapsa.mail.MailException;
 import com.lapsa.mail.MailMessage;
 import com.lapsa.mail.MailMessagePart;
 import com.lapsa.mail.MailSender;
-import com.lapsa.mail.MailService;
 
-class DefaultMailSender implements MailSender {
+final class DefaultMailSender implements MailSender {
 
-    private final Session session;
-    private final MailService service;
-    private final Logger logger;
+    final transient DefaultMailService service;
+
+    private transient final Logger logger;
+    private transient Transport transport;
 
     private MailAddress bccAddress;
-    private boolean alwaysBlindCopy = false;
+    private boolean alwaysBlindCopy;
 
     private MailAddress forceMailAddress;
-    private boolean alwaysForceMail = false;
+    private boolean alwaysForceMail;
 
-    private Transport transport;
-
-    DefaultMailSender(final MailService service, final Session session) {
-	this.session = session;
+    DefaultMailSender(final DefaultMailService service) {
 	this.service = service;
-	logger = Logger.getLogger(this.getClass().getCanonicalName());
-	if (session.getProperty(MAIL_BCC) != null)
+	this.logger = Logger.getLogger(this.getClass().getCanonicalName());
+
+	if (service.session.getProperty(MAIL_BCC) != null)
 	    try {
-		bccAddress = service.createBuilder().createAddress(session.getProperty(MAIL_BCC));
-		alwaysBlindCopy = true;
+		this.bccAddress = service.createBuilder().createAddress(service.session.getProperty(MAIL_BCC));
+		this.alwaysBlindCopy = true;
 	    } catch (final MailException ignored) {
 	    }
-	if (session.getProperty(MAIL_FORCETO) != null)
+
+	if (service.session.getProperty(MAIL_FORCETO) != null)
 	    try {
-		forceMailAddress = service.createBuilder().createAddress(session.getProperty(MAIL_FORCETO));
-		alwaysForceMail = true;
+		this.forceMailAddress = service.createBuilder()
+			.createAddress(service.session.getProperty(MAIL_FORCETO));
+		this.alwaysForceMail = true;
 	    } catch (final MailException ignored) {
 	    }
+
     }
 
     private JobForTransport buildJobForTransport(final MailMessage message)
 	    throws MailException, InvalidMessageException {
 	try {
-	    final MimeMessage msg = new MimeMessage(session);
+	    final MimeMessage msg = new MimeMessage(service.session);
 
 	    final MailAddress from = message.getFrom();
 	    if (from != null) {
@@ -107,9 +107,9 @@ class DefaultMailSender implements MailSender {
 		final MailMessagePart[] parts = message.getParts();
 
 		for (final MailMessagePart part : parts) {
-		    final MultiPartProvider provider = MultiPartProviderFactoryMethod.getProviderFor(part);
-		    if (provider != null) {
-			final BodyPart bodyPart = provider.getBodyPart(part);
+		    if (part instanceof MultiPartProvider) {
+			MultiPartProvider provider = (MultiPartProvider) part;
+			final BodyPart bodyPart = provider.getBodyPart();
 			multipart.addBodyPart(bodyPart);
 		    }
 		}
@@ -211,9 +211,9 @@ class DefaultMailSender implements MailSender {
 
     private void autoConnect() throws MessagingException {
 	if (transport == null)
-	    transport = session.getTransport();
+	    transport = service.session.getTransport();
 	if (!transport.isConnected()) {
-	    transport.connect(session.getProperty(MAIL_USER), session.getProperty(MAIL_PASSWORD));
+	    transport.connect(service.session.getProperty(MAIL_USER), service.session.getProperty(MAIL_PASSWORD));
 	    logger.fine("MAIL_SEND transport connected OK");
 	}
     }
@@ -251,8 +251,8 @@ class DefaultMailSender implements MailSender {
 
 class JobForTransport {
 
-    MimeMessage msg;
-    Address[] adrs;
+    final MimeMessage msg;
+    final Address[] adrs;
 
     public JobForTransport(final MimeMessage msg, final Address[] adrs) {
 	this.msg = msg;

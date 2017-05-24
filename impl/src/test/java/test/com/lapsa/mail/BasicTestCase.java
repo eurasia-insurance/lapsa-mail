@@ -2,54 +2,46 @@ package test.com.lapsa.mail;
 
 import static org.junit.Assert.*;
 
-import java.util.Properties;
-
-import javax.mail.Session;
-
-import org.junit.BeforeClass;
+import org.junit.Before;
 import org.junit.Test;
 
 import com.lapsa.mail.MailException;
-import com.lapsa.mail.MailServiceFactory;
 import com.lapsa.mail.MailMessageBuilder;
 import com.lapsa.mail.MailSender;
 import com.lapsa.mail.MailService;
+import com.lapsa.mail.MailServiceFactory;
 
 public class BasicTestCase {
 
-    private static Session session;
+    private MailServiceFactory factory;
+    private MailService service;
 
-    @BeforeClass
-    public static void prepareSession() {
-	session = Session.getDefaultInstance(new Properties());
+    @Before
+    public void prepareSession() throws MailException {
+	factory = MailServiceFactory.getInstance();
+	if (factory != null)
+	    service = factory.createService(MailSessionHelper.PROPERTIES);
     }
 
     @Test
     public void testCreateFactory() throws MailException {
-	MailServiceFactory mhf = MailServiceFactory.getDefaultInstance();
-	assertNotNull(mhf);
+	assertNotNull(factory);
     }
 
     @Test
     public void testCreateService() throws MailException {
-	MailServiceFactory mhf = MailServiceFactory.getDefaultInstance();
-	MailService mh = mhf.createService(session);
-	assertNotNull(mh);
+	assertNotNull(service);
     }
 
     @Test
     public void testCreateSender() throws MailException {
-	MailServiceFactory mhf = MailServiceFactory.getDefaultInstance();
-	MailService mh = mhf.createService(session);
-	MailSender ms = mh.createSender();
+	MailSender ms = service.createSender();
 	assertNotNull(ms);
     }
 
     @Test
     public void testCreateBuilder() throws MailException {
-	MailServiceFactory mhf = MailServiceFactory.getDefaultInstance();
-	MailService mh = mhf.createService(session);
-	MailMessageBuilder mmb = mh.createBuilder();
+	MailMessageBuilder mmb = service.createBuilder();
 	assertNotNull(mmb);
     }
 }

@@ -1,21 +1,46 @@
 package com.lapsa.mail.impl;
 
+import java.util.Properties;
+
+import javax.mail.Authenticator;
+import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
 
 import com.lapsa.mail.MailException;
-import com.lapsa.mail.MailServiceFactory;
 import com.lapsa.mail.MailService;
+import com.lapsa.mail.MailServiceFactory;
 
-public class DefaultMailServiceFactory extends MailServiceFactory {
+public final class DefaultMailServiceFactory implements MailServiceFactory {
 
     @Override
-    public String getName() {
-	return MailServiceFactory.DEFAULT_IMPL_NAME;
+    public MailService createService() throws MailException {
+	return createService(new Properties());
     }
 
     @Override
-    public MailService createService(final Session session) throws MailException {
-	return new DefaultMailSerivce(session);
+    public MailService createService(Properties props) throws MailException {
+	return new DefaultMailService(asquireSession(props));
     }
 
+    private static Session asquireSession(Properties props) {
+	if (props.containsKey(MailSessionCustomProperties.MAIL_USER)
+		&& props.containsKey(MailSessionCustomProperties.MAIL_PASSWORD)) {
+	    final String user = props.getProperty(MailSessionCustomProperties.MAIL_USER);
+	    final String password = props.getProperty(MailSessionCustomProperties.MAIL_PASSWORD);
+	    final Authenticator a = new Authenticator() {
+		public PasswordAuthentication getPasswordAuthentication() {
+		    return new PasswordAuthentication(user, password);
+		}
+	    };
+	    return Session.getDefaultInstance(props, a);
+	}
+
+	if (props.containsKey(MailSessionCustomProperties.MAIL_AUTHENTIFICATOR_OBJECT)) {
+	    final Object authentificatorObject = props.get(MailSessionCustomProperties.MAIL_AUTHENTIFICATOR_OBJECT);
+	    final Authenticator a = (Authenticator) authentificatorObject;
+	    return Session.getDefaultInstance(props, a);
+	}
+
+	return Session.getDefaultInstance(props);
+    }
 }

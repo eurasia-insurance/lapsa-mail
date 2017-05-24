@@ -1,46 +1,45 @@
 package com.lapsa.mail.impl;
 
+import javax.activation.DataHandler;
+import javax.activation.DataSource;
+import javax.mail.BodyPart;
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeBodyPart;
+import javax.mail.util.ByteArrayDataSource;
+
 import com.lapsa.mail.MailMessageByteArrayPart;
 
-class DefaultMailMessageByteArrayPart implements MailMessageByteArrayPart {
+final class DefaultMailMessageByteArrayPart extends AMailMessagePart implements MailMessageByteArrayPart {
+    private static final long serialVersionUID = -6121847538061202388L;
 
-    private final String name;
-    private final String contentType;
-    private final byte[] bytes;
-    private final String contentId;
+    final String name;
+    final String contentType;
+    final byte[] bytes;
 
-    DefaultMailMessageByteArrayPart(final String name, final String contentType, final byte[] bytes) {
-	this.name = name;
-	this.contentType = contentType;
-	this.bytes = bytes;
-	contentId = null;
+    DefaultMailMessageByteArrayPart(final DefaultMailService service, final String name, final String contentType,
+	    final byte[] bytes) {
+	this(service, name, contentType, bytes, null);
     }
 
-    DefaultMailMessageByteArrayPart(final String name, final String contentType, final byte[] bytes,
+    DefaultMailMessageByteArrayPart(final DefaultMailService service, final String name, final String contentType,
+	    final byte[] bytes,
 	    final String contentId) {
+	super(service, contentId);
 	this.name = name;
 	this.contentType = contentType;
 	this.bytes = bytes;
-	this.contentId = contentId;
     }
 
     @Override
-    public byte[] getBytes() {
-	return bytes;
-    }
+    public BodyPart getBodyPart() throws MessagingException {
+	final MimeBodyPart result = new MimeBodyPart();
 
-    @Override
-    public String getContentType() {
-	return contentType;
-    }
-
-    @Override
-    public String getName() {
-	return name;
-    }
-
-    @Override
-    public String getContentID() {
-	return contentId;
+	final DataSource source = new ByteArrayDataSource(bytes, contentType);
+	final DataHandler dh = new DataHandler(source);
+	result.setDataHandler(dh);
+	if (name != null)
+	    result.setFileName(name);
+	putContentId(result);
+	return result;
     }
 }

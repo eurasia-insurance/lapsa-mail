@@ -2,34 +2,32 @@ package test.com.lapsa.mail;
 
 import static org.junit.Assert.*;
 
-import javax.mail.Session;
-
-import org.junit.BeforeClass;
+import org.junit.Before;
 import org.junit.Test;
 
 import com.lapsa.mail.InvalidMessageException;
 import com.lapsa.mail.MailException;
-import com.lapsa.mail.MailServiceFactory;
 import com.lapsa.mail.MailMessageBuilder;
 import com.lapsa.mail.MailReceiver;
 import com.lapsa.mail.MailSender;
 import com.lapsa.mail.MailService;
+import com.lapsa.mail.MailServiceFactory;
 
 public class ReceiveTestCase {
 
-    private static Session session;
+    private MailServiceFactory factory;
+    private MailService service;
 
-    @BeforeClass
-    public static void prepareSession() {
-	session = MailSessionHelper.createDefaultSession();
+    @Before
+    public void prepareSession() throws MailException {
+	factory = MailServiceFactory.getInstance();
+	service = factory.createService(MailSessionHelper.PROPERTIES);
     }
 
     @Test
     public void testHasMessages() throws MailException, InvalidMessageException, InterruptedException {
-	MailServiceFactory mhf = MailServiceFactory.getDefaultInstance();
-	MailService mh = mhf.createService(session);
-	sendOneMessageForTestPurposes(mh);
-	try (MailReceiver receiver = mh.createReceiver()) {
+	sendOneMessageForTestPurposes();
+	try (MailReceiver receiver = service.createReceiver()) {
 	    boolean hasMessages = receiver.hasMessages();
 	    assertTrue(hasMessages);
 	}
@@ -37,10 +35,8 @@ public class ReceiveTestCase {
 
     @Test
     public void testClearMessages() throws MailException, InterruptedException, InvalidMessageException {
-	MailServiceFactory mhf = MailServiceFactory.getDefaultInstance();
-	MailService mh = mhf.createService(session);
-	sendOneMessageForTestPurposes(mh);
-	try (MailReceiver receiver = mh.createReceiver()) {
+	sendOneMessageForTestPurposes();
+	try (MailReceiver receiver = service.createReceiver()) {
 	    boolean hasMessages = receiver.hasMessages();
 	    if (hasMessages) {
 		receiver.сlearMessages();
@@ -51,10 +47,10 @@ public class ReceiveTestCase {
 	}
     }
 
-    private void sendOneMessageForTestPurposes(MailService mh)
+    private void sendOneMessageForTestPurposes()
 	    throws MailException, InterruptedException, InvalidMessageException {
-	try (MailSender sender = mh.createSender()) {
-	    MailMessageBuilder b = mh.createBuilder();
+	try (MailSender sender = service.createSender()) {
+	    MailMessageBuilder b = service.createBuilder();
 	    sender.send(b.createMessage(b.createAddress(MailSessionHelper.MAIL_TEST_TO_ADDRESS),
 		    "Test for receive and clean"));
 	    Thread.sleep(2000);
