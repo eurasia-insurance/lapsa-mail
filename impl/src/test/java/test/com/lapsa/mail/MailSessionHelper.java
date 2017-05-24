@@ -4,11 +4,10 @@ import java.util.Properties;
 
 import javax.mail.Authenticator;
 import javax.mail.PasswordAuthentication;
-import javax.mail.Session;
 
 import com.lapsa.mail.impl.MailSessionCustomProperties;
 
-public class MailSessionHelper {
+public final class MailSessionHelper {
 
     public static final boolean MAIL_DEBUG = true;
 
@@ -30,42 +29,37 @@ public class MailSessionHelper {
     public static final String MAIL_STORE_PORT = "993";
     public static final String MAIL_STORE_TLS = "true";
 
-    public static Session createDefaultSession() {
-	return Session.getInstance(createDefaultProperties(), createDefaultAuthenticator());
-    }
-
-    public static Authenticator createDefaultAuthenticator() {
-	Authenticator a = new Authenticator() {
+    public static final Authenticator AUTHENTIFICATOR;
+    static {
+	AUTHENTIFICATOR = new Authenticator() {
 	    public PasswordAuthentication getPasswordAuthentication() {
 		return new PasswordAuthentication(MAIL_TEST_USER, MAIL_TEST_PASSWORD);
 	    }
 	};
-	return a;
     }
 
-    public static Properties createDefaultProperties() {
-	final Properties prop = new Properties();
+    public static final Properties PROPERTIES;
+    static {
+	PROPERTIES = new Properties();
 
-	prop.put("mail.debug", MAIL_DEBUG);
-	prop.put("mail.from", MAIL_TEST_FROM_ADDRESS);
+	PROPERTIES.put("mail.debug", MAIL_DEBUG);
+	PROPERTIES.put("mail.from", MAIL_TEST_FROM_ADDRESS);
 
-	prop.put("mail.transport.protocol", MAIL_TRANSPORT_PROTOCOL);
-	prop.put("mail." + MAIL_TRANSPORT_PROTOCOL + ".class", MAIL_TRANSPORT_IMPLEMENTATION_CLASS);
-	prop.put("mail." + MAIL_TRANSPORT_PROTOCOL + ".auth", MAIL_TRANSPORT_TLS);
-	prop.put("mail." + MAIL_TRANSPORT_PROTOCOL + ".host", MAIL_TRANSPORT_HOST);
-	prop.put("mail." + MAIL_TRANSPORT_PROTOCOL + ".port", MAIL_TRANSPORT_PORT);
-	prop.put("mail." + MAIL_TRANSPORT_PROTOCOL + ".starttls.enable", MAIL_TRANSPORT_TLS);
+	PROPERTIES.put("mail.transport.protocol", MAIL_TRANSPORT_PROTOCOL);
+	PROPERTIES.put("mail." + MAIL_TRANSPORT_PROTOCOL + ".class", MAIL_TRANSPORT_IMPLEMENTATION_CLASS);
+	PROPERTIES.put("mail." + MAIL_TRANSPORT_PROTOCOL + ".auth", MAIL_TRANSPORT_TLS);
+	PROPERTIES.put("mail." + MAIL_TRANSPORT_PROTOCOL + ".host", MAIL_TRANSPORT_HOST);
+	PROPERTIES.put("mail." + MAIL_TRANSPORT_PROTOCOL + ".port", MAIL_TRANSPORT_PORT);
+	PROPERTIES.put("mail." + MAIL_TRANSPORT_PROTOCOL + ".starttls.enable", MAIL_TRANSPORT_TLS);
 
-	prop.put("mail.store.protocol", MAIL_STORE_PROTOCOL);
-	prop.put("mail." + MAIL_STORE_PROTOCOL + ".class", MAIL_STORE_IMPLEMENTATION_CLASS);
-	prop.put("mail." + MAIL_STORE_PROTOCOL + ".host", MAIL_STORE_HOST);
-	prop.put("mail." + MAIL_STORE_PROTOCOL + ".port", MAIL_STORE_PORT);
-	prop.put("mail." + MAIL_STORE_PROTOCOL + ".starttls.enable", MAIL_STORE_TLS);
+	PROPERTIES.put("mail.store.protocol", MAIL_STORE_PROTOCOL);
+	PROPERTIES.put("mail." + MAIL_STORE_PROTOCOL + ".class", MAIL_STORE_IMPLEMENTATION_CLASS);
+	PROPERTIES.put("mail." + MAIL_STORE_PROTOCOL + ".host", MAIL_STORE_HOST);
+	PROPERTIES.put("mail." + MAIL_STORE_PROTOCOL + ".port", MAIL_STORE_PORT);
+	PROPERTIES.put("mail." + MAIL_STORE_PROTOCOL + ".starttls.enable", MAIL_STORE_TLS);
 
-	prop.put(MailSessionCustomProperties.MAIL_USER, MAIL_TEST_USER);
-	prop.put(MailSessionCustomProperties.MAIL_PASSWORD, MAIL_TEST_PASSWORD);
-	prop.put(MailSessionCustomProperties.MAIL_AUTHENTIFICATOR_OBJECT, createDefaultAuthenticator());
-
-	return prop;
+	PROPERTIES.put(MailSessionCustomProperties.MAIL_USER, MAIL_TEST_USER);
+	PROPERTIES.put(MailSessionCustomProperties.MAIL_PASSWORD, MAIL_TEST_PASSWORD);
+	PROPERTIES.put(MailSessionCustomProperties.MAIL_AUTHENTIFICATOR_OBJECT, AUTHENTIFICATOR);
     }
 }

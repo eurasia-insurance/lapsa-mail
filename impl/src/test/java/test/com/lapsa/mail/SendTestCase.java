@@ -30,7 +30,7 @@ public class SendTestCase {
     @Before
     public void prepareSession() throws MailException {
 	factory = MailServiceFactory.getInstance();
-	service = factory.createService(MailSessionHelper.createDefaultProperties());
+	service = factory.createService(MailSessionHelper.PROPERTIES);
     }
 
     @Test(expected = InvalidMessageException.class)

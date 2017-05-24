@@ -20,7 +20,7 @@ public class BasicTestCase {
     public void prepareSession() throws MailException {
 	factory = MailServiceFactory.getInstance();
 	if (factory != null)
-	    service = factory.createService(MailSessionHelper.createDefaultProperties());
+	    service = factory.createService(MailSessionHelper.PROPERTIES);
     }
 
     @Test
