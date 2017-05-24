@@ -11,8 +11,7 @@ import javax.mail.util.ByteArrayDataSource;
 import com.lapsa.mail.AttachementType;
 import com.lapsa.mail.MailMessageAttachementPart;
 
-final class DefaultMailMessageAttachementPart extends AMailMessagePart
-	implements MailMessageAttachementPart, MultiPartProvider {
+final class DefaultMailMessageAttachementPart extends AMailMessagePart implements MailMessageAttachementPart {
 
     final String contentType;
     final String fileName;

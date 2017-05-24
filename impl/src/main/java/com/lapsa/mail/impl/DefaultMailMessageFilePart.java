@@ -9,8 +9,7 @@ import javax.mail.internet.MimeBodyPart;
 
 import com.lapsa.mail.MailMessageFilePart;
 
-final class DefaultMailMessageFilePart extends AMailMessagePart
-	implements MailMessageFilePart, MultiPartProvider {
+final class DefaultMailMessageFilePart extends AMailMessagePart implements MailMessageFilePart {
 
     final File file;
     final String contentId;
