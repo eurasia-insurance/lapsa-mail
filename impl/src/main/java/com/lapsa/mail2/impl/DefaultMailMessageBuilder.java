@@ -2,6 +2,7 @@ package com.lapsa.mail2.impl;
 
 import static com.lapsa.mail2.impl.APart.DispositionType.*;
 import static com.lapsa.mail2.impl.PartText.TextSubtype.*;
+import static com.lapsa.mail2.impl.Checks.*;
 
 import java.io.File;
 import java.io.IOException;
@@ -15,9 +16,9 @@ import java.util.Set;
 
 import org.w3c.dom.Document;
 
-import com.lapsa.mail2.MailMessageBuilder;
 import com.lapsa.mail2.MailBuilderException;
 import com.lapsa.mail2.MailMessage;
+import com.lapsa.mail2.MailMessageBuilder;
 
 final class DefaultMailMessageBuilder implements MailMessageBuilder {
 
@@ -474,29 +475,5 @@ final class DefaultMailMessageBuilder implements MailMessageBuilder {
 	    set.add(addr);
 	}
 	return set;
-    }
-
-    static <T> T builderRequireNonNull(T obj, String message) throws MailBuilderException {
-	if (obj == null)
-	    throw new MailBuilderException(message);
-	return obj;
-    }
-
-    static <T> T builderRequireNotIn(T obj, Set<T> set, String message) throws MailBuilderException {
-	if (set.contains(obj))
-	    throw new MailBuilderException(message);
-	return obj;
-    }
-
-    static void builderRethrowWrapped(Exception e) throws MailBuilderException {
-	throw builderWrapException(e);
-    }
-
-    static MailBuilderException builderWrapException(Exception e) {
-	return builderWrapException(e, e.getMessage());
-    }
-
-    static MailBuilderException builderWrapException(Exception e, String message) {
-	return new MailBuilderException(String.format("Error while building message: %1$s", message), e);
     }
 }

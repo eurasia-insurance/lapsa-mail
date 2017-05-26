@@ -1,6 +1,6 @@
 package com.lapsa.mail2.impl;
 
-import static com.lapsa.mail2.impl.DefaultMailMessageBuilder.*;
+import static com.lapsa.mail2.impl.Checks.*;
 
 import java.nio.charset.Charset;
 import java.util.Objects;
@@ -34,7 +34,7 @@ final class PartText extends APart {
 		    builderRequireNonNull(charset, "Charset can not be null").name(),
 		    Objects.requireNonNull(textSubtype).subtype);
 	} catch (MessagingException e) {
-	    builderRethrowWrapped(e);
+	    throw builderWrapException(e);
 	}
     }
 

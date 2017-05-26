@@ -1,6 +1,6 @@
 package com.lapsa.mail2.impl;
 
-import static com.lapsa.mail2.impl.DefaultMailMessageBuilder.*;
+import static com.lapsa.mail2.impl.Checks.*;
 
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.Charset;

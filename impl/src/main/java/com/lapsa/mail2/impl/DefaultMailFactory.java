@@ -1,6 +1,7 @@
 package com.lapsa.mail2.impl;
 
 import static com.lapsa.mail.impl.MailSessionCustomProperties.*;
+import static com.lapsa.mail2.impl.Checks.*;
 
 import java.nio.charset.Charset;
 import java.util.Objects;
@@ -9,9 +10,9 @@ import javax.mail.MessagingException;
 import javax.mail.Session;
 import javax.mail.Transport;
 
-import com.lapsa.mail2.MailMessageBuilder;
 import com.lapsa.mail2.MailBuilderException;
 import com.lapsa.mail2.MailFactory;
+import com.lapsa.mail2.MailMessageBuilder;
 import com.lapsa.mail2.MailSendException;
 
 class DefaultMailFactory implements MailFactory {
@@ -54,10 +55,6 @@ class DefaultMailFactory implements MailFactory {
 	} catch (MessagingException e) {
 	    throw senderWrapException(e);
 	}
-    }
-
-    static final MailSendException senderWrapException(Exception e) {
-	return new MailSendException(String.format("Error sending message: %1$s", e.getMessage()), e);
     }
 
     @Override

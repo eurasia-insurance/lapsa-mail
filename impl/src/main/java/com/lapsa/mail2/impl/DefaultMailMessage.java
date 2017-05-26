@@ -1,7 +1,6 @@
 package com.lapsa.mail2.impl;
 
-import static com.lapsa.mail2.impl.DefaultMailMessageBuilder.*;
-import static com.lapsa.mail2.impl.DefaultMailFactory.*;
+import static com.lapsa.mail2.impl.Checks.*;
 
 import javax.mail.Message.RecipientType;
 import javax.mail.MessagingException;
@@ -14,8 +13,8 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
-import com.lapsa.mail2.MailMessage;
 import com.lapsa.mail2.MailBuilderException;
+import com.lapsa.mail2.MailMessage;
 import com.lapsa.mail2.MailSendException;
 
 final class DefaultMailMessage implements MailMessage {

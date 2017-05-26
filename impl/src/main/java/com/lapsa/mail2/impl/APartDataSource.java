@@ -1,6 +1,6 @@
 package com.lapsa.mail2.impl;
 
-import static com.lapsa.mail2.impl.DefaultMailMessageBuilder.*;
+import static com.lapsa.mail2.impl.Checks.*;
 
 import java.util.Objects;
 
@@ -24,7 +24,7 @@ abstract class APartDataSource extends APart {
 		    Objects.requireNonNull(dataSource, "Datasource data can not be null"));
 	    mimePart.setDataHandler(dh);
 	} catch (MessagingException e) {
-	    builderRethrowWrapped(e);
+	    throw builderWrapException(e);
 	}
     }
 }

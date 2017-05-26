@@ -1,6 +1,6 @@
 package com.lapsa.mail2.impl;
 
-import static com.lapsa.mail2.impl.DefaultMailMessageBuilder.*;
+import static com.lapsa.mail2.impl.Checks.*;
 
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.Charset;
@@ -29,7 +29,7 @@ final class PartDocument extends APart {
 		    builderRequireNonNull(charset, "Charset can not be null").name());
 	    mimePart.setText(content, charset.name(), "xml");
 	} catch (MessagingException | UnsupportedEncodingException e) {
-	    builderRethrowWrapped(e);
+	    throw builderWrapException(e);
 	}
 
     }

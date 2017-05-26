@@ -1,6 +1,6 @@
 package com.lapsa.mail2.impl;
 
-import static com.lapsa.mail2.impl.DefaultMailMessageBuilder.*;
+import static com.lapsa.mail2.impl.Checks.*;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
@@ -29,7 +29,7 @@ final class PartException extends APart implements MailMessageTextPart {
 	try {
 	    mimePart.setText(pw.toString(), charset.name(), "plain");
 	} catch (MessagingException e1) {
-	    builderRethrowWrapped(e1);
+	    throw builderWrapException(e1);
 	}
     }
 

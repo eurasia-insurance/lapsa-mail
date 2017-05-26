@@ -1,6 +1,6 @@
 package com.lapsa.mail2.impl;
 
-import static com.lapsa.mail2.impl.DefaultMailMessageBuilder.*;
+import static com.lapsa.mail2.impl.Checks.*;
 
 import java.io.Serializable;
 import java.util.Objects;
@@ -52,7 +52,7 @@ abstract class APart implements MailMessagePart, Serializable {
 		break;
 	    }
 	} catch (MessagingException e) {
-	    builderRethrowWrapped(e);
+	    throw builderWrapException(e);
 	}
     }
 
