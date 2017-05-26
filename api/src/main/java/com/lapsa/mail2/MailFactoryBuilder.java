@@ -7,11 +7,11 @@ import java.util.function.Predicate;
 
 public interface MailFactoryBuilder {
 
-    MailFactory build() throws MailException;
+    MailFactory build() throws MailBuilderException;
 
-    MailFactoryBuilder withProperties(Properties props) throws MailException;
+    MailFactoryBuilder withProperties(Properties props) throws MailBuilderException;
 
-    MailFactoryBuilder withAuth(String user, String password) throws MailException;
+    MailFactoryBuilder withAuth(String user, String password) throws MailBuilderException;
 
     MailFactoryBuilder withDefaultCharset(Charset charset) throws MailBuilderException;
 
@@ -31,29 +31,31 @@ public interface MailFactoryBuilder {
 
     MailFactoryBuilder withDefaultRecipient(String address, String friendlyName) throws MailBuilderException;
 
+    MailFactoryBuilder withDebug(boolean debug) throws MailBuilderException;
+
     // STATIC
 
-    static MailFactoryBuilder newBuilder() throws MailException {
+    static MailFactoryBuilder newBuilder() throws MailBuilderException {
 	return newBuilder(factory -> true);
     }
 
-    static <T extends MailFactoryBuilder> MailFactoryBuilder newMailFactoryBuilder(final Class<T> clazz) throws MailException {
+    static <T extends MailFactoryBuilder> MailFactoryBuilder newMailFactoryBuilder(final Class<T> clazz)
+	    throws MailBuilderException {
 	return newBuilder(factory -> factory.getClass() == clazz);
     }
 
     @SuppressWarnings("unchecked")
     static <T extends MailFactoryBuilder> MailFactoryBuilder newBuilder(final String implementationClass)
-	    throws MailException, ClassNotFoundException {
+	    throws MailBuilderException, ClassNotFoundException {
 	return newMailFactoryBuilder((Class<T>) Class.forName(implementationClass));
     }
 
-    static MailFactoryBuilder newBuilder(final Predicate<MailFactoryBuilder> func) throws MailException {
+    static MailFactoryBuilder newBuilder(final Predicate<MailFactoryBuilder> func) throws MailBuilderException {
 	final ServiceLoader<MailFactoryBuilder> mailFactorySPI = ServiceLoader.load(MailFactoryBuilder.class);
 	for (final MailFactoryBuilder factory : mailFactorySPI)
 	    if (func.test(factory))
 		return factory;
-	throw new MailException("There is no any registered MailFactoryBuilder service provider");
+	throw new MailBuilderException("There is no any registered MailFactoryBuilder service provider");
     }
 
-    MailFactoryBuilder withDebug(boolean debug);
 }

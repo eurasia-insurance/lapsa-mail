@@ -11,7 +11,6 @@ import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
 
 import com.lapsa.mail2.MailBuilderException;
-import com.lapsa.mail2.MailException;
 import com.lapsa.mail2.MailFactory;
 import com.lapsa.mail2.MailFactoryBuilder;
 
@@ -31,7 +30,7 @@ public final class DefaultMailFactoryBuilder implements MailFactoryBuilder {
     MailAddress forwardAllMailTo = null;
 
     @Override
-    public MailFactory build() throws MailException {
+    public MailFactory build() {
 	Session session = Session.getDefaultInstance(properties, a);
 	return new DefaultMailFactory(session, defaultCharset, alwaysBlindCopyTo, forwardAllMailTo, defaultRecipient,
 		defaultSender);
