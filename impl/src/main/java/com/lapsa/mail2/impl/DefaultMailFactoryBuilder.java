@@ -16,24 +16,96 @@ import com.lapsa.mail2.MailFactoryBuilder;
 
 public final class DefaultMailFactoryBuilder implements MailFactoryBuilder {
 
-    static final String PROPERTY_MAIL_DEBUG = "mail.debug";
-
     Authenticator a = null;
-    Properties properties = null;
 
+    Properties properties = null;
     Charset defaultCharset = Charset.forName("UTF-8");
 
     MailAddress defaultSender = null;
+
     MailAddress defaultRecipient = null;
-
     MailAddress alwaysBlindCopyTo = null;
-    MailAddress forwardAllMailTo = null;
 
+    MailAddress forwardAllMailTo = null;
     @Override
     public MailFactory build() {
 	Session session = Session.getDefaultInstance(properties, a);
 	return new DefaultMailFactory(session, defaultCharset, alwaysBlindCopyTo, forwardAllMailTo, defaultRecipient,
 		defaultSender);
+    }
+
+    @Override
+    public MailFactoryBuilder withAlwaysBlindCopyTo(String address) throws MailBuilderException {
+	this.alwaysBlindCopyTo = new MailAddress(address, defaultCharset);
+	return this;
+    }
+
+    @Override
+    public MailFactoryBuilder withAlwaysBlindCopyTo(String address, String friendlyName) throws MailBuilderException {
+	this.alwaysBlindCopyTo = new MailAddress(address, friendlyName, defaultCharset);
+	return this;
+    }
+
+    @Override
+    public MailFactoryBuilder withAuth(String user, String password) throws MailBuilderException {
+	builderRequireNonNull(user, "User name can not be null");
+	builderRequireNonNull(password, "Password can not be null");
+	this.a = new Authenticator() {
+	    public PasswordAuthentication getPasswordAuthentication() {
+		return new PasswordAuthentication(user, password);
+	    }
+	};
+	return this;
+    }
+
+    @Override
+    public MailFactoryBuilder withDebug(boolean debug) {
+	new PropertiesBuilder()
+		.withProperty(PROPERTY_MAIL_DEBUG, debug)
+		.mergeTo(properties);
+	return this;
+    }
+
+    @Override
+    public MailFactoryBuilder withDefaultCharset(Charset charset) throws MailBuilderException {
+	this.defaultCharset = builderRequireNonNull(charset, "Charset can not be null");
+	return this;
+    }
+
+    @Override
+    public MailFactoryBuilder withDefaultRecipient(String address) throws MailBuilderException {
+	this.defaultRecipient = new MailAddress(address, defaultCharset);
+	return this;
+    }
+
+    @Override
+    public MailFactoryBuilder withDefaultRecipient(String address, String friendlyName) throws MailBuilderException {
+	this.defaultRecipient = new MailAddress(address, friendlyName, defaultCharset);
+	return this;
+    }
+
+    @Override
+    public MailFactoryBuilder withDefaultSender(String address) throws MailBuilderException {
+	this.defaultSender = new MailAddress(address, defaultCharset);
+	return this;
+    }
+
+    @Override
+    public MailFactoryBuilder withDefaultSender(String address, String friendlyName) throws MailBuilderException {
+	this.defaultSender = new MailAddress(address, friendlyName, defaultCharset);
+	return this;
+    }
+
+    @Override
+    public MailFactoryBuilder withForwardAllMailTo(String address) throws MailBuilderException {
+	this.forwardAllMailTo = new MailAddress(address, defaultCharset);
+	return this;
+    }
+
+    @Override
+    public MailFactoryBuilder withForwardAllMailTo(String address, String friendlyName) throws MailBuilderException {
+	this.forwardAllMailTo = new MailAddress(address, friendlyName, defaultCharset);
+	return this;
     }
 
     @Override
@@ -73,89 +145,12 @@ public final class DefaultMailFactoryBuilder implements MailFactoryBuilder {
 	return this;
     }
 
-    @Override
-    public MailFactoryBuilder withAuth(String user, String password) throws MailBuilderException {
-	builderRequireNonNull(user, "User name can not be null");
-	builderRequireNonNull(password, "Password can not be null");
-	this.a = new Authenticator() {
-	    public PasswordAuthentication getPasswordAuthentication() {
-		return new PasswordAuthentication(user, password);
-	    }
-	};
-	return this;
-    }
-
-    @Override
-    public MailFactoryBuilder withDebug(boolean debug) {
-	new PropertiesBuilder()
-		.withProperty(PROPERTY_MAIL_DEBUG, debug)
-		.mergeTo(properties);
-	return this;
-    }
-
-    @Override
-    public MailFactoryBuilder withDefaultCharset(Charset charset) throws MailBuilderException {
-	this.defaultCharset = builderRequireNonNull(charset, "Charset can not be null");
-	return this;
-    }
-
-    @Override
-    public MailFactoryBuilder withDefaultSender(String address) throws MailBuilderException {
-	this.defaultSender = new MailAddress(address, defaultCharset);
-	return this;
-    }
-
-    @Override
-    public MailFactoryBuilder withDefaultSender(String address, String friendlyName) throws MailBuilderException {
-	this.defaultSender = new MailAddress(address, friendlyName, defaultCharset);
-	return this;
-    }
-
-    @Override
-    public MailFactoryBuilder withDefaultRecipient(String address) throws MailBuilderException {
-	this.defaultRecipient = new MailAddress(address, defaultCharset);
-	return this;
-    }
-
-    @Override
-    public MailFactoryBuilder withDefaultRecipient(String address, String friendlyName) throws MailBuilderException {
-	this.defaultRecipient = new MailAddress(address, friendlyName, defaultCharset);
-	return this;
-    }
-
-    @Override
-    public MailFactoryBuilder withAlwaysBlindCopyTo(String address) throws MailBuilderException {
-	this.alwaysBlindCopyTo = new MailAddress(address, defaultCharset);
-	return this;
-    }
-
-    @Override
-    public MailFactoryBuilder withAlwaysBlindCopyTo(String address, String friendlyName) throws MailBuilderException {
-	this.alwaysBlindCopyTo = new MailAddress(address, friendlyName, defaultCharset);
-	return this;
-    }
-
-    @Override
-    public MailFactoryBuilder withForwardAllMailTo(String address) throws MailBuilderException {
-	this.forwardAllMailTo = new MailAddress(address, defaultCharset);
-	return this;
-    }
-
-    @Override
-    public MailFactoryBuilder withForwardAllMailTo(String address, String friendlyName) throws MailBuilderException {
-	this.forwardAllMailTo = new MailAddress(address, friendlyName, defaultCharset);
-	return this;
-    }
+    static final String PROPERTY_MAIL_DEBUG = "mail.debug";
 
 }
 
 class PropertiesBuilder {
     private Properties properties = new Properties();
-
-    PropertiesBuilder withProperty(String key, Object value) {
-	properties.put(key, value);
-	return this;
-    }
 
     Properties build() {
 	return (Properties) properties.clone();
@@ -164,5 +159,10 @@ class PropertiesBuilder {
     void mergeTo(Properties mergeTo) {
 	for (Object o : properties.keySet())
 	    mergeTo.put(o, properties.get(o));
+    }
+
+    PropertiesBuilder withProperty(String key, Object value) {
+	properties.put(key, value);
+	return this;
     }
 }
