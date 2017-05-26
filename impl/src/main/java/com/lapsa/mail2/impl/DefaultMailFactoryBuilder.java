@@ -28,7 +28,7 @@ public final class DefaultMailFactoryBuilder implements MailFactoryBuilder {
 
     MailAddress forwardAllMailTo = null;
     @Override
-    public MailFactory build() {
+    public MailFactory build() throws MailBuilderException {
 	Session session = Session.getDefaultInstance(properties, a);
 	return new DefaultMailFactory(session, defaultCharset, alwaysBlindCopyTo, forwardAllMailTo, defaultRecipient,
 		defaultSender);
