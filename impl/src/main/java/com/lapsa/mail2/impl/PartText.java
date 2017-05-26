@@ -21,14 +21,14 @@ final class PartText extends AbstractPart {
 	}
     }
 
-    PartText(final DefaultMailFactory service,
+    PartText(final DefaultMailFactory factory,
 	    final String textContent,
 	    final TextSubtype textSubtype,
 	    final String fileName,
 	    final DispositionType dispositionType,
 	    final Charset charset,
 	    final String contentId) throws MailBuilderException {
-	super(service, fileName, dispositionType, contentId);
+	super(factory, fileName, dispositionType, contentId);
 	try {
 	    mimePart.setText(builderRequireNonNull(textContent, "Content can not be null"),
 		    builderRequireNonNull(charset, "Charset can not be null").name(),

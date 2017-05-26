@@ -15,13 +15,13 @@ import com.lapsa.mail2.MailBuilderException;
 final class PartDocument extends AbstractPart {
     private static final long serialVersionUID = 7713991325528136449L;
 
-    PartDocument(final DefaultMailFactory service,
+    PartDocument(final DefaultMailFactory factory,
 	    final Document doc,
 	    final Charset charset,
 	    final String fileName,
 	    final DispositionType dispositionType,
 	    final String contentId) throws MailBuilderException {
-	super(service, fileName, dispositionType, contentId);
+	super(factory, fileName, dispositionType, contentId);
 
 	try {
 	    String content = DOMUtils.getInstance().getAsString(

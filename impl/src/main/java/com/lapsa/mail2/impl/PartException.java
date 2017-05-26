@@ -14,13 +14,13 @@ import com.lapsa.mail2.MailBuilderException;
 final class PartException extends AbstractPart implements MailMessageTextPart {
     private static final long serialVersionUID = -7858162616103248497L;
 
-    PartException(final DefaultMailFactory service,
+    PartException(final DefaultMailFactory factory,
 	    final Exception e,
 	    final String fileName,
 	    final Charset charset,
 	    final DispositionType dispositionType,
 	    final String contentId) throws MailBuilderException {
-	super(service, fileName, dispositionType, contentId);
+	super(factory, fileName, dispositionType, contentId);
 	builderRequireNonNull(e, "Exception can not be null");
 	builderRequireNonNull(charset, "Charset can not be null");
 	final StringWriter sw = new StringWriter();

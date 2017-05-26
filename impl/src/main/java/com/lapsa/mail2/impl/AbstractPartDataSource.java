@@ -13,12 +13,12 @@ import com.lapsa.mail2.MailBuilderException;
 abstract class AbstractPartDataSource extends AbstractPart {
     private static final long serialVersionUID = -3710383934434838684L;
 
-    AbstractPartDataSource(final DefaultMailFactory service,
+    AbstractPartDataSource(final DefaultMailFactory factory,
 	    final DataSource dataSource,
 	    final String fileName,
 	    final DispositionType dispositionType,
 	    final String contentId) throws MailBuilderException {
-	super(service, fileName, dispositionType, contentId);
+	super(factory, fileName, dispositionType, contentId);
 	try {
 	    final DataHandler dh = new DataHandler(
 		    Objects.requireNonNull(dataSource, "Datasource data can not be null"));

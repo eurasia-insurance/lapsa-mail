@@ -19,15 +19,15 @@ import com.lapsa.mail2.MailSendException;
 
 final class DefaultMailMessage implements MailMessage {
 
-    final transient DefaultMailFactory service;
+    final transient DefaultMailFactory factory;
     transient boolean sent = false;
 
     final MimeMessage msg;
 
-    DefaultMailMessage(DefaultMailFactory service, DefaultMailMessageBuilder template)
+    DefaultMailMessage(DefaultMailFactory factory, DefaultMailMessageBuilder template)
 	    throws MailBuilderException {
-	this.service = service;
-	this.msg = new MimeMessage(service.session);
+	this.factory = factory;
+	this.msg = new MimeMessage(factory.session);
 
 	// from
 	try {
@@ -122,7 +122,7 @@ final class DefaultMailMessage implements MailMessage {
     @Override
     public synchronized void sendAgain() throws MailSendException {
 	try {
-	    service.getTransportConnected().sendMessage(msg, msg.getAllRecipients());
+	    factory.getTransportConnected().sendMessage(msg, msg.getAllRecipients());
 	    sent = true;
 	} catch (MessagingException e) {
 	    throw senderWrapException(e);

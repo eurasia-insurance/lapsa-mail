@@ -17,7 +17,7 @@ import com.lapsa.mail2.MailBuilderException;
 abstract class AbstractPart implements Serializable {
     private static final long serialVersionUID = -2790508720253272737L;
 
-    final transient DefaultMailFactory service;
+    final transient DefaultMailFactory factory;
 
     final MimeBodyPart mimePart;
 
@@ -25,11 +25,11 @@ abstract class AbstractPart implements Serializable {
 	INLINE, ATTACHEMENT;
     }
 
-    AbstractPart(final DefaultMailFactory service,
+    AbstractPart(final DefaultMailFactory factory,
 	    final String fileName,
 	    final DispositionType dispositionType,
 	    final String contentId) throws MailBuilderException {
-	this.service = Objects.requireNonNull(service);
+	this.factory = Objects.requireNonNull(factory);
 
 	Objects.requireNonNull(dispositionType, "Disposition type can not be null");
 	if (dispositionType == DispositionType.ATTACHEMENT)
