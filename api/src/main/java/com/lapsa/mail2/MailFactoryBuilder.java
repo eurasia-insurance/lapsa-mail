@@ -42,9 +42,9 @@ public interface MailFactoryBuilder {
     }
 
     @SuppressWarnings("unchecked")
-    static MailFactoryBuilder newBuilder(final String implementationClass)
+    static <T extends MailFactoryBuilder> MailFactoryBuilder newBuilder(final String implementationClass)
 	    throws MailException, ClassNotFoundException {
-	return newMailFactoryBuilder((Class<MailFactoryBuilder>) Class.forName(implementationClass));
+	return newMailFactoryBuilder((Class<T>) Class.forName(implementationClass));
     }
 
     static MailFactoryBuilder newBuilder(final Predicate<MailFactoryBuilder> func) throws MailException {
