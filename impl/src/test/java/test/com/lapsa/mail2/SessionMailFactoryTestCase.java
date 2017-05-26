@@ -25,7 +25,7 @@ public class SessionMailFactoryTestCase {
 	factory.newMailBuilder()
 		.withTORecipient(MAIL_TEST_RECIPIENT_ADDRESS)
 		.withSubject(this.getClass().getName() + ".testSend1")
-		.withPartText(this.getClass().getName() + ".testSend1")
+		.withTextPart(this.getClass().getName() + ".testSend1")
 		.build()
 		.send();
     }

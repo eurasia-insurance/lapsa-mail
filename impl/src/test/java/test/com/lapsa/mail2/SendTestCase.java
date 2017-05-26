@@ -34,8 +34,8 @@ public class SendTestCase {
 	factory.newMailBuilder()
 		.withTORecipient(MAIL_TEST_RECIPIENT_ADDRESS)
 		.withSubject(this.getClass().getName() + ".testSend1")
-		.withPartText(this.getClass().getName() + ".testSend1")
-		.withAttachement(testFileBytes(), "image/jpeg", "PICTURE.jpg")
+		.withTextPart(this.getClass().getName() + ".testSend1")
+		.withBytesAttached(testFileBytes(), "image/jpeg", "PICTURE.jpg")
 		.build()
 		.send();
     }
@@ -45,8 +45,8 @@ public class SendTestCase {
 	factory.newMailBuilder()
 		.withTORecipient(MAIL_TEST_RECIPIENT_ADDRESS)
 		.withSubject(this.getClass().getName() + ".testSend2")
-		.withPartText(this.getClass().getName() + ".testSend2")
-		.withAttachement(testFileInputStream(), "image/jpeg", "PICTURE.jpg")
+		.withTextPart(this.getClass().getName() + ".testSend2")
+		.withStreamAttached(testFileInputStream(), "image/jpeg", "PICTURE.jpg")
 		.build()
 		.send();
     }
@@ -56,8 +56,8 @@ public class SendTestCase {
 	factory.newMailBuilder()
 		.withTORecipient(MAIL_TEST_RECIPIENT_ADDRESS)
 		.withSubject(this.getClass().getName() + ".testSend3")
-		.withPartText(this.getClass().getName() + ".testSend3")
-		.withAttachement(new File(PATH_TO_TEST_FILE))
+		.withTextPart(this.getClass().getName() + ".testSend3")
+		.withFileAttached(new File(PATH_TO_TEST_FILE))
 		.build()
 		.send();
     }
