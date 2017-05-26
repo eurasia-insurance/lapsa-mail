@@ -19,7 +19,7 @@ public final class SessionMailFactory implements MailFactory {
     }
 
     @Override
-    public  void close() throws Exception {
+    public void close() throws Exception {
 	delegate.close();
     }
 
