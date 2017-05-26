@@ -12,10 +12,9 @@ import javax.mail.internet.MimeBodyPart;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
-import com.lapsa.mail.MailMessagePart;
 import com.lapsa.mail2.MailBuilderException;
 
-abstract class AbstractPart implements MailMessagePart, Serializable {
+abstract class AbstractPart implements Serializable {
     private static final long serialVersionUID = -2790508720253272737L;
 
     final transient DefaultMailFactory service;
