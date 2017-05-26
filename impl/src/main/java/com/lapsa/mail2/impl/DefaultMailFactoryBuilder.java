@@ -14,7 +14,7 @@ import com.lapsa.mail2.MailBuilderException;
 import com.lapsa.mail2.MailFactory;
 import com.lapsa.mail2.MailFactoryBuilder;
 
-public final class DefaultMailFactoryBuilder implements MailFactoryBuilder {
+final class DefaultMailFactoryBuilder implements MailFactoryBuilder {
 
     Authenticator a = null;
 
