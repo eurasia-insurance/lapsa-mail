@@ -63,14 +63,14 @@ final class DefaultMailMessageBuilder implements MailMessageBuilder {
     }
 
     @Override
-    public MailMessageBuilder withAttachement(byte[] binaryData, String mimeType, String fileName)
+    public MailMessageBuilder withBytesAttached(byte[] binaryData, String mimeType, String fileName)
 	    throws MailBuilderException {
 	_addPart(new PartBytes(service, binaryData, mimeType, fileName, ATTACHEMENT, null));
 	return this;
     }
 
     @Override
-    public MailMessageBuilder withAttachement(byte[] binaryData, String mimeType, String fileName,
+    public MailMessageBuilder withBytesAttached(byte[] binaryData, String mimeType, String fileName,
 	    String contentId)
 	    throws MailBuilderException {
 	_addPart(new PartBytes(service, binaryData, mimeType, fileName, ATTACHEMENT, contentId));
@@ -78,21 +78,21 @@ final class DefaultMailMessageBuilder implements MailMessageBuilder {
     }
 
     @Override
-    public MailMessageBuilder withAttachement(Document doc, String fileName)
+    public MailMessageBuilder withDocumentAttached(Document doc, String fileName)
 	    throws MailBuilderException {
 	_addPart(new PartDocument(service, doc, сharset, fileName, ATTACHEMENT, null));
 	return this;
     }
 
     @Override
-    public MailMessageBuilder withAttachement(Document doc, String fileName, Charset charset)
+    public MailMessageBuilder withDocumentAttached(Document doc, String fileName, Charset charset)
 	    throws MailBuilderException {
 	_addPart(new PartDocument(service, doc, charset, fileName, ATTACHEMENT, null));
 	return this;
     }
 
     @Override
-    public MailMessageBuilder withAttachement(Document doc, String fileName, Charset charset,
+    public MailMessageBuilder withDocumentAttached(Document doc, String fileName, Charset charset,
 	    String contentId)
 	    throws MailBuilderException {
 	_addPart(new PartDocument(service, doc, charset, fileName, ATTACHEMENT, contentId));
@@ -100,14 +100,14 @@ final class DefaultMailMessageBuilder implements MailMessageBuilder {
     }
 
     @Override
-    public MailMessageBuilder withAttachement(Document doc, String fileName, String contentId)
+    public MailMessageBuilder withDocumentAttached(Document doc, String fileName, String contentId)
 	    throws MailBuilderException {
 	_addPart(new PartDocument(service, doc, сharset, fileName, ATTACHEMENT, contentId));
 	return this;
     }
 
     @Override
-    public MailMessageBuilder withAttachement(Exception e, String fileName)
+    public MailMessageBuilder withExceptionAttached(Exception e, String fileName)
 	    throws MailBuilderException {
 	_addPart(new PartException(service, e, fileName, сharset, ATTACHEMENT, null));
 	return this;
@@ -121,27 +121,27 @@ final class DefaultMailMessageBuilder implements MailMessageBuilder {
     }
 
     @Override
-    public MailMessageBuilder withAttachement(File file) throws MailBuilderException, IOException {
+    public MailMessageBuilder withFileAttached(File file) throws MailBuilderException, IOException {
 	_addPart(new PartFile(service, file, null, ATTACHEMENT, null));
 	return this;
     }
 
     @Override
-    public MailMessageBuilder withAttachement(File file, String contentId)
+    public MailMessageBuilder withFileAttached(File file, String contentId)
 	    throws MailBuilderException, IOException {
 	_addPart(new PartFile(service, file, null, ATTACHEMENT, contentId));
 	return this;
     }
 
     @Override
-    public MailMessageBuilder withAttachement(InputStream inputStream, String mimeType, String fileName)
+    public MailMessageBuilder withStreamAttached(InputStream inputStream, String mimeType, String fileName)
 	    throws MailBuilderException, IOException {
 	_addPart(new PartInputStream(service, inputStream, mimeType, fileName, ATTACHEMENT, null));
 	return this;
     }
 
     @Override
-    public MailMessageBuilder withAttachement(InputStream inputStream, String mimeType, String fileName,
+    public MailMessageBuilder withStreamAttached(InputStream inputStream, String mimeType, String fileName,
 	    String contentId)
 	    throws MailBuilderException, IOException {
 	_addPart(new PartInputStream(service, inputStream, mimeType, fileName, ATTACHEMENT, contentId));
@@ -149,20 +149,20 @@ final class DefaultMailMessageBuilder implements MailMessageBuilder {
     }
 
     @Override
-    public MailMessageBuilder withAttachement(String textContent, String fileName, Charset charset)
+    public MailMessageBuilder withTextAttached(String textContent, String fileName, Charset charset)
 	    throws MailBuilderException {
 	_addPart(new PartText(service, textContent, TEXT, fileName, ATTACHEMENT, charset, null));
 	return this;
     }
 
     @Override
-    public MailMessageBuilder withAttachement(String textContent, String fileName) throws MailBuilderException {
+    public MailMessageBuilder withTextAttached(String textContent, String fileName) throws MailBuilderException {
 	_addPart(new PartText(service, textContent, TEXT, fileName, ATTACHEMENT, сharset, null));
 	return this;
     }
 
     @Override
-    public MailMessageBuilder withAttachement(String textContent, String fileName, Charset charset,
+    public MailMessageBuilder withTextAttached(String textContent, String fileName, Charset charset,
 	    String contentId)
 	    throws MailBuilderException {
 	_addPart(new PartText(service, textContent, TEXT, fileName, ATTACHEMENT, charset, contentId));
@@ -196,132 +196,132 @@ final class DefaultMailMessageBuilder implements MailMessageBuilder {
     }
 
     @Override
-    public synchronized MailMessageBuilder withPartDocument(Document doc) throws MailBuilderException {
+    public synchronized MailMessageBuilder withDocumentPart(Document doc) throws MailBuilderException {
 	_addPart(new PartDocument(service, doc, сharset, null, INLINE, null));
 	return this;
     }
 
     @Override
-    public synchronized MailMessageBuilder withPartDocument(Document doc, Charset charset)
+    public synchronized MailMessageBuilder withDocumentPart(Document doc, Charset charset)
 	    throws MailBuilderException {
 	_addPart(new PartDocument(service, doc, charset, null, INLINE, null));
 	return this;
     }
 
     @Override
-    public synchronized MailMessageBuilder withPartDocument(Document doc, Charset charset, String contentId)
+    public synchronized MailMessageBuilder withDocumentPart(Document doc, Charset charset, String contentId)
 	    throws MailBuilderException {
 	_addPart(new PartDocument(service, doc, charset, null, INLINE, contentId));
 	return this;
     }
 
     @Override
-    public synchronized MailMessageBuilder withPartDocument(Document doc, String contentId)
+    public synchronized MailMessageBuilder withDocumentPart(Document doc, String contentId)
 	    throws MailBuilderException {
 	_addPart(new PartDocument(service, doc, сharset, null, INLINE, contentId));
 	return this;
     }
 
     @Override
-    public synchronized MailMessageBuilder withPartException(Exception e) throws MailBuilderException {
+    public synchronized MailMessageBuilder withExceptionPart(Exception e) throws MailBuilderException {
 	_addPart(new PartException(service, e, null, сharset, INLINE, null));
 	return this;
     }
 
     @Override
-    public synchronized MailMessageBuilder withPartException(Exception e, String contentId)
+    public synchronized MailMessageBuilder withExceptionPart(Exception e, String contentId)
 	    throws MailBuilderException {
 	_addPart(new PartException(service, e, null, сharset, INLINE, contentId));
 	return this;
     }
 
     @Override
-    public synchronized MailMessageBuilder withPartHtml(String html) throws MailBuilderException {
+    public synchronized MailMessageBuilder withHtmlPart(String html) throws MailBuilderException {
 	_addPart(new PartText(service, html, HTML, null, INLINE, сharset, null));
 	return this;
     }
 
     @Override
-    public synchronized MailMessageBuilder withPartHtml(String html, Charset charset)
+    public synchronized MailMessageBuilder withHtmlPart(String html, Charset charset)
 	    throws MailBuilderException {
 	_addPart(new PartText(service, html, HTML, null, INLINE, charset, null));
 	return this;
     }
 
     @Override
-    public MailMessageBuilder withPartHtml(String html, Charset charset, String contentId)
+    public MailMessageBuilder withHtmlPart(String html, Charset charset, String contentId)
 	    throws MailBuilderException {
 	_addPart(new PartText(service, html, HTML, null, INLINE, charset, contentId));
 	return this;
     }
 
     @Override
-    public MailMessageBuilder withPartHtml(String html, String contentId) throws MailBuilderException {
+    public MailMessageBuilder withHtmlPart(String html, String contentId) throws MailBuilderException {
 	_addPart(new PartText(service, html, HTML, null, INLINE, сharset, contentId));
 	return this;
     }
 
     @Override
-    public MailMessageBuilder withPartInline(byte[] binaryData, String mimeType) throws MailBuilderException {
+    public MailMessageBuilder withBinaryPart(byte[] binaryData, String mimeType) throws MailBuilderException {
 	_addPart(new PartBytes(service, binaryData, mimeType, null, INLINE, null));
 	return this;
     }
 
     @Override
-    public MailMessageBuilder withPartInline(byte[] binaryData, String mimeType, String contentId)
+    public MailMessageBuilder withBinaryPart(byte[] binaryData, String mimeType, String contentId)
 	    throws MailBuilderException {
 	_addPart(new PartBytes(service, binaryData, mimeType, null, INLINE, contentId));
 	return this;
     }
 
     @Override
-    public MailMessageBuilder withPartInline(File file) throws MailBuilderException, IOException {
+    public MailMessageBuilder withFilePart(File file) throws MailBuilderException, IOException {
 	_addPart(new PartFile(service, file, null, INLINE, null));
 	return this;
     }
 
     @Override
-    public MailMessageBuilder withPartInline(File file, String contentId)
+    public MailMessageBuilder withFilePart(File file, String contentId)
 	    throws MailBuilderException, IOException {
 	_addPart(new PartFile(service, file, null, INLINE, contentId));
 	return this;
     }
 
     @Override
-    public MailMessageBuilder withPartInline(InputStream inputStream, String mimeType)
+    public MailMessageBuilder withStreamPart(InputStream inputStream, String mimeType)
 	    throws MailBuilderException, IOException {
 	_addPart(new PartInputStream(service, inputStream, mimeType, null, INLINE, null));
 	return this;
     }
 
     @Override
-    public MailMessageBuilder withPartInline(InputStream inputStream, String mimeType, String contentId)
+    public MailMessageBuilder withStreamPart(InputStream inputStream, String mimeType, String contentId)
 	    throws MailBuilderException, IOException {
 	_addPart(new PartInputStream(service, inputStream, mimeType, null, INLINE, contentId));
 	return this;
     }
 
     @Override
-    public MailMessageBuilder withPartText(String text) throws MailBuilderException {
+    public MailMessageBuilder withTextPart(String text) throws MailBuilderException {
 	_addPart(new PartText(service, text, TEXT, null, INLINE, сharset, null));
 	return this;
     }
 
     @Override
-    public MailMessageBuilder withPartText(String text, Charset charset) throws MailBuilderException {
+    public MailMessageBuilder withTextPart(String text, Charset charset) throws MailBuilderException {
 	_addPart(new PartText(service, text, TEXT, null, INLINE, charset, null));
 	return this;
     }
 
     @Override
-    public MailMessageBuilder withPartText(String text, Charset charset, String contentId)
+    public MailMessageBuilder withTextPart(String text, Charset charset, String contentId)
 	    throws MailBuilderException {
 	_addPart(new PartText(service, text, TEXT, null, INLINE, charset, contentId));
 	return this;
     }
 
     @Override
-    public MailMessageBuilder withPartText(String text, String contentId) throws MailBuilderException {
+    public MailMessageBuilder withTextPart(String text, String contentId) throws MailBuilderException {
 	_addPart(new PartText(service, text, TEXT, null, INLINE, сharset, contentId));
 	return this;
     }

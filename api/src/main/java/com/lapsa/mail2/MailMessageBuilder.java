@@ -9,45 +9,45 @@ import org.w3c.dom.Document;
 
 public interface MailMessageBuilder {
 
-    MailMessageBuilder withAttachement(byte[] binaryData, String mimeType, String fileName)
+    MailMessageBuilder withBytesAttached(byte[] binaryData, String mimeType, String fileName)
 	    throws MailBuilderException;
 
-    MailMessageBuilder withAttachement(byte[] binaryData, String mimeType, String fileName, String contentId)
+    MailMessageBuilder withBytesAttached(byte[] binaryData, String mimeType, String fileName, String contentId)
 	    throws MailBuilderException;
 
-    MailMessageBuilder withAttachement(Document doc, String fileName) throws MailBuilderException;
+    MailMessageBuilder withDocumentAttached(Document doc, String fileName) throws MailBuilderException;
 
-    MailMessageBuilder withAttachement(Document doc, String fileName, Charset charset)
+    MailMessageBuilder withDocumentAttached(Document doc, String fileName, Charset charset)
 	    throws MailBuilderException;
 
-    MailMessageBuilder withAttachement(Document doc, String fileName, Charset charset, String contentId)
+    MailMessageBuilder withDocumentAttached(Document doc, String fileName, Charset charset, String contentId)
 	    throws MailBuilderException;
 
-    MailMessageBuilder withAttachement(Document doc, String fileName, String contentId)
+    MailMessageBuilder withDocumentAttached(Document doc, String fileName, String contentId)
 	    throws MailBuilderException;
 
-    MailMessageBuilder withAttachement(Exception e, String fileName) throws MailBuilderException;
+    MailMessageBuilder withExceptionAttached(Exception e, String fileName) throws MailBuilderException;
 
     MailMessageBuilder withAttachement(Exception e, String fileName, String contentId)
 	    throws MailBuilderException;
 
-    MailMessageBuilder withAttachement(File file) throws MailBuilderException, IOException;
+    MailMessageBuilder withFileAttached(File file) throws MailBuilderException, IOException;
 
-    MailMessageBuilder withAttachement(File file, String contentId) throws MailBuilderException, IOException;
+    MailMessageBuilder withFileAttached(File file, String contentId) throws MailBuilderException, IOException;
 
-    MailMessageBuilder withAttachement(InputStream inputStream, String mimeType, String fileName)
+    MailMessageBuilder withStreamAttached(InputStream inputStream, String mimeType, String fileName)
 	    throws MailBuilderException, IOException;
 
-    MailMessageBuilder withAttachement(InputStream inputStream, String mimeType, String fileName, String contentId)
+    MailMessageBuilder withStreamAttached(InputStream inputStream, String mimeType, String fileName, String contentId)
 	    throws MailBuilderException, IOException;
 
-    MailMessageBuilder withAttachement(String textContent, String fileName)
+    MailMessageBuilder withTextAttached(String textContent, String fileName)
 	    throws MailBuilderException;
 
-    MailMessageBuilder withAttachement(String textContent, String fileName, Charset charset)
+    MailMessageBuilder withTextAttached(String textContent, String fileName, Charset charset)
 	    throws MailBuilderException;
 
-    MailMessageBuilder withAttachement(String textContent, String fileName, Charset charset, String contentId)
+    MailMessageBuilder withTextAttached(String textContent, String fileName, Charset charset, String contentId)
 	    throws MailBuilderException;
 
     MailMessageBuilder withAnotherBCCRecipient(String address) throws MailBuilderException;
@@ -58,50 +58,50 @@ public interface MailMessageBuilder {
 
     MailMessageBuilder withAnotherCCRecipient(String address, String friendlyName) throws MailBuilderException;
 
-    MailMessageBuilder withPartDocument(Document doc) throws MailBuilderException;
+    MailMessageBuilder withDocumentPart(Document doc) throws MailBuilderException;
 
-    MailMessageBuilder withPartDocument(Document doc, Charset charset) throws MailBuilderException;
+    MailMessageBuilder withDocumentPart(Document doc, Charset charset) throws MailBuilderException;
 
-    MailMessageBuilder withPartDocument(Document doc, Charset charset, String contentId)
+    MailMessageBuilder withDocumentPart(Document doc, Charset charset, String contentId)
 	    throws MailBuilderException;
 
-    MailMessageBuilder withPartDocument(Document doc, String contentId) throws MailBuilderException;
+    MailMessageBuilder withDocumentPart(Document doc, String contentId) throws MailBuilderException;
 
-    MailMessageBuilder withPartException(Exception e) throws MailBuilderException;
+    MailMessageBuilder withExceptionPart(Exception e) throws MailBuilderException;
 
-    MailMessageBuilder withPartException(Exception e, String contentId) throws MailBuilderException;
+    MailMessageBuilder withExceptionPart(Exception e, String contentId) throws MailBuilderException;
 
-    MailMessageBuilder withPartHtml(String html) throws MailBuilderException;
+    MailMessageBuilder withHtmlPart(String html) throws MailBuilderException;
 
-    MailMessageBuilder withPartHtml(String html, Charset charset) throws MailBuilderException;
+    MailMessageBuilder withHtmlPart(String html, Charset charset) throws MailBuilderException;
 
-    MailMessageBuilder withPartHtml(String html, Charset charset, String contentId) throws MailBuilderException;
+    MailMessageBuilder withHtmlPart(String html, Charset charset, String contentId) throws MailBuilderException;
 
-    MailMessageBuilder withPartHtml(String html, String contentId) throws MailBuilderException;
+    MailMessageBuilder withHtmlPart(String html, String contentId) throws MailBuilderException;
 
-    MailMessageBuilder withPartInline(byte[] binaryData, String mimeType)
+    MailMessageBuilder withBinaryPart(byte[] binaryData, String mimeType)
 	    throws MailBuilderException;
 
-    MailMessageBuilder withPartInline(byte[] binaryData, String mimeType, String contentId)
+    MailMessageBuilder withBinaryPart(byte[] binaryData, String mimeType, String contentId)
 	    throws MailBuilderException;
 
-    MailMessageBuilder withPartInline(File file) throws MailBuilderException, IOException;
+    MailMessageBuilder withFilePart(File file) throws MailBuilderException, IOException;
 
-    MailMessageBuilder withPartInline(File file, String contentId) throws MailBuilderException, IOException;
+    MailMessageBuilder withFilePart(File file, String contentId) throws MailBuilderException, IOException;
 
-    MailMessageBuilder withPartInline(InputStream inputStream, String mimeType)
+    MailMessageBuilder withStreamPart(InputStream inputStream, String mimeType)
 	    throws MailBuilderException, IOException;
 
-    MailMessageBuilder withPartInline(InputStream inputStream, String mimeType, String contentId)
+    MailMessageBuilder withStreamPart(InputStream inputStream, String mimeType, String contentId)
 	    throws MailBuilderException, IOException;
 
-    MailMessageBuilder withPartText(String text) throws MailBuilderException;
+    MailMessageBuilder withTextPart(String text) throws MailBuilderException;
 
-    MailMessageBuilder withPartText(String text, Charset charset) throws MailBuilderException;
+    MailMessageBuilder withTextPart(String text, Charset charset) throws MailBuilderException;
 
-    MailMessageBuilder withPartText(String text, Charset charset, String contentId) throws MailBuilderException;
+    MailMessageBuilder withTextPart(String text, Charset charset, String contentId) throws MailBuilderException;
 
-    MailMessageBuilder withPartText(String text, String contentId) throws MailBuilderException;
+    MailMessageBuilder withTextPart(String text, String contentId) throws MailBuilderException;
 
     MailMessageBuilder withAnotherTORecipient(String address) throws MailBuilderException;
 
