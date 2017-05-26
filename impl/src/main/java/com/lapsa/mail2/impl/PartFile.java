@@ -8,7 +8,7 @@ import javax.activation.FileDataSource;
 
 import com.lapsa.mail2.MailBuilderException;
 
-final class PartFile extends APartDataSource {
+final class PartFile extends AbstractPartDataSource {
     private static final long serialVersionUID = -7858162616103248497L;
 
     PartFile(final DefaultMailFactory service,

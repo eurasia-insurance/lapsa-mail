@@ -87,7 +87,7 @@ final class DefaultMailMessage implements MailMessage {
 	    }
 
 	    final Multipart multipart = new MimeMultipart();
-	    for (APart part : template.parts) {
+	    for (AbstractPart part : template.parts) {
 		multipart.addBodyPart(part.mimePart);
 	    }
 	    msg.setContent(multipart);

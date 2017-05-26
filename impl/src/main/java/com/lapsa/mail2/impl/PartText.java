@@ -9,7 +9,7 @@ import javax.mail.MessagingException;
 
 import com.lapsa.mail2.MailBuilderException;
 
-final class PartText extends APart {
+final class PartText extends AbstractPart {
     private static final long serialVersionUID = 1307985859507746378L;
 
     static enum TextSubtype {

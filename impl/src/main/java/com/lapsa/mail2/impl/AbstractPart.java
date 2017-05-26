@@ -15,7 +15,7 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 import com.lapsa.mail.MailMessagePart;
 import com.lapsa.mail2.MailBuilderException;
 
-abstract class APart implements MailMessagePart, Serializable {
+abstract class AbstractPart implements MailMessagePart, Serializable {
     private static final long serialVersionUID = -2790508720253272737L;
 
     final transient DefaultMailFactory service;
@@ -26,7 +26,7 @@ abstract class APart implements MailMessagePart, Serializable {
 	INLINE, ATTACHEMENT;
     }
 
-    APart(final DefaultMailFactory service,
+    AbstractPart(final DefaultMailFactory service,
 	    final String fileName,
 	    final DispositionType dispositionType,
 	    final String contentId) throws MailBuilderException {

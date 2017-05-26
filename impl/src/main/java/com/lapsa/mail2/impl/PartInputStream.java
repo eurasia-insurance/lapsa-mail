@@ -9,7 +9,7 @@ import javax.mail.util.ByteArrayDataSource;
 
 import com.lapsa.mail2.MailBuilderException;
 
-final class PartInputStream extends APartDataSource {
+final class PartInputStream extends AbstractPartDataSource {
     private static final long serialVersionUID = -7858162616103248497L;
 
     PartInputStream(final DefaultMailFactory service,

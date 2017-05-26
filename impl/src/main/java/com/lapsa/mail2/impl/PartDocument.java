@@ -12,7 +12,7 @@ import org.w3c.dom.Document;
 import com.lapsa.mail.impl.DOMUtils;
 import com.lapsa.mail2.MailBuilderException;
 
-final class PartDocument extends APart {
+final class PartDocument extends AbstractPart {
     private static final long serialVersionUID = 7713991325528136449L;
 
     PartDocument(final DefaultMailFactory service,

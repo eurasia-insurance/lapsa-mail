@@ -1,6 +1,6 @@
 package com.lapsa.mail2.impl;
 
-import static com.lapsa.mail2.impl.APart.DispositionType.*;
+import static com.lapsa.mail2.impl.AbstractPart.DispositionType.*;
 import static com.lapsa.mail2.impl.PartText.TextSubtype.*;
 import static com.lapsa.mail2.impl.Checks.*;
 
@@ -32,7 +32,7 @@ final class DefaultMailMessageBuilder implements MailMessageBuilder {
     Set<MailAddress> to;
     Set<MailAddress> cc;
     Set<MailAddress> bcc;
-    List<APart> parts;
+    List<AbstractPart> parts;
     String subject;
     Charset сharset;
 
@@ -424,7 +424,7 @@ final class DefaultMailMessageBuilder implements MailMessageBuilder {
 	return this;
     }
 
-    private synchronized List<APart> _addPart(APart part) {
+    private synchronized List<AbstractPart> _addPart(AbstractPart part) {
 	return _updatePartsList(part, false);
     }
 
@@ -458,7 +458,7 @@ final class DefaultMailMessageBuilder implements MailMessageBuilder {
 	return _updateRecipientAddressList(set, true, addr);
     }
 
-    private synchronized List<APart> _updatePartsList(APart part, boolean forcedInit) {
+    private synchronized List<AbstractPart> _updatePartsList(AbstractPart part, boolean forcedInit) {
 	if (parts == null || forcedInit)
 	    parts = new ArrayList<>();
 	parts.add(Objects.requireNonNull(part, "Part can not be null"));
