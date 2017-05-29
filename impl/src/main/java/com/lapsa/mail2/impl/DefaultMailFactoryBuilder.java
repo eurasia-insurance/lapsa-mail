@@ -16,9 +16,6 @@ import com.lapsa.mail2.MailFactoryBuilder;
 
 final class DefaultMailFactoryBuilder implements MailFactoryBuilder {
 
-    Authenticator a = null;
-
-    Properties properties = null;
     Charset defaultCharset = Charset.forName("UTF-8");
 
     MailAddress defaultSender = null;
@@ -27,11 +24,17 @@ final class DefaultMailFactoryBuilder implements MailFactoryBuilder {
     MailAddress alwaysBlindCopyTo = null;
 
     MailAddress forwardAllMailTo = null;
+
+    private Authenticator a = null;
+    private Properties properties = null;
+    private Session session = null;
+
     @Override
     public MailFactory build() throws MailBuilderException {
-	Session session = Session.getDefaultInstance(properties, a);
-	return new DefaultMailFactory(session, defaultCharset, alwaysBlindCopyTo, forwardAllMailTo, defaultRecipient,
-		defaultSender);
+	Session localSession = session;
+	if (localSession == null)
+	    localSession = Session.getDefaultInstance(properties, a);
+	return new DefaultMailFactory(this, localSession);
     }
 
     @Override
@@ -142,6 +145,13 @@ final class DefaultMailFactoryBuilder implements MailFactoryBuilder {
 	if (properties.containsKey(MAIL_TO))
 	    withDefaultRecipient(properties.getProperty(MAIL_TO));
 
+	return this;
+    }
+
+    DefaultMailFactoryBuilder withSession(Session session) throws MailBuilderException {
+	this.session = builderRequireNonNull(session, "Session can not be null");
+	if (session.getProperties() != null)
+	    withProperties(session.getProperties());
 	return this;
     }
 

@@ -4,7 +4,6 @@ import javax.mail.Session;
 
 import com.lapsa.mail2.MailBuilderException;
 import com.lapsa.mail2.MailFactory;
-import com.lapsa.mail2.MailFactoryBuilder;
 import com.lapsa.mail2.MailMessageBuilder;
 
 public final class SessionMailFactory implements MailFactory {
@@ -12,10 +11,7 @@ public final class SessionMailFactory implements MailFactory {
     final MailFactory delegate;
 
     public SessionMailFactory(final Session session) throws MailBuilderException {
-	delegate = MailFactoryBuilder
-		.newMailFactoryBuilder(DefaultMailFactoryBuilder.class)
-		.withProperties(session.getProperties())
-		.build();
+	delegate = new DefaultMailFactoryBuilder().withSession(session).build();
     }
 
     @Override

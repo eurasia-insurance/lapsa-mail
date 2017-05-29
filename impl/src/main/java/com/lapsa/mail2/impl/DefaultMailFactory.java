@@ -28,15 +28,15 @@ final class DefaultMailFactory implements MailFactory {
 
     final MailAddress defaultSender;
 
-    DefaultMailFactory(final Session session, Charset defaultCharset, MailAddress alwaysBlindCopyTo,
-	    MailAddress forwardAllMailTo, MailAddress defaultRecipient, MailAddress defaultSender)
+    DefaultMailFactory(final DefaultMailFactoryBuilder factoryBuilder,
+	    final Session session)
 	    throws MailBuilderException {
 	this.session = Objects.requireNonNull(session, "Session can not be null");
-	this.defaultCharset = Objects.requireNonNull(defaultCharset, "Charset can not be null");
-	this.alwaysBlindCopyTo = alwaysBlindCopyTo;
-	this.forwardAllMailTo = forwardAllMailTo;
-	this.defaultRecipient = defaultRecipient;
-	this.defaultSender = defaultSender;
+	this.defaultCharset = Objects.requireNonNull(factoryBuilder.defaultCharset, "Charset can not be null");
+	this.alwaysBlindCopyTo = factoryBuilder.alwaysBlindCopyTo;
+	this.forwardAllMailTo = factoryBuilder.forwardAllMailTo;
+	this.defaultRecipient = factoryBuilder.defaultRecipient;
+	this.defaultSender = factoryBuilder.defaultSender;
 
 	try {
 	    this.transport = session.getTransport();
@@ -47,11 +47,20 @@ final class DefaultMailFactory implements MailFactory {
 
     @Override
     public final MailMessageBuilder newMailBuilder() throws MailBuilderException {
-	return new DefaultMailMessageBuilder(this, defaultCharset, defaultSender, defaultRecipient, alwaysBlindCopyTo,
-		forwardAllMailTo);
+	return new DefaultMailMessageBuilder(this);
     }
 
     synchronized final Transport getTransportConnected() throws MailSendException {
+	try {
+	    if (!transport.isConnected())
+		transport.connect();
+	    return transport;
+	} catch (MessagingException e) {
+	    throw senderWrapException(e);
+	}
+    }
+
+    synchronized final Transport getSessionConnected() throws MailSendException {
 	try {
 	    if (!transport.isConnected())
 		transport.connect();

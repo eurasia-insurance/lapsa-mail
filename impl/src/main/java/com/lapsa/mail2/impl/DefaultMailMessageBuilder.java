@@ -1,8 +1,8 @@
 package com.lapsa.mail2.impl;
 
 import static com.lapsa.mail2.impl.AbstractPart.DispositionType.*;
-import static com.lapsa.mail2.impl.PartText.TextSubtype.*;
 import static com.lapsa.mail2.impl.Checks.*;
+import static com.lapsa.mail2.impl.PartText.TextSubtype.*;
 
 import java.io.File;
 import java.io.IOException;
@@ -39,27 +39,22 @@ final class DefaultMailMessageBuilder implements MailMessageBuilder {
     MailAddress alwaysBlindCopyTo;
     MailAddress forwardAllMailTo;
 
-    DefaultMailMessageBuilder(DefaultMailFactory factory,
-	    Charset defaultCharset,
-	    MailAddress defaultSender,
-	    MailAddress defaultRecipient,
-	    MailAddress alwaysBlindCopyTo,
-	    MailAddress forwardAllMailTo) throws MailBuilderException {
+    DefaultMailMessageBuilder(final DefaultMailFactory factory) throws MailBuilderException {
 	this.factory = factory;
 
-	this.defaultCharset = defaultCharset;
+	this.defaultCharset = factory.defaultCharset;
 	withDefaultCharset();
 
-	this.defaultSender = defaultSender;
+	this.defaultSender = factory.defaultSender;
 	if (defaultSender != null)
 	    withDefaultSender();
 
-	this.defaultRecipient = defaultRecipient;
+	this.defaultRecipient = factory.defaultRecipient;
 	if (defaultRecipient != null)
 	    withDefaultRecipient();
 
-	this.alwaysBlindCopyTo = alwaysBlindCopyTo;
-	this.forwardAllMailTo = forwardAllMailTo;
+	this.alwaysBlindCopyTo = factory.alwaysBlindCopyTo;
+	this.forwardAllMailTo = factory.forwardAllMailTo;
     }
 
     @Override
