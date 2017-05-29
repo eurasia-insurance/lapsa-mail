@@ -15,84 +15,53 @@ import org.w3c.dom.ls.LSSerializer;
 
 public final class DocumentUtils {
 
-    public static final String DOM_IMPLEMENTATION_VERSION = "XML 3.0";
-
-    private static final DocumentUtils INSTANCE = new DocumentUtils();
-
-    private final DOMImplementationRegistry domImplementationRegistry;
-    private final DOMImplementation domImplementation;
-    private final DOMImplementationLS domImplementationLS;
-
     private DocumentUtils() {
+	throw new AssertionError("You can not instantiate this");
+    }
+
+    private static final String DOM_IMPLEMENTATION_VERSION = "XML 3.0";
+    private static final DOMImplementationRegistry DOM_IMPLEMENTATION_REGISTRY;
+    private static final DOMImplementation DOM_IMPLEMENTATION;
+    private static final DOMImplementationLS DOM_IMPLEMENTATION_LS;
+    private static final LSSerializer DOM_LS_SERIALIZER;
+
+    static {
 	try {
-	    domImplementationRegistry = DOMImplementationRegistry.newInstance();
-	} catch (final ClassNotFoundException e) {
-	    throw new RuntimeException(e);
-	} catch (final InstantiationException e) {
-	    throw new RuntimeException(e);
-	} catch (final IllegalAccessException e) {
-	    throw new RuntimeException(e);
-	} catch (final ClassCastException e) {
+	    DOM_IMPLEMENTATION_REGISTRY = DOMImplementationRegistry.newInstance();
+	} catch (final ClassNotFoundException | InstantiationException | IllegalAccessException
+		| ClassCastException e) {
 	    throw new RuntimeException(e);
 	}
-	domImplementation = domImplementationRegistry.getDOMImplementation(DOM_IMPLEMENTATION_VERSION);
-	domImplementationLS = (DOMImplementationLS) domImplementation;
-
+	DOM_IMPLEMENTATION = DOM_IMPLEMENTATION_REGISTRY.getDOMImplementation(DOM_IMPLEMENTATION_VERSION);
+	DOM_IMPLEMENTATION_LS = (DOMImplementationLS) DOM_IMPLEMENTATION;
+	DOM_LS_SERIALIZER = DOM_IMPLEMENTATION_LS.createLSSerializer();
     }
 
-    public static DocumentUtils getInstance() {
-	return INSTANCE;
+    public static Document createDocument(final String qualifiedName) {
+	return DOM_IMPLEMENTATION.createDocument(null, qualifiedName, null);
     }
 
-    @Deprecated
-    public static final Document createDocument(final String namespaceURI, final String qualifiedName) {
-	return DocumentUtils.getInstance().createDoc(namespaceURI, qualifiedName);
+    public static Document createDocument(final String namespaceURI, final String qualifiedName) {
+	return DOM_IMPLEMENTATION.createDocument(namespaceURI, qualifiedName, null);
     }
 
-    public final Document createDoc(final String namespaceURI, final String qualifiedName) {
-	return domImplementation.createDocument(namespaceURI, qualifiedName, null);
-    }
-
-    @Deprecated
-    public static final Document createDocument(final String qualifiedName) {
-	return DocumentUtils.getInstance().createDoc(qualifiedName);
-    }
-
-    public final Document createDoc(final String qualifiedName) {
-	return domImplementation.createDocument(null, qualifiedName, null);
-    }
-
-    @Deprecated
-    public static final String writeToString(final Document doc, final String xmlEncoding)
-	    throws UnsupportedEncodingException {
-	return DocumentUtils.getInstance().getAsString(doc, xmlEncoding);
-    }
-
-    public final String getAsString(final Document doc, final String xmlEncoding) throws UnsupportedEncodingException {
+    public static String getAsString(final Document doc, final String xmlEncoding) throws UnsupportedEncodingException {
 	final ByteArrayOutputStream baos = new ByteArrayOutputStream();
 	writeToOutputStream(doc, baos, xmlEncoding);
 	return baos.toString(Charset.defaultCharset().name());
     }
 
-    @Deprecated
-    public static final boolean writeToByteStream(final Document doc, final OutputStream os, final String xmlEncoding) {
-	return DocumentUtils.getInstance().writeToOutputStream(doc, os, xmlEncoding);
-    }
-
-    public final boolean writeToOutputStream(final Document doc, final OutputStream os, final String xmlEncoding) {
-	final LSOutput lsOutput = domImplementationLS.createLSOutput();
+    public static boolean writeToOutputStream(final Document doc, final OutputStream os, final String xmlEncoding) {
+	final LSOutput lsOutput = DOM_IMPLEMENTATION_LS.createLSOutput();
 	lsOutput.setByteStream(os);
 	lsOutput.setEncoding(xmlEncoding);
 	return _save(lsOutput, doc.getDocumentElement());
     }
 
-    private boolean _save(final LSOutput lsOutput, final Node node) {
-	final LSSerializer lsSerializer = _getLSSerializer();
-	return lsSerializer.write(node, lsOutput);
-    }
+    // PRIVATE
 
-    private LSSerializer _getLSSerializer() {
-	return domImplementationLS.createLSSerializer();
+    private static boolean _save(final LSOutput lsOutput, final Node node) {
+	return DOM_LS_SERIALIZER.write(node, lsOutput);
     }
 
 }

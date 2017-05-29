@@ -34,7 +34,7 @@ final class DefaultMailMessageXMLPart extends AMailMessagePart implements MailMe
 	final MimeBodyPart result = new MimeBodyPart();
 	String content;
 	try {
-	    content = DocumentUtils.getInstance().getAsString(doc, charset.name());
+	    content = DocumentUtils.getAsString(doc, charset.name());
 	} catch (final UnsupportedEncodingException e) {
 	    throw new MessagingException("Unsupported encoding '" + charset.name() + "'", e);
 	}
