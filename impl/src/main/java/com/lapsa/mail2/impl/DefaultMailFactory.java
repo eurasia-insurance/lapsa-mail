@@ -12,7 +12,6 @@ import javax.mail.Transport;
 
 import com.lapsa.mail2.MailBuilderException;
 import com.lapsa.mail2.MailFactory;
-import com.lapsa.mail2.MailMessageBuilder;
 import com.lapsa.mail2.MailSendException;
 
 final class DefaultMailFactory implements MailFactory {
@@ -46,7 +45,7 @@ final class DefaultMailFactory implements MailFactory {
     }
 
     @Override
-    public final MailMessageBuilder newMailBuilder() throws MailBuilderException {
+    public final DefaultMailMessageBuilder newMailBuilder() throws MailBuilderException {
 	return new DefaultMailMessageBuilder(this);
     }
 

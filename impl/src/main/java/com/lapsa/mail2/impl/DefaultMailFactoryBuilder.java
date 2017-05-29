@@ -11,7 +11,6 @@ import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
 
 import com.lapsa.mail2.MailBuilderException;
-import com.lapsa.mail2.MailFactory;
 import com.lapsa.mail2.MailFactoryBuilder;
 
 final class DefaultMailFactoryBuilder implements MailFactoryBuilder {
@@ -27,30 +26,31 @@ final class DefaultMailFactoryBuilder implements MailFactoryBuilder {
 
     private Authenticator a = null;
     private Properties properties = null;
-    private Session session = null;
 
     @Override
-    public MailFactory build() throws MailBuilderException {
-	Session localSession = session;
-	if (localSession == null)
-	    localSession = Session.getDefaultInstance(properties, a);
-	return new DefaultMailFactory(this, localSession);
+    public DefaultMailFactory build() throws MailBuilderException {
+	return build(Session.getDefaultInstance(properties, a));
+    }
+
+    DefaultMailFactory build(Session session) throws MailBuilderException {
+	return new DefaultMailFactory(this, session);
     }
 
     @Override
-    public MailFactoryBuilder withAlwaysBlindCopyTo(String address) throws MailBuilderException {
+    public DefaultMailFactoryBuilder withAlwaysBlindCopyTo(String address) throws MailBuilderException {
 	this.alwaysBlindCopyTo = new MailAddress(address, defaultCharset);
 	return this;
     }
 
     @Override
-    public MailFactoryBuilder withAlwaysBlindCopyTo(String address, String friendlyName) throws MailBuilderException {
+    public DefaultMailFactoryBuilder withAlwaysBlindCopyTo(String address, String friendlyName)
+	    throws MailBuilderException {
 	this.alwaysBlindCopyTo = new MailAddress(address, friendlyName, defaultCharset);
 	return this;
     }
 
     @Override
-    public MailFactoryBuilder withAuth(String user, String password) throws MailBuilderException {
+    public DefaultMailFactoryBuilder withAuth(String user, String password) throws MailBuilderException {
 	builderRequireNonNull(user, "User name can not be null");
 	builderRequireNonNull(password, "Password can not be null");
 	this.a = new Authenticator() {
@@ -62,7 +62,7 @@ final class DefaultMailFactoryBuilder implements MailFactoryBuilder {
     }
 
     @Override
-    public MailFactoryBuilder withDebug(boolean debug) {
+    public DefaultMailFactoryBuilder withDebug(boolean debug) {
 	new PropertiesBuilder()
 		.withProperty(PROPERTY_MAIL_DEBUG, debug)
 		.mergeTo(properties);
@@ -70,49 +70,52 @@ final class DefaultMailFactoryBuilder implements MailFactoryBuilder {
     }
 
     @Override
-    public MailFactoryBuilder withDefaultCharset(Charset charset) throws MailBuilderException {
+    public DefaultMailFactoryBuilder withDefaultCharset(Charset charset) throws MailBuilderException {
 	this.defaultCharset = builderRequireNonNull(charset, "Charset can not be null");
 	return this;
     }
 
     @Override
-    public MailFactoryBuilder withDefaultRecipient(String address) throws MailBuilderException {
+    public DefaultMailFactoryBuilder withDefaultRecipient(String address) throws MailBuilderException {
 	this.defaultRecipient = new MailAddress(address, defaultCharset);
 	return this;
     }
 
     @Override
-    public MailFactoryBuilder withDefaultRecipient(String address, String friendlyName) throws MailBuilderException {
+    public DefaultMailFactoryBuilder withDefaultRecipient(String address, String friendlyName)
+	    throws MailBuilderException {
 	this.defaultRecipient = new MailAddress(address, friendlyName, defaultCharset);
 	return this;
     }
 
     @Override
-    public MailFactoryBuilder withDefaultSender(String address) throws MailBuilderException {
+    public DefaultMailFactoryBuilder withDefaultSender(String address) throws MailBuilderException {
 	this.defaultSender = new MailAddress(address, defaultCharset);
 	return this;
     }
 
     @Override
-    public MailFactoryBuilder withDefaultSender(String address, String friendlyName) throws MailBuilderException {
+    public DefaultMailFactoryBuilder withDefaultSender(String address, String friendlyName)
+	    throws MailBuilderException {
 	this.defaultSender = new MailAddress(address, friendlyName, defaultCharset);
 	return this;
     }
 
     @Override
-    public MailFactoryBuilder withForwardAllMailTo(String address) throws MailBuilderException {
+    public DefaultMailFactoryBuilder withForwardAllMailTo(String address) throws MailBuilderException {
 	this.forwardAllMailTo = new MailAddress(address, defaultCharset);
 	return this;
     }
 
     @Override
-    public MailFactoryBuilder withForwardAllMailTo(String address, String friendlyName) throws MailBuilderException {
+    public DefaultMailFactoryBuilder withForwardAllMailTo(String address, String friendlyName)
+	    throws MailBuilderException {
 	this.forwardAllMailTo = new MailAddress(address, friendlyName, defaultCharset);
 	return this;
     }
 
     @Override
-    public MailFactoryBuilder withProperties(Properties properties) throws MailBuilderException {
+    public DefaultMailFactoryBuilder withProperties(Properties properties) throws MailBuilderException {
 	this.properties = builderRequireNonNull(properties, "Properties can not be null");
 
 	if (properties.containsKey(MAIL_AUTHENTIFICATOR_OBJECT)) {
@@ -145,13 +148,6 @@ final class DefaultMailFactoryBuilder implements MailFactoryBuilder {
 	if (properties.containsKey(MAIL_TO))
 	    withDefaultRecipient(properties.getProperty(MAIL_TO));
 
-	return this;
-    }
-
-    DefaultMailFactoryBuilder withSession(Session session) throws MailBuilderException {
-	this.session = builderRequireNonNull(session, "Session can not be null");
-	if (session.getProperties() != null)
-	    withProperties(session.getProperties());
 	return this;
     }
 
