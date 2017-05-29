@@ -11,8 +11,6 @@ import javax.mail.MessagingException;
 import com.lapsa.mail2.MailBuilderException;
 
 abstract class AbstractPartDataSource extends AbstractPart {
-    private static final long serialVersionUID = -3710383934434838684L;
-
     AbstractPartDataSource(final DefaultMailFactory factory,
 	    final DataSource dataSource,
 	    final String fileName,

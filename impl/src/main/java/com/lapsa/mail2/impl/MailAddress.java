@@ -16,7 +16,6 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 import com.lapsa.mail2.MailBuilderException;
 
 final class MailAddress {
-
     final InternetAddress internetAddress;
 
     MailAddress(final String address, final Charset charset) throws MailBuilderException {

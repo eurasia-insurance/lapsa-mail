@@ -13,8 +13,6 @@ import com.lapsa.mail2.MailBuilderException;
 import com.lapsa.utils.DocumentUtils;
 
 final class PartDocument extends AbstractPart {
-    private static final long serialVersionUID = 7713991325528136449L;
-
     PartDocument(final DefaultMailFactory factory,
 	    final Document doc,
 	    final Charset charset,

@@ -2,7 +2,6 @@ package com.lapsa.mail2.impl;
 
 import static com.lapsa.mail2.impl.Checks.*;
 
-import java.io.Serializable;
 import java.util.Objects;
 
 import javax.mail.MessagingException;
@@ -14,8 +13,7 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import com.lapsa.mail2.MailBuilderException;
 
-abstract class AbstractPart implements Serializable {
-    private static final long serialVersionUID = -2790508720253272737L;
+abstract class AbstractPart {
 
     final transient DefaultMailFactory factory;
 
