@@ -8,10 +8,9 @@ import java.nio.charset.Charset;
 
 import javax.mail.MessagingException;
 
-import com.lapsa.mail.MailMessageTextPart;
 import com.lapsa.mail2.MailBuilderException;
 
-final class PartException extends AbstractPart implements MailMessageTextPart {
+final class PartException extends AbstractPart {
     private static final long serialVersionUID = -7858162616103248497L;
 
     PartException(final DefaultMailFactory factory,
