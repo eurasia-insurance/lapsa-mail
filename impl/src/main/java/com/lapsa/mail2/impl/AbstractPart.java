@@ -10,12 +10,12 @@ import javax.mail.internet.MimeBodyPart;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 
 import com.lapsa.mail2.MailBuilderException;
 
 abstract class AbstractPart {
-
-    final transient DefaultMailFactory factory;
 
     final MimeBodyPart mimePart;
 
@@ -27,8 +27,6 @@ abstract class AbstractPart {
 	    final String fileName,
 	    final DispositionType dispositionType,
 	    final String contentId) throws MailBuilderException {
-	this.factory = Objects.requireNonNull(factory);
-
 	Objects.requireNonNull(dispositionType, "Disposition type can not be null");
 	if (dispositionType == DispositionType.ATTACHEMENT)
 	    builderRequireNonNull(fileName, "File name of the attachement can not be null");
@@ -51,6 +49,11 @@ abstract class AbstractPart {
 	} catch (MessagingException e) {
 	    throw builderWrapException(e);
 	}
+    }
+
+    @Override
+    public String toString() {
+	return ToStringBuilder.reflectionToString(this, ToStringStyle.SHORT_PREFIX_STYLE, false);
     }
 
     @Override
