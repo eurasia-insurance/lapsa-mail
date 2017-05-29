@@ -4,7 +4,7 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import com.lapsa.mail.impl.DOMUtils;
+import com.lapsa.utils.DOMUtils;
 
 public class DOMUtilsTestCase {
 

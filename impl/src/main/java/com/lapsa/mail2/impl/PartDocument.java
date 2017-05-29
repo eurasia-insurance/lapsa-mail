@@ -9,8 +9,8 @@ import javax.mail.MessagingException;
 
 import org.w3c.dom.Document;
 
-import com.lapsa.mail.impl.DOMUtils;
 import com.lapsa.mail2.MailBuilderException;
+import com.lapsa.utils.DOMUtils;
 
 final class PartDocument extends AbstractPart {
     private static final long serialVersionUID = 7713991325528136449L;

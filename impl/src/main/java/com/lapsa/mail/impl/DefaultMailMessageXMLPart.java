@@ -10,6 +10,7 @@ import javax.mail.internet.MimeBodyPart;
 import org.w3c.dom.Document;
 
 import com.lapsa.mail.MailMessageXMLPart;
+import com.lapsa.utils.DOMUtils;
 
 final class DefaultMailMessageXMLPart extends AMailMessagePart implements MailMessageXMLPart {
     private static final long serialVersionUID = 7713991325528136449L;
