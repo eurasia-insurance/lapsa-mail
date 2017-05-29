@@ -4,20 +4,20 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import com.lapsa.utils.DOMUtils;
+import com.lapsa.utils.DocumentUtils;
 
 public class DOMUtilsTestCase {
 
     @Test
     public void testGetInstance() {
-	DOMUtils utils = DOMUtils.getInstance();
+	DocumentUtils utils = DocumentUtils.getInstance();
 	assertNotNull(utils);
     }
 
     @Test
     public void testTheSame() {
-	DOMUtils utils1 = DOMUtils.getInstance();
-	DOMUtils utils2 = DOMUtils.getInstance();
+	DocumentUtils utils1 = DocumentUtils.getInstance();
+	DocumentUtils utils2 = DocumentUtils.getInstance();
 
 	assertSame(utils1, utils2);
     }

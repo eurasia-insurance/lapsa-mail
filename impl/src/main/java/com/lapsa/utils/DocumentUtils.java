@@ -13,17 +13,17 @@ import org.w3c.dom.ls.DOMImplementationLS;
 import org.w3c.dom.ls.LSOutput;
 import org.w3c.dom.ls.LSSerializer;
 
-public final class DOMUtils {
+public final class DocumentUtils {
 
     public static final String DOM_IMPLEMENTATION_VERSION = "XML 3.0";
 
-    private static final DOMUtils INSTANCE = new DOMUtils();
+    private static final DocumentUtils INSTANCE = new DocumentUtils();
 
     private final DOMImplementationRegistry domImplementationRegistry;
     private final DOMImplementation domImplementation;
     private final DOMImplementationLS domImplementationLS;
 
-    private DOMUtils() {
+    private DocumentUtils() {
 	try {
 	    domImplementationRegistry = DOMImplementationRegistry.newInstance();
 	} catch (final ClassNotFoundException e) {
@@ -40,13 +40,13 @@ public final class DOMUtils {
 
     }
 
-    public static DOMUtils getInstance() {
+    public static DocumentUtils getInstance() {
 	return INSTANCE;
     }
 
     @Deprecated
     public static final Document createDocument(final String namespaceURI, final String qualifiedName) {
-	return DOMUtils.getInstance().createDoc(namespaceURI, qualifiedName);
+	return DocumentUtils.getInstance().createDoc(namespaceURI, qualifiedName);
     }
 
     public final Document createDoc(final String namespaceURI, final String qualifiedName) {
@@ -55,7 +55,7 @@ public final class DOMUtils {
 
     @Deprecated
     public static final Document createDocument(final String qualifiedName) {
-	return DOMUtils.getInstance().createDoc(qualifiedName);
+	return DocumentUtils.getInstance().createDoc(qualifiedName);
     }
 
     public final Document createDoc(final String qualifiedName) {
@@ -65,7 +65,7 @@ public final class DOMUtils {
     @Deprecated
     public static final String writeToString(final Document doc, final String xmlEncoding)
 	    throws UnsupportedEncodingException {
-	return DOMUtils.getInstance().getAsString(doc, xmlEncoding);
+	return DocumentUtils.getInstance().getAsString(doc, xmlEncoding);
     }
 
     public final String getAsString(final Document doc, final String xmlEncoding) throws UnsupportedEncodingException {
@@ -76,7 +76,7 @@ public final class DOMUtils {
 
     @Deprecated
     public static final boolean writeToByteStream(final Document doc, final OutputStream os, final String xmlEncoding) {
-	return DOMUtils.getInstance().writeToOutputStream(doc, os, xmlEncoding);
+	return DocumentUtils.getInstance().writeToOutputStream(doc, os, xmlEncoding);
     }
 
     public final boolean writeToOutputStream(final Document doc, final OutputStream os, final String xmlEncoding) {
