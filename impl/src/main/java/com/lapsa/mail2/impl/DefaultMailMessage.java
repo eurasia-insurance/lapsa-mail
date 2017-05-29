@@ -44,7 +44,7 @@ final class DefaultMailMessage implements MailMessage {
 		    (template.bcc != null ? template.bcc.size() : 0);
 
 	    if (totalRecipientsCount == 0)
-		throw new MailBuilderException("There is no recipients defined");
+		throw new MailBuilderException("There is no any recipient defined");
 
 	    if (template.alwaysBlindCopyTo != null)
 		msg.addRecipient(RecipientType.BCC, template.alwaysBlindCopyTo.internetAddress);
