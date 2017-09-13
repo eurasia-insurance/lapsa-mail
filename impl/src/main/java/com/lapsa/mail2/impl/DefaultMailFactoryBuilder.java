@@ -122,17 +122,6 @@ public final class DefaultMailFactoryBuilder implements MailFactoryBuilder {
     public DefaultMailFactoryBuilder withProperties(Properties properties) throws MailBuilderException {
 	this.properties = builderRequireNonNull(properties, "Properties can not be null");
 
-	if (properties.containsKey(MAIL_AUTHENTIFICATOR_OBJECT)) {
-	    final Object authentificatorObject = properties.get(MAIL_AUTHENTIFICATOR_OBJECT);
-	    try {
-		final Authenticator a = (Authenticator) authentificatorObject;
-		this.a = a;
-	    } catch (Exception e) {
-		throw builderWrapException(e,
-			String.format("Invalid object of type %1$s", authentificatorObject.getClass()));
-	    }
-	}
-
 	if (properties.containsKey(MAIL_USER)
 		&& properties.containsKey(MAIL_PASSWORD)) {
 	    final String user = properties.getProperty(MAIL_USER);
