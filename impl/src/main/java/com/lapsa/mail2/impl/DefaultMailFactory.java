@@ -5,6 +5,7 @@ import static com.lapsa.mail2.impl.Checks.*;
 import java.nio.charset.Charset;
 import java.util.Objects;
 
+import javax.mail.AuthenticationFailedException;
 import javax.mail.MessagingException;
 import javax.mail.NoSuchProviderException;
 import javax.mail.Session;
@@ -27,6 +28,9 @@ final class DefaultMailFactory implements MailFactory {
 
     final MailAddress defaultSender;
 
+    final String username;
+    final String password;
+
     DefaultMailFactory(final DefaultMailFactoryBuilder factoryBuilder,
 	    final Session session)
 	    throws MailBuilderException {
@@ -36,6 +40,9 @@ final class DefaultMailFactory implements MailFactory {
 	this.forwardAllMailTo = factoryBuilder.forwardAllMailTo;
 	this.defaultRecipient = factoryBuilder.defaultRecipient;
 	this.defaultSender = factoryBuilder.defaultSender;
+
+	this.username = factoryBuilder.username;
+	this.password = factoryBuilder.password;
 
 	try {
 	    this.transport = session.getTransport();
@@ -50,23 +57,19 @@ final class DefaultMailFactory implements MailFactory {
     }
 
     synchronized final Transport getTransportConnected() throws MailSendException {
-	try {
-	    if (!transport.isConnected())
-		transport.connect();
-	    return transport;
-	} catch (MessagingException e) {
-	    throw senderWrapException(e);
-	}
-    }
-
-    synchronized final Transport getSessionConnected() throws MailSendException {
-	try {
-	    if (!transport.isConnected())
-		transport.connect();
-	    return transport;
-	} catch (MessagingException e) {
-	    throw senderWrapException(e);
-	}
+	if (!transport.isConnected())
+	    try {
+		try {
+		    transport.connect();
+		} catch (AuthenticationFailedException e) {
+		    if (username == null || password == null)
+			throw e;
+		    transport.connect(username, password);
+		}
+	    } catch (MessagingException e) {
+		throw senderWrapException(e);
+	    }
+	return transport;
     }
 
     @Override
