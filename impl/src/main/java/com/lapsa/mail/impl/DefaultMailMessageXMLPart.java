@@ -10,6 +10,7 @@ import javax.mail.internet.MimeBodyPart;
 import org.w3c.dom.Document;
 
 import com.lapsa.mail.MailMessageXMLPart;
+import com.lapsa.utils.DocumentUtils;
 
 final class DefaultMailMessageXMLPart extends AMailMessagePart implements MailMessageXMLPart {
     private static final long serialVersionUID = 7713991325528136449L;
@@ -33,7 +34,7 @@ final class DefaultMailMessageXMLPart extends AMailMessagePart implements MailMe
 	final MimeBodyPart result = new MimeBodyPart();
 	String content;
 	try {
-	    content = DOMUtils.getInstance().getAsString(doc, charset.name());
+	    content = DocumentUtils.getAsString(doc, charset.name());
 	} catch (final UnsupportedEncodingException e) {
 	    throw new MessagingException("Unsupported encoding '" + charset.name() + "'", e);
 	}
