@@ -34,8 +34,8 @@ public final class DefaultMailFactoryBuilder implements MailFactoryBuilder {
 
     @Override
     public DefaultMailFactory build() throws MailBuilderException {
-	Session defaultSession = a != null ? Session.getDefaultInstance(properties, a)
-		: Session.getDefaultInstance(properties);
+	Session defaultSession = a != null ? Session.getInstance(properties, a)
+		: Session.getInstance(properties);
 	return build(defaultSession);
     }
 

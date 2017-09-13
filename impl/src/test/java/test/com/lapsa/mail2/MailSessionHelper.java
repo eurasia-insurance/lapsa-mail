@@ -54,6 +54,6 @@ public final class MailSessionHelper {
 
     public static final Session SESSION;
     static {
-	SESSION = Session.getDefaultInstance(PROPERTIES);
+	SESSION = Session.getInstance(PROPERTIES);
     }
 }
