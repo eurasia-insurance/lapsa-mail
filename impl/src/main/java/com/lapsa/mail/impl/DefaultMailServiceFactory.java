@@ -35,12 +35,6 @@ public final class DefaultMailServiceFactory implements MailServiceFactory {
 	    return Session.getDefaultInstance(props, a);
 	}
 
-	if (props.containsKey(MailSessionCustomProperties.MAIL_AUTHENTIFICATOR_OBJECT)) {
-	    final Object authentificatorObject = props.get(MailSessionCustomProperties.MAIL_AUTHENTIFICATOR_OBJECT);
-	    final Authenticator a = (Authenticator) authentificatorObject;
-	    return Session.getDefaultInstance(props, a);
-	}
-
 	return Session.getDefaultInstance(props);
     }
 }

@@ -7,7 +7,6 @@ import java.nio.charset.Charset;
 import java.util.Properties;
 
 import javax.mail.Authenticator;
-import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
 
 import com.lapsa.mail2.MailBuilderException;
@@ -27,12 +26,17 @@ public final class DefaultMailFactoryBuilder implements MailFactoryBuilder {
 
     MailAddress forwardAllMailTo = null;
 
+    String username = null;
+    String password = null;
+
     private Authenticator a = null;
     private Properties properties = null;
 
     @Override
     public DefaultMailFactory build() throws MailBuilderException {
-	return build(Session.getDefaultInstance(properties, a));
+	Session defaultSession = a != null ? Session.getInstance(properties, a)
+		: Session.getInstance(properties);
+	return build(defaultSession);
     }
 
     DefaultMailFactory build(Session session) throws MailBuilderException {
@@ -56,11 +60,8 @@ public final class DefaultMailFactoryBuilder implements MailFactoryBuilder {
     public DefaultMailFactoryBuilder withAuth(String user, String password) throws MailBuilderException {
 	builderRequireNonNull(user, "User name can not be null");
 	builderRequireNonNull(password, "Password can not be null");
-	this.a = new Authenticator() {
-	    public PasswordAuthentication getPasswordAuthentication() {
-		return new PasswordAuthentication(user, password);
-	    }
-	};
+	this.username = user;
+	this.password = password;
 	return this;
     }
 
@@ -120,17 +121,6 @@ public final class DefaultMailFactoryBuilder implements MailFactoryBuilder {
     @Override
     public DefaultMailFactoryBuilder withProperties(Properties properties) throws MailBuilderException {
 	this.properties = builderRequireNonNull(properties, "Properties can not be null");
-
-	if (properties.containsKey(MAIL_AUTHENTIFICATOR_OBJECT)) {
-	    final Object authentificatorObject = properties.get(MAIL_AUTHENTIFICATOR_OBJECT);
-	    try {
-		final Authenticator a = (Authenticator) authentificatorObject;
-		this.a = a;
-	    } catch (Exception e) {
-		throw builderWrapException(e,
-			String.format("Invalid object of type %1$s", authentificatorObject.getClass()));
-	    }
-	}
 
 	if (properties.containsKey(MAIL_USER)
 		&& properties.containsKey(MAIL_PASSWORD)) {

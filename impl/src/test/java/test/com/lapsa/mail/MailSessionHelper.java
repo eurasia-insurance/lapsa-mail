@@ -2,9 +2,6 @@ package test.com.lapsa.mail;
 
 import java.util.Properties;
 
-import javax.mail.Authenticator;
-import javax.mail.PasswordAuthentication;
-
 import com.lapsa.mail.impl.MailSessionCustomProperties;
 
 public final class MailSessionHelper {
@@ -29,15 +26,6 @@ public final class MailSessionHelper {
     public static final String MAIL_STORE_PORT = "993";
     public static final String MAIL_STORE_TLS = "true";
 
-    public static final Authenticator AUTHENTIFICATOR;
-    static {
-	AUTHENTIFICATOR = new Authenticator() {
-	    public PasswordAuthentication getPasswordAuthentication() {
-		return new PasswordAuthentication(MAIL_TEST_USER, MAIL_TEST_PASSWORD);
-	    }
-	};
-    }
-
     public static final Properties PROPERTIES;
     static {
 	PROPERTIES = new Properties();
@@ -60,6 +48,5 @@ public final class MailSessionHelper {
 
 	PROPERTIES.put(MailSessionCustomProperties.MAIL_USER, MAIL_TEST_USER);
 	PROPERTIES.put(MailSessionCustomProperties.MAIL_PASSWORD, MAIL_TEST_PASSWORD);
-	PROPERTIES.put(MailSessionCustomProperties.MAIL_AUTHENTIFICATOR_OBJECT, AUTHENTIFICATOR);
     }
 }
