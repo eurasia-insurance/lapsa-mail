@@ -12,7 +12,7 @@ import org.junit.Test;
 
 import com.lapsa.mail2.MailException;
 import com.lapsa.mail2.MailFactory;
-import com.lapsa.mail2.MailFactoryBuilder;
+import com.lapsa.mail2.impl.SessionMailFactory;
 
 public class SendTestCase {
 
@@ -23,10 +23,7 @@ public class SendTestCase {
 
     @Before
     public void prepareSession() throws MailException {
-	factory = MailFactoryBuilder
-		.newBuilder()
-		.withProperties(MailSessionHelper.PROPERTIES)
-		.build();
+	factory = new SessionMailFactory(MailSessionHelper.SESSION);
     }
 
     @Test

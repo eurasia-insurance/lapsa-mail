@@ -13,7 +13,10 @@ import javax.mail.Session;
 import com.lapsa.mail2.MailBuilderException;
 import com.lapsa.mail2.MailFactoryBuilder;
 
-final class DefaultMailFactoryBuilder implements MailFactoryBuilder {
+public final class DefaultMailFactoryBuilder implements MailFactoryBuilder {
+
+    public DefaultMailFactoryBuilder() {
+    }
 
     Charset defaultCharset = Charset.forName("UTF-8");
 
