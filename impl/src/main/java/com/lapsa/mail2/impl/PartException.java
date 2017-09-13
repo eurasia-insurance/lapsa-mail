@@ -20,14 +20,21 @@ final class PartException extends AbstractPart {
 	super(factory, fileName, dispositionType, contentId);
 	builderRequireNonNull(e, "Exception can not be null");
 	builderRequireNonNull(charset, "Charset can not be null");
-	final StringWriter sw = new StringWriter();
-	final PrintWriter pw = new PrintWriter(sw);
-	e.printStackTrace(pw);
+
 	try {
-	    mimePart.setText(pw.toString(), charset.name(), "plain");
+	    mimePart.setText(printedStackTrace(e), charset.name(), "plain");
 	} catch (MessagingException e1) {
 	    throw builderWrapException(e1);
 	}
+    }
+
+    private static String printedStackTrace(Throwable e) {
+	final StringWriter sw = new StringWriter();
+	{
+	    final PrintWriter pw = new PrintWriter(sw);
+	    e.printStackTrace(pw);
+	}
+	return sw.toString();
     }
 
 }
