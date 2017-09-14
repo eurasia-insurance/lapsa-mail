@@ -125,7 +125,7 @@ final class DefaultMailMessage implements MailMessage {
 	    factory.getTransportConnected().sendMessage(msg, msg.getAllRecipients());
 	    sent = true;
 	} catch (MessagingException e) {
-	    throw senderWrapException(e);
+	    throw senderWrapException("Failed to send " + this, e);
 	}
     }
 

@@ -8,7 +8,11 @@ import com.lapsa.mail2.MailSendException;
 interface Checks {
 
     static MailSendException senderWrapException(Exception e) {
-	return new MailSendException(String.format("Error sending message: %1$s", e.getMessage()), e);
+	return senderWrapException(String.format("Error sending message: %1$s", e.getMessage()), e);
+    }
+
+    static MailSendException senderWrapException(String message, Exception e) {
+	return new MailSendException(message, e);
     }
 
     static <T> T builderRequireNonNull(T obj, String message) throws MailBuilderException {
