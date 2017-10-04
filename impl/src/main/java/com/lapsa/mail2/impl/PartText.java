@@ -3,10 +3,10 @@ package com.lapsa.mail2.impl;
 import static com.lapsa.mail2.impl.Checks.*;
 
 import java.nio.charset.Charset;
-import java.util.Objects;
 
 import javax.mail.MessagingException;
 
+import com.lapsa.commons.function.MyObjects;
 import com.lapsa.mail2.MailBuilderException;
 
 final class PartText extends AbstractPart {
@@ -30,7 +30,7 @@ final class PartText extends AbstractPart {
 	try {
 	    mimePart.setText(builderRequireNonNull(textContent, "Content can not be null"),
 		    builderRequireNonNull(charset, "Charset can not be null").name(),
-		    Objects.requireNonNull(textSubtype).subtype);
+		    MyObjects.requireNonNull(textSubtype).subtype);
 	} catch (MessagingException e) {
 	    throw builderWrapException(e);
 	}

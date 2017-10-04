@@ -2,8 +2,6 @@ package com.lapsa.mail2.impl;
 
 import static com.lapsa.mail2.impl.Checks.*;
 
-import java.util.Objects;
-
 import javax.mail.MessagingException;
 import javax.mail.Part;
 import javax.mail.internet.MimeBodyPart;
@@ -13,6 +11,7 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
+import com.lapsa.commons.function.MyObjects;
 import com.lapsa.mail2.MailBuilderException;
 
 abstract class AbstractPart {
@@ -27,7 +26,7 @@ abstract class AbstractPart {
 	    final String fileName,
 	    final DispositionType dispositionType,
 	    final String contentId) throws MailBuilderException {
-	Objects.requireNonNull(dispositionType, "Disposition type can not be null");
+	MyObjects.requireNonNull(dispositionType, "Disposition type can not be null");
 	if (dispositionType == DispositionType.ATTACHEMENT)
 	    builderRequireNonNull(fileName, "File name of the attachement can not be null");
 

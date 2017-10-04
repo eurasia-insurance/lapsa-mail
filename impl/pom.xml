@@ -20,6 +20,13 @@
 			<scope>compile</scope>
 			<optional>false</optional>
 		</dependency>
+		<!-- internal lapsa-commons -->
+		<dependency>
+			<groupId>com.lapsa.lapsa.commons</groupId>
+			<artifactId>lapsa-commons</artifactId>
+			<scope>compile</scope>
+			<optional>false</optional>
+		</dependency>
 		<!-- external -->
 		<dependency>
 			<groupId>org.apache.commons</groupId>
