@@ -20,13 +20,21 @@
 	</modules>
 
 	<properties>
-		<!-- APIs -->
-		<lapsa-commons.version>2.2-SNAPSHOT</lapsa-commons.version>
+		<!-- BOMS -->
+		<lapsa-bom.version>1.0-SNAPSHOT</lapsa-bom.version>
 	</properties>
 
 
 	<dependencyManagement>
 		<dependencies>
+			<!-- BOMS -->
+			<dependency>
+				<groupId>tech.lapsa.lapsa</groupId>
+				<artifactId>lapsa-bom</artifactId>
+				<version>${lapsa-bom.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
 			<!-- own -->
 			<dependency>
 				<groupId>${project.groupId}</groupId>
@@ -37,12 +45,6 @@
 				<groupId>${project.groupId}</groupId>
 				<artifactId>mail-lib-impl</artifactId>
 				<version>${project.version}</version>
-			</dependency>
-			<!-- internal lapsa-commons -->
-			<dependency>
-				<groupId>tech.lapsa.lapsa</groupId>
-				<artifactId>lapsa-commons</artifactId>
-				<version>${lapsa-commons.version}</version>
 			</dependency>
 			<!-- external -->
 			<dependency>
