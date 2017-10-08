@@ -71,7 +71,7 @@
 
 	<issueManagement>
 		<system>gitlab</system>
-		<url>https://gitlab.lapsa.tech/lapsa/javx/mail/issues</url>
+		<url>https://gitlab.lapsa.tech/lapsa/javax/mail/issues</url>
 	</issueManagement>
 
 </project>
