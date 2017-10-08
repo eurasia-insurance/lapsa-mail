@@ -4,7 +4,6 @@ import static com.lapsa.mail2.impl.Checks.*;
 
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.Charset;
-import java.util.Objects;
 
 import javax.mail.internet.InternetAddress;
 
@@ -13,6 +12,7 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
+import com.lapsa.commons.function.MyObjects;
 import com.lapsa.mail2.MailBuilderException;
 
 final class MailAddress {
@@ -26,7 +26,7 @@ final class MailAddress {
 	    final Charset charset)
 	    throws MailBuilderException {
 	builderRequireNonNull(address, "Address can not be null");
-	Objects.requireNonNull(charset, "Charset can not be null");
+	MyObjects.requireNonNull(charset, "Charset can not be null");
 	try {
 	    this.internetAddress = new InternetAddress(address, friendlyName, charset.name());
 	} catch (UnsupportedEncodingException e) {

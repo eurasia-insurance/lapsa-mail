@@ -3,7 +3,6 @@ package com.lapsa.mail2.impl;
 import static com.lapsa.mail2.impl.Checks.*;
 
 import java.nio.charset.Charset;
-import java.util.Objects;
 
 import javax.mail.AuthenticationFailedException;
 import javax.mail.MessagingException;
@@ -11,6 +10,7 @@ import javax.mail.NoSuchProviderException;
 import javax.mail.Session;
 import javax.mail.Transport;
 
+import com.lapsa.commons.function.MyObjects;
 import com.lapsa.mail2.MailBuilderException;
 import com.lapsa.mail2.MailFactory;
 import com.lapsa.mail2.MailSendException;
@@ -34,8 +34,8 @@ final class DefaultMailFactory implements MailFactory {
     DefaultMailFactory(final DefaultMailFactoryBuilder factoryBuilder,
 	    final Session session)
 	    throws MailBuilderException {
-	this.session = Objects.requireNonNull(session, "Session can not be null");
-	this.defaultCharset = Objects.requireNonNull(factoryBuilder.defaultCharset, "Charset can not be null");
+	this.session = MyObjects.requireNonNull(session, "Session can not be null");
+	this.defaultCharset = MyObjects.requireNonNull(factoryBuilder.defaultCharset, "Charset can not be null");
 	this.alwaysBlindCopyTo = factoryBuilder.alwaysBlindCopyTo;
 	this.forwardAllMailTo = factoryBuilder.forwardAllMailTo;
 	this.defaultRecipient = factoryBuilder.defaultRecipient;

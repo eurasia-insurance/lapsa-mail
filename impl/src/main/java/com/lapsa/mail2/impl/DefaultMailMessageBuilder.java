@@ -11,11 +11,11 @@ import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Objects;
 import java.util.Set;
 
 import org.w3c.dom.Document;
 
+import com.lapsa.commons.function.MyObjects;
 import com.lapsa.mail2.MailBuilderException;
 import com.lapsa.mail2.MailMessageBuilder;
 
@@ -456,7 +456,7 @@ final class DefaultMailMessageBuilder implements MailMessageBuilder {
     private synchronized List<AbstractPart> _updatePartsList(AbstractPart part, boolean forcedInit) {
 	if (parts == null || forcedInit)
 	    parts = new ArrayList<>();
-	parts.add(Objects.requireNonNull(part, "Part can not be null"));
+	parts.add(MyObjects.requireNonNull(part, "Part can not be null"));
 	return parts;
     }
 
