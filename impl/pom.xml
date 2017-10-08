@@ -20,7 +20,6 @@
 			<scope>compile</scope>
 			<optional>false</optional>
 		</dependency>
-		<!-- internal lapsa-commons -->
 		<dependency>
 			<groupId>tech.lapsa.java</groupId>
 			<artifactId>java-commons</artifactId>
