@@ -40,8 +40,10 @@
 			<!-- tech -->
 			<dependency>
 				<groupId>tech.lapsa.java</groupId>
-				<artifactId>java-commons</artifactId>
+				<artifactId>java-commons-root</artifactId>
 				<version>${java-commons.version}</version>
+				<scope>import</scope>
+				<type>pom</type>
 			</dependency>
 			<!-- own -->
 			<dependency>
