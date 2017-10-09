@@ -36,7 +36,6 @@
 				<scope>import</scope>
 				<type>pom</type>
 			</dependency>
-			<!-- tech -->
 			<dependency>
 				<groupId>tech.lapsa.java</groupId>
 				<artifactId>java-commons-root</artifactId>
