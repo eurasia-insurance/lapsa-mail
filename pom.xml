@@ -22,8 +22,7 @@
 	<properties>
 		<!-- BOMS -->
 		<javax-javaee-bom.version>7.0-SNAPSHOT</javax-javaee-bom.version>
-		<!-- tech -->
-		<java-commons.version>1.0-SNAPSHOT</java-commons.version>
+		<java-commons-root.version>1.0-SNAPSHOT</java-commons-root.version>
 	</properties>
 
 
@@ -41,7 +40,7 @@
 			<dependency>
 				<groupId>tech.lapsa.java</groupId>
 				<artifactId>java-commons-root</artifactId>
-				<version>${java-commons.version}</version>
+				<version>${java-commons-root.version}</version>
 				<scope>import</scope>
 				<type>pom</type>
 			</dependency>
