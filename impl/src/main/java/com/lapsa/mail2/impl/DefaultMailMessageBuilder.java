@@ -15,9 +15,10 @@ import java.util.Set;
 
 import org.w3c.dom.Document;
 
-import com.lapsa.commons.function.MyObjects;
 import com.lapsa.mail2.MailBuilderException;
 import com.lapsa.mail2.MailMessageBuilder;
+
+import tech.lapsa.java.commons.function.MyObjects;
 
 final class DefaultMailMessageBuilder implements MailMessageBuilder {
 

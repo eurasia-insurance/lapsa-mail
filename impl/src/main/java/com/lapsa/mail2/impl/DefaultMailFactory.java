@@ -10,10 +10,11 @@ import javax.mail.NoSuchProviderException;
 import javax.mail.Session;
 import javax.mail.Transport;
 
-import com.lapsa.commons.function.MyObjects;
 import com.lapsa.mail2.MailBuilderException;
 import com.lapsa.mail2.MailFactory;
 import com.lapsa.mail2.MailSendException;
+
+import tech.lapsa.java.commons.function.MyObjects;
 
 final class DefaultMailFactory implements MailFactory {
 

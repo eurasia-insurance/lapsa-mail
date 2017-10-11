@@ -12,8 +12,9 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
-import com.lapsa.commons.function.MyObjects;
 import com.lapsa.mail2.MailBuilderException;
+
+import tech.lapsa.java.commons.function.MyObjects;
 
 final class MailAddress {
     final InternetAddress internetAddress;
