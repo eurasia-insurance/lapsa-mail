@@ -10,9 +10,9 @@ import java.io.InputStream;
 import org.junit.Before;
 import org.junit.Test;
 
-import tech.lapsa.javx.mail.MailException;
-import tech.lapsa.javx.mail.MailFactory;
-import tech.lapsa.javx.mail.impl.SessionMailFactory;
+import tech.lapsa.javax.mail.MailException;
+import tech.lapsa.javax.mail.MailFactory;
+import tech.lapsa.javax.mail.impl.SessionMailFactory;
 
 public class SendTestCase {
 

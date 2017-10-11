@@ -1,6 +1,6 @@
-package tech.lapsa.javx.mail.impl;
+package tech.lapsa.javax.mail.impl;
 
-import static tech.lapsa.javx.mail.impl.Checks.*;
+import static tech.lapsa.javax.mail.impl.Checks.*;
 
 import java.nio.charset.Charset;
 
@@ -11,9 +11,9 @@ import javax.mail.Session;
 import javax.mail.Transport;
 
 import tech.lapsa.java.commons.function.MyObjects;
-import tech.lapsa.javx.mail.MailBuilderException;
-import tech.lapsa.javx.mail.MailFactory;
-import tech.lapsa.javx.mail.MailSendException;
+import tech.lapsa.javax.mail.MailBuilderException;
+import tech.lapsa.javax.mail.MailFactory;
+import tech.lapsa.javax.mail.MailSendException;
 
 final class DefaultMailFactory implements MailFactory {
 
