@@ -1,4 +1,4 @@
-package test.com.lapsa.mail2;
+package test.mail2;
 
 import java.util.Properties;
 

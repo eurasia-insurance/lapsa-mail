@@ -1,12 +1,12 @@
-package com.lapsa.mail2.impl;
+package tech.lapsa.javx.mail.impl;
 
-import static com.lapsa.mail2.impl.Checks.*;
+import static tech.lapsa.javx.mail.impl.Checks.*;
 
 import java.io.File;
 
 import javax.activation.FileDataSource;
 
-import com.lapsa.mail2.MailBuilderException;
+import tech.lapsa.javx.mail.MailBuilderException;
 
 final class PartFile extends AbstractPartDataSource {
     PartFile(final DefaultMailFactory factory,

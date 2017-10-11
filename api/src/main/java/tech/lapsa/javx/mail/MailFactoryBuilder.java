@@ -1,4 +1,4 @@
-package com.lapsa.mail2;
+package tech.lapsa.javx.mail;
 
 import java.nio.charset.Charset;
 import java.util.Properties;

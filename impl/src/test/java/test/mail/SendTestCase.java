@@ -1,6 +1,6 @@
-package test.com.lapsa.mail;
+package test.mail;
 
-import static test.com.lapsa.mail.MailSessionHelper.*;
+import static test.mail.MailSessionHelper.*;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;

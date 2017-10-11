@@ -1,7 +1,7 @@
-package com.lapsa.mail2.impl;
+package tech.lapsa.javx.mail.impl;
 
 import static com.lapsa.mail.impl.MailSessionCustomProperties.*;
-import static com.lapsa.mail2.impl.Checks.*;
+import static tech.lapsa.javx.mail.impl.Checks.*;
 
 import java.nio.charset.Charset;
 import java.util.Properties;
@@ -9,8 +9,8 @@ import java.util.Properties;
 import javax.mail.Authenticator;
 import javax.mail.Session;
 
-import com.lapsa.mail2.MailBuilderException;
-import com.lapsa.mail2.MailFactoryBuilder;
+import tech.lapsa.javx.mail.MailBuilderException;
+import tech.lapsa.javx.mail.MailFactoryBuilder;
 
 public final class DefaultMailFactoryBuilder implements MailFactoryBuilder {
 

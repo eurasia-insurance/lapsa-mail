@@ -1,8 +1,9 @@
-package com.lapsa.mail2.impl;
-
-import static com.lapsa.mail2.impl.Checks.*;
+package tech.lapsa.javx.mail.impl;
 
 import javax.mail.Message.RecipientType;
+
+import static tech.lapsa.javx.mail.impl.Checks.*;
+
 import javax.mail.MessagingException;
 import javax.mail.Multipart;
 import javax.mail.internet.MimeMessage;
@@ -13,9 +14,9 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
-import com.lapsa.mail2.MailBuilderException;
-import com.lapsa.mail2.MailMessage;
-import com.lapsa.mail2.MailSendException;
+import tech.lapsa.javx.mail.MailBuilderException;
+import tech.lapsa.javx.mail.MailMessage;
+import tech.lapsa.javx.mail.MailSendException;
 
 final class DefaultMailMessage implements MailMessage {
 

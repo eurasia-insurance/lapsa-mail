@@ -1,6 +1,6 @@
-package test.com.lapsa.mail2;
+package test.mail2;
 
-import static test.com.lapsa.mail.MailSessionHelper.*;
+import static test.mail.MailSessionHelper.*;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -10,9 +10,9 @@ import java.io.InputStream;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.lapsa.mail2.MailException;
-import com.lapsa.mail2.MailFactory;
-import com.lapsa.mail2.impl.SessionMailFactory;
+import tech.lapsa.javx.mail.MailException;
+import tech.lapsa.javx.mail.MailFactory;
+import tech.lapsa.javx.mail.impl.SessionMailFactory;
 
 public class SendTestCase {
 

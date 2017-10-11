@@ -1,14 +1,13 @@
-package com.lapsa.mail2.impl;
+package tech.lapsa.javx.mail.impl;
 
-import static com.lapsa.mail2.impl.Checks.*;
+import static tech.lapsa.javx.mail.impl.Checks.*;
 
 import java.nio.charset.Charset;
 
 import javax.mail.MessagingException;
 
-import com.lapsa.mail2.MailBuilderException;
-
 import tech.lapsa.java.commons.function.MyObjects;
+import tech.lapsa.javx.mail.MailBuilderException;
 
 final class PartText extends AbstractPart {
     static enum TextSubtype {

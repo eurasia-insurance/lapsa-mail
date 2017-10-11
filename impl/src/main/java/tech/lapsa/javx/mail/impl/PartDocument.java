@@ -1,6 +1,6 @@
-package com.lapsa.mail2.impl;
+package tech.lapsa.javx.mail.impl;
 
-import static com.lapsa.mail2.impl.Checks.*;
+import static tech.lapsa.javx.mail.impl.Checks.*;
 
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.Charset;
@@ -9,8 +9,9 @@ import javax.mail.MessagingException;
 
 import org.w3c.dom.Document;
 
-import com.lapsa.mail2.MailBuilderException;
 import com.lapsa.utils.DocumentUtils;
+
+import tech.lapsa.javx.mail.MailBuilderException;
 
 final class PartDocument extends AbstractPart {
     PartDocument(final DefaultMailFactory factory,

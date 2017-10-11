@@ -1,1 +1,1 @@
-com.lapsa.mail2.impl.DefaultMailFactoryBuilder
+tech.lapsa.javx.mail.impl.DefaultMailFactoryBuilder

@@ -1,13 +1,13 @@
-package com.lapsa.mail2.impl;
+package tech.lapsa.javx.mail.impl;
 
-import static com.lapsa.mail2.impl.Checks.*;
+import static tech.lapsa.javx.mail.impl.Checks.*;
 
 import java.io.IOException;
 import java.io.InputStream;
 
 import javax.mail.util.ByteArrayDataSource;
 
-import com.lapsa.mail2.MailBuilderException;
+import tech.lapsa.javx.mail.MailBuilderException;
 
 final class PartInputStream extends AbstractPartDataSource {
     PartInputStream(final DefaultMailFactory factory,

@@ -1,4 +1,4 @@
-package com.lapsa.mail2;
+package tech.lapsa.javx.mail;
 
 public interface MailFactory extends AutoCloseable {
     MailMessageBuilder newMailBuilder() throws MailBuilderException;

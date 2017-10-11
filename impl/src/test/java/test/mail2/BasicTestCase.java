@@ -1,14 +1,14 @@
-package test.com.lapsa.mail2;
+package test.mail2;
 
 import static org.junit.Assert.*;
 
 import org.junit.Before;
 import org.junit.Test;
 
-import com.lapsa.mail2.MailException;
-import com.lapsa.mail2.MailFactory;
-import com.lapsa.mail2.MailFactoryBuilder;
-import com.lapsa.mail2.MailMessageBuilder;
+import tech.lapsa.javx.mail.MailException;
+import tech.lapsa.javx.mail.MailFactory;
+import tech.lapsa.javx.mail.MailFactoryBuilder;
+import tech.lapsa.javx.mail.MailMessageBuilder;
 
 public class BasicTestCase {
 
