@@ -1,4 +1,4 @@
-package tech.lapsa.javx.mail;
+package tech.lapsa.javax.mail;
 
 public class MailException extends Exception {
 

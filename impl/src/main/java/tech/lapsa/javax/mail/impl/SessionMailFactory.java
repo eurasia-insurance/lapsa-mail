@@ -1,12 +1,12 @@
-package tech.lapsa.javx.mail.impl;
+package tech.lapsa.javax.mail.impl;
 
-import static tech.lapsa.javx.mail.impl.Checks.*;
+import static tech.lapsa.javax.mail.impl.Checks.*;
 
 import javax.mail.Session;
 
-import tech.lapsa.javx.mail.MailBuilderException;
-import tech.lapsa.javx.mail.MailFactory;
-import tech.lapsa.javx.mail.MailMessageBuilder;
+import tech.lapsa.javax.mail.MailBuilderException;
+import tech.lapsa.javax.mail.MailFactory;
+import tech.lapsa.javax.mail.MailMessageBuilder;
 
 public final class SessionMailFactory implements MailFactory {
 

@@ -1,4 +1,4 @@
-package tech.lapsa.javx.mail;
+package tech.lapsa.javax.mail;
 
 public class MailSendException extends MailException {
     private static final long serialVersionUID = -131508577849959266L;

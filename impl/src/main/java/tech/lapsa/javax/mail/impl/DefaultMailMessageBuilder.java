@@ -1,8 +1,8 @@
-package tech.lapsa.javx.mail.impl;
+package tech.lapsa.javax.mail.impl;
 
-import static tech.lapsa.javx.mail.impl.AbstractPart.DispositionType.*;
-import static tech.lapsa.javx.mail.impl.Checks.*;
-import static tech.lapsa.javx.mail.impl.PartText.TextSubtype.*;
+import static tech.lapsa.javax.mail.impl.AbstractPart.DispositionType.*;
+import static tech.lapsa.javax.mail.impl.Checks.*;
+import static tech.lapsa.javax.mail.impl.PartText.TextSubtype.*;
 
 import java.io.File;
 import java.io.IOException;
@@ -16,8 +16,8 @@ import java.util.Set;
 import org.w3c.dom.Document;
 
 import tech.lapsa.java.commons.function.MyObjects;
-import tech.lapsa.javx.mail.MailBuilderException;
-import tech.lapsa.javx.mail.MailMessageBuilder;
+import tech.lapsa.javax.mail.MailBuilderException;
+import tech.lapsa.javax.mail.MailMessageBuilder;
 
 final class DefaultMailMessageBuilder implements MailMessageBuilder {
 

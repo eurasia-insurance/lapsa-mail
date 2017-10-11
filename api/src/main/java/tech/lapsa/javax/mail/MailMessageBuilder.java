@@ -1,4 +1,4 @@
-package tech.lapsa.javx.mail;
+package tech.lapsa.javax.mail;
 
 import java.io.File;
 import java.io.IOException;

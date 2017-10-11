@@ -5,10 +5,10 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
-import tech.lapsa.javx.mail.MailException;
-import tech.lapsa.javx.mail.MailFactory;
-import tech.lapsa.javx.mail.MailFactoryBuilder;
-import tech.lapsa.javx.mail.MailMessageBuilder;
+import tech.lapsa.javax.mail.MailException;
+import tech.lapsa.javax.mail.MailFactory;
+import tech.lapsa.javax.mail.MailFactoryBuilder;
+import tech.lapsa.javax.mail.MailMessageBuilder;
 
 public class BasicTestCase {
 

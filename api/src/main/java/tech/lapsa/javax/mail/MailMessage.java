@@ -1,4 +1,4 @@
-package tech.lapsa.javx.mail;
+package tech.lapsa.javax.mail;
 
 public interface MailMessage {
     void send() throws MailSendException;
