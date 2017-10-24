@@ -6,8 +6,6 @@ import java.io.UnsupportedEncodingException;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import javax.mail.Address;
 import javax.mail.BodyPart;
@@ -27,11 +25,16 @@ import com.lapsa.mail.MailMessage;
 import com.lapsa.mail.MailMessagePart;
 import com.lapsa.mail.MailSender;
 
+import tech.lapsa.java.commons.logging.MyLogger;
+
 final class DefaultMailSender implements MailSender {
 
     final transient DefaultMailService service;
 
-    private transient final Logger logger;
+    private transient final MyLogger logger = MyLogger.newBuilder() //
+	    .withPackageNameOf(MailSender.class) //
+	    .build();
+
     private transient Transport transport;
 
     private MailAddress bccAddress;
@@ -42,7 +45,6 @@ final class DefaultMailSender implements MailSender {
 
     DefaultMailSender(final DefaultMailService service) {
 	this.service = service;
-	this.logger = Logger.getLogger(this.getClass().getCanonicalName());
 
 	if (service.session.getProperty(MAIL_BCC) != null)
 	    try {
@@ -120,10 +122,10 @@ final class DefaultMailSender implements MailSender {
 	    return new JobForTransport(msg, adrs);
 
 	} catch (final MessagingException e) {
-	    logger.log(Level.SEVERE, "MAIL_SEND_ERROR " + message, e);
+	    logger.SEVERE.log(e, "MAIL_SEND_ERROR " + message);
 	    throw new MailException(e);
 	} catch (final UnsupportedEncodingException e) {
-	    logger.log(Level.SEVERE, "MAIL_SEND_ERROR " + message, e);
+	    logger.SEVERE.log(e, "MAIL_SEND_ERROR " + message);
 	    throw new MailException(e);
 	}
     }
@@ -150,7 +152,7 @@ final class DefaultMailSender implements MailSender {
 	    autoConnect();
 	    for (final JobForTransport jfs : jobs) {
 		transport.sendMessage(jfs.msg, jfs.adrs);
-		logger.fine("MAIL_SEND_OK " + jfs.msg.getMessageID());
+		logger.FINE.log("MAIL_SEND_OK " + jfs.msg.getMessageID());
 	    }
 	} catch (final NoSuchProviderException e) {
 	    throw new MailException(e);
@@ -214,7 +216,7 @@ final class DefaultMailSender implements MailSender {
 	    transport = service.session.getTransport();
 	if (!transport.isConnected()) {
 	    transport.connect(service.session.getProperty(MAIL_USER), service.session.getProperty(MAIL_PASSWORD));
-	    logger.fine("MAIL_SEND transport connected OK");
+	    logger.FINE.log("MAIL_SEND transport connected OK");
 	}
     }
 
@@ -223,9 +225,9 @@ final class DefaultMailSender implements MailSender {
 	if (transport != null && transport.isConnected())
 	    try {
 		transport.close();
-		logger.fine("MAIL_SEND transport disconnected OK");
+		logger.FINE.log("MAIL_SEND transport disconnected OK");
 	    } catch (final MessagingException e) {
-		logger.log(Level.SEVERE, "MAIL_SEND_ERROR", e);
+		logger.SEVERE.log(e, "MAIL_SEND_ERROR");
 		throw new MailException(e);
 	    }
     }

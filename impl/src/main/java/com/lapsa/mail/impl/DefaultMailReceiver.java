@@ -2,9 +2,6 @@ package com.lapsa.mail.impl;
 
 import static com.lapsa.mail.impl.MailSessionCustomProperties.*;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 import javax.mail.Flags.Flag;
 import javax.mail.Folder;
 import javax.mail.Message;
@@ -14,17 +11,21 @@ import javax.mail.Store;
 import com.lapsa.mail.MailException;
 import com.lapsa.mail.MailReceiver;
 
+import tech.lapsa.java.commons.logging.MyLogger;
+
 final class DefaultMailReceiver implements MailReceiver {
 
     final transient DefaultMailService service;
 
-    private transient final Logger logger;
+    private transient final MyLogger logger = MyLogger.newBuilder() //
+	    .withPackageNameOf(MailReceiver.class) //
+	    .build();
+
     private transient Store store = null;
     private transient Folder folder = null;
 
     DefaultMailReceiver(final DefaultMailService service) {
 	this.service = service;
-	logger = Logger.getLogger(this.getClass().getCanonicalName());
     }
 
     @Override
@@ -34,7 +35,7 @@ final class DefaultMailReceiver implements MailReceiver {
 	    final int count = folder.getMessageCount();
 	    return count > 0;
 	} catch (final MessagingException e) {
-	    logger.log(Level.SEVERE, "MAIL_RECEIVE_ERROR", e);
+	    logger.SEVERE.log(e, "MAIL_RECEIVE_ERROR");
 	    throw new MailException(e);
 	}
     }
@@ -49,7 +50,7 @@ final class DefaultMailReceiver implements MailReceiver {
 	    }
 	    folder.expunge();
 	} catch (final MessagingException e) {
-	    logger.log(Level.SEVERE, "MAIL_RECEIVE_ERROR", e);
+	    logger.SEVERE.log(e, "MAIL_RECEIVE_ERROR");
 	    throw new MailException(e);
 	}
     }
@@ -60,7 +61,7 @@ final class DefaultMailReceiver implements MailReceiver {
 	    autoConnect();
 	    return folder.getMessageCount();
 	} catch (final MessagingException e) {
-	    logger.log(Level.SEVERE, "MAIL_RECEIVE_ERROR", e);
+	    logger.SEVERE.log(e, "MAIL_RECEIVE_ERROR");
 	    throw new MailException(e);
 	}
     }
@@ -70,13 +71,13 @@ final class DefaultMailReceiver implements MailReceiver {
 	    store = service.session.getStore();
 	if (!store.isConnected()) {
 	    store.connect(service.session.getProperty(MAIL_USER), service.session.getProperty(MAIL_PASSWORD));
-	    logger.log(Level.FINE, "MAIL_RECEIVE store connected OK");
+	    logger.FINE.log("MAIL_RECEIVE store connected OK");
 	}
 	if (folder == null)
 	    folder = store.getFolder("INBOX");
 	if (!folder.isOpen()) {
 	    folder.open(Folder.READ_WRITE);
-	    logger.log(Level.FINE, "MAIL_RECEIVE folder open OK");
+	    logger.FINE.log("MAIL_RECEIVE folder open OK");
 	}
     }
 
@@ -85,17 +86,17 @@ final class DefaultMailReceiver implements MailReceiver {
 	if (folder != null && folder.isOpen())
 	    try {
 		folder.close(false);
-		logger.log(Level.FINE, "MAIL_CHECK folder closed OK");
+		logger.FINE.log("MAIL_CHECK folder closed OK");
 	    } catch (final MessagingException e) {
-		logger.log(Level.SEVERE, "MAIL_RECEIVE_ERROR", e);
+		logger.SEVERE.log(e, "MAIL_RECEIVE_ERROR");
 		throw new MailException(e);
 	    }
 	if (store != null && store.isConnected())
 	    try {
 		store.close();
-		logger.log(Level.FINE, "MAIL_CHECK store disconnected OK");
+		logger.FINE.log("MAIL_CHECK store disconnected OK");
 	    } catch (final MessagingException e) {
-		logger.log(Level.SEVERE, "MAIL_RECEIVE_ERROR", e);
+		logger.SEVERE.log(e, "MAIL_RECEIVE_ERROR");
 		throw new MailException(e);
 	    }
     }
