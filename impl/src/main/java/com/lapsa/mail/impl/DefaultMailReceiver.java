@@ -18,7 +18,7 @@ final class DefaultMailReceiver implements MailReceiver {
     final transient DefaultMailService service;
 
     private transient final MyLogger logger = MyLogger.newBuilder() //
-	    .withPackageNameOf(MailReceiver.class) //
+	    .withNameOf(MailReceiver.class) //
 	    .build();
 
     private transient Store store = null;

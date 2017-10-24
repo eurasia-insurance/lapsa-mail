@@ -32,7 +32,7 @@ final class DefaultMailSender implements MailSender {
     final transient DefaultMailService service;
 
     private transient final MyLogger logger = MyLogger.newBuilder() //
-	    .withPackageNameOf(MailSender.class) //
+	    .withNameOf(MailSender.class) //
 	    .build();
 
     private transient Transport transport;
