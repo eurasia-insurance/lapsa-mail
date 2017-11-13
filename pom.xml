@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>tech.lapsa.maven</groupId>
@@ -21,7 +22,7 @@
 
 	<properties>
 		<!-- BOMS -->
-                <java-commons.version>1.0</java-commons.version>
+		<java-commons.version>1.1-SNAPSHOT</java-commons.version>
 		<javax-javaee-bom.version>7.0</javax-javaee-bom.version>
 	</properties>
 
@@ -29,7 +30,7 @@
 	<dependencyManagement>
 		<dependencies>
 			<!-- BOMS -->
-                        <dependency>
+			<dependency>
 				<groupId>tech.lapsa.java</groupId>
 				<artifactId>java-commons-root</artifactId>
 				<version>${java-commons.version}</version>
