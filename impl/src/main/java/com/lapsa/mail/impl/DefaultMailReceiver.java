@@ -45,9 +45,8 @@ final class DefaultMailReceiver implements MailReceiver {
 	try {
 	    autoConnect();
 	    final Message[] messages = folder.getMessages();
-	    for (final Message message : messages) {
+	    for (final Message message : messages)
 		message.setFlag(Flag.DELETED, true);
-	    }
 	    folder.expunge();
 	} catch (final MessagingException e) {
 	    logger.SEVERE.log(e, "MAIL_RECEIVE_ERROR");

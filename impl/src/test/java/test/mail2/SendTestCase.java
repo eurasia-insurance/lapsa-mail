@@ -65,7 +65,7 @@ public class SendTestCase {
 
     private byte[] testFileBytes() throws IOException {
 	try (InputStream is = testFileInputStream(); ByteArrayOutputStream baos = new ByteArrayOutputStream()) {
-	    byte[] buff = new byte[256];
+	    final byte[] buff = new byte[256];
 	    int readed;
 	    while ((readed = is.read(buff)) != -1)
 		baos.write(buff, 0, readed);

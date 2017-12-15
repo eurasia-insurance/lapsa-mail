@@ -48,16 +48,16 @@ final class DefaultMailSender implements MailSender {
 
 	if (service.session.getProperty(MAIL_BCC) != null)
 	    try {
-		this.bccAddress = service.createBuilder().createAddress(service.session.getProperty(MAIL_BCC));
-		this.alwaysBlindCopy = true;
+		bccAddress = service.createBuilder().createAddress(service.session.getProperty(MAIL_BCC));
+		alwaysBlindCopy = true;
 	    } catch (final MailException ignored) {
 	    }
 
 	if (service.session.getProperty(MAIL_FORCETO) != null)
 	    try {
-		this.forceMailAddress = service.createBuilder()
+		forceMailAddress = service.createBuilder()
 			.createAddress(service.session.getProperty(MAIL_FORCETO));
-		this.alwaysForceMail = true;
+		alwaysForceMail = true;
 	    } catch (final MailException ignored) {
 	    }
 
@@ -108,13 +108,12 @@ final class DefaultMailSender implements MailSender {
 		final Multipart multipart = new MimeMultipart();
 		final MailMessagePart[] parts = message.getParts();
 
-		for (final MailMessagePart part : parts) {
+		for (final MailMessagePart part : parts)
 		    if (part instanceof MultiPartProvider) {
-			MultiPartProvider provider = (MultiPartProvider) part;
+			final MultiPartProvider provider = (MultiPartProvider) part;
 			final BodyPart bodyPart = provider.getBodyPart();
 			multipart.addBodyPart(bodyPart);
 		    }
-		}
 		msg.setContent(multipart);
 	    }
 

@@ -18,16 +18,17 @@ public final class DefaultMailServiceFactory implements MailServiceFactory {
     }
 
     @Override
-    public MailService createService(Properties props) throws MailException {
+    public MailService createService(final Properties props) throws MailException {
 	return new DefaultMailService(asquireSession(props));
     }
 
-    private static Session asquireSession(Properties props) {
+    private static Session asquireSession(final Properties props) {
 	if (props.containsKey(MailSessionCustomProperties.MAIL_USER)
 		&& props.containsKey(MailSessionCustomProperties.MAIL_PASSWORD)) {
 	    final String user = props.getProperty(MailSessionCustomProperties.MAIL_USER);
 	    final String password = props.getProperty(MailSessionCustomProperties.MAIL_PASSWORD);
 	    final Authenticator a = new Authenticator() {
+		@Override
 		public PasswordAuthentication getPasswordAuthentication() {
 		    return new PasswordAuthentication(user, password);
 		}

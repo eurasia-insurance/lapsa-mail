@@ -20,7 +20,7 @@ abstract class AbstractPartDataSource extends AbstractPart {
 	    final DataHandler dh = new DataHandler(
 		    MyObjects.requireNonNull(dataSource, "Datasource data can not be null"));
 	    mimePart.setDataHandler(dh);
-	} catch (MessagingException e) {
+	} catch (final MessagingException e) {
 	    throw builderWrapException(e);
 	}
     }

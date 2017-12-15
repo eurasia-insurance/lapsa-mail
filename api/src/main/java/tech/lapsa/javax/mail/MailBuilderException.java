@@ -7,15 +7,15 @@ public class MailBuilderException extends MailException {
 	super();
     }
 
-    public MailBuilderException(String message, Throwable cause) {
+    public MailBuilderException(final String message, final Throwable cause) {
 	super(message, cause);
     }
 
-    public MailBuilderException(String message) {
+    public MailBuilderException(final String message) {
 	super(message);
     }
 
-    public MailBuilderException(Throwable cause) {
+    public MailBuilderException(final Throwable cause) {
 	super(cause);
     }
 

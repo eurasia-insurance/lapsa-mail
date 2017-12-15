@@ -28,7 +28,7 @@ public class ReceiveTestCase {
     public void testHasMessages() throws MailException, InvalidMessageException, InterruptedException {
 	sendOneMessageForTestPurposes();
 	try (MailReceiver receiver = service.createReceiver()) {
-	    boolean hasMessages = receiver.hasMessages();
+	    final boolean hasMessages = receiver.hasMessages();
 	    assertTrue(hasMessages);
 	}
     }
@@ -37,10 +37,10 @@ public class ReceiveTestCase {
     public void testClearMessages() throws MailException, InterruptedException, InvalidMessageException {
 	sendOneMessageForTestPurposes();
 	try (MailReceiver receiver = service.createReceiver()) {
-	    boolean hasMessages = receiver.hasMessages();
+	    final boolean hasMessages = receiver.hasMessages();
 	    if (hasMessages) {
 		receiver.сlearMessages();
-		boolean testHasMessages = receiver.hasMessages();
+		final boolean testHasMessages = receiver.hasMessages();
 		assertFalse("clearMessages() failed. The folder is not  empty.", testHasMessages);
 	    } else
 		fail("The folder is empty. Nothing to test");
@@ -50,7 +50,7 @@ public class ReceiveTestCase {
     private void sendOneMessageForTestPurposes()
 	    throws MailException, InterruptedException, InvalidMessageException {
 	try (MailSender sender = service.createSender()) {
-	    MailMessageBuilder b = service.createBuilder();
+	    final MailMessageBuilder b = service.createBuilder();
 	    sender.send(b.createMessage(b.createAddress(MailSessionHelper.MAIL_TEST_TO_ADDRESS),
 		    "Test for receive and clean"));
 	    Thread.sleep(2000);

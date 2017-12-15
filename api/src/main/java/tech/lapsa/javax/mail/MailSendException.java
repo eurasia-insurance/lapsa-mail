@@ -7,15 +7,15 @@ public class MailSendException extends MailException {
 	super();
     }
 
-    public MailSendException(String message, Throwable cause) {
+    public MailSendException(final String message, final Throwable cause) {
 	super(message, cause);
     }
 
-    public MailSendException(String message) {
+    public MailSendException(final String message) {
 	super(message);
     }
 
-    public MailSendException(Throwable cause) {
+    public MailSendException(final Throwable cause) {
 	super(cause);
     }
 

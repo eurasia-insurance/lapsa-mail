@@ -35,13 +35,13 @@ public class BasicTestCase {
 
     @Test
     public void testCreateSender() throws MailException {
-	MailSender ms = service.createSender();
+	final MailSender ms = service.createSender();
 	assertNotNull(ms);
     }
 
     @Test
     public void testCreateBuilder() throws MailException {
-	MailMessageBuilder mmb = service.createBuilder();
+	final MailMessageBuilder mmb = service.createBuilder();
 	assertNotNull(mmb);
     }
 }

@@ -23,7 +23,7 @@ final class PartDocument extends AbstractPart {
 	super(factory, fileName, dispositionType, contentId);
 
 	try {
-	    String content = DocumentUtils.getAsString(
+	    final String content = DocumentUtils.getAsString(
 		    builderRequireNonNull(doc, "XML DOM object can not be null"),
 		    builderRequireNonNull(charset, "Charset can not be null").name());
 	    mimePart.setText(content, charset.name(), "xml");

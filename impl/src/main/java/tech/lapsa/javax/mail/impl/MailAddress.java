@@ -28,8 +28,8 @@ final class MailAddress {
 	builderRequireNonNull(address, "Address can not be null");
 	MyObjects.requireNonNull(charset, "Charset can not be null");
 	try {
-	    this.internetAddress = new InternetAddress(address, friendlyName, charset.name());
-	} catch (UnsupportedEncodingException e) {
+	    internetAddress = new InternetAddress(address, friendlyName, charset.name());
+	} catch (final UnsupportedEncodingException e) {
 	    throw builderWrapException(e);
 	}
     }

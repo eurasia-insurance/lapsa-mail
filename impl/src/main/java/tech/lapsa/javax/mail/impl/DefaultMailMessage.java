@@ -1,9 +1,8 @@
 package tech.lapsa.javax.mail.impl;
 
-import javax.mail.Message.RecipientType;
-
 import static tech.lapsa.javax.mail.impl.Checks.*;
 
+import javax.mail.Message.RecipientType;
 import javax.mail.MessagingException;
 import javax.mail.Multipart;
 import javax.mail.internet.MimeMessage;
@@ -25,22 +24,22 @@ final class DefaultMailMessage implements MailMessage {
 
     final MimeMessage msg;
 
-    DefaultMailMessage(DefaultMailFactory factory, DefaultMailMessageBuilder template)
+    DefaultMailMessage(final DefaultMailFactory factory, final DefaultMailMessageBuilder template)
 	    throws MailBuilderException {
 	this.factory = factory;
-	this.msg = new MimeMessage(factory.session);
+	msg = new MimeMessage(factory.session);
 
 	// from
 	try {
 	    if (template.sender != null)
 		msg.setFrom(template.sender.internetAddress);
-	} catch (MessagingException e) {
+	} catch (final MessagingException e) {
 	    throw builderWrapException(e);
 	}
 
 	// recipients
 	recipients: try {
-	    int totalRecipientsCount = (template.to != null ? template.to.size() : 0) +
+	    final int totalRecipientsCount = (template.to != null ? template.to.size() : 0) +
 		    (template.cc != null ? template.cc.size() : 0) +
 		    (template.bcc != null ? template.bcc.size() : 0);
 
@@ -57,25 +56,25 @@ final class DefaultMailMessage implements MailMessage {
 	    }
 
 	    if (template.to != null)
-		for (MailAddress address : template.to)
+		for (final MailAddress address : template.to)
 		    msg.addRecipient(RecipientType.TO, address.internetAddress);
 
 	    if (template.cc != null)
-		for (MailAddress address : template.cc)
+		for (final MailAddress address : template.cc)
 		    msg.addRecipient(RecipientType.CC, address.internetAddress);
 
 	    if (template.bcc != null)
-		for (MailAddress address : template.bcc)
+		for (final MailAddress address : template.bcc)
 		    msg.addRecipient(RecipientType.BCC, address.internetAddress);
 
-	} catch (MessagingException e) {
+	} catch (final MessagingException e) {
 	    throw builderWrapException(e);
 	}
 
 	// subject
 	try {
 	    msg.setSubject(template.subject, template.defaultCharset.name());
-	} catch (MessagingException e) {
+	} catch (final MessagingException e) {
 	    throw builderWrapException(e);
 	}
 
@@ -88,12 +87,11 @@ final class DefaultMailMessage implements MailMessage {
 	    }
 
 	    final Multipart multipart = new MimeMultipart();
-	    for (AbstractPart part : template.parts) {
+	    for (final AbstractPart part : template.parts)
 		multipart.addBodyPart(part.mimePart);
-	    }
 	    msg.setContent(multipart);
 
-	} catch (MessagingException e) {
+	} catch (final MessagingException e) {
 	    throw builderWrapException(e);
 	}
     }
@@ -125,7 +123,7 @@ final class DefaultMailMessage implements MailMessage {
 	try {
 	    factory.getTransportConnected().sendMessage(msg, msg.getAllRecipients());
 	    sent = true;
-	} catch (MessagingException e) {
+	} catch (final MessagingException e) {
 	    throw senderWrapException(e);
 	}
     }

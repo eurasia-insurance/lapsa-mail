@@ -14,7 +14,7 @@ final class PartText extends AbstractPart {
 	TEXT("plain"), HTML("html");
 	final String subtype;
 
-	TextSubtype(String subtype) {
+	TextSubtype(final String subtype) {
 	    this.subtype = subtype;
 	}
     }
@@ -31,7 +31,7 @@ final class PartText extends AbstractPart {
 	    mimePart.setText(builderRequireNonNull(textContent, "Content can not be null"),
 		    builderRequireNonNull(charset, "Charset can not be null").name(),
 		    MyObjects.requireNonNull(textSubtype).subtype);
-	} catch (MessagingException e) {
+	} catch (final MessagingException e) {
 	    throw builderWrapException(e);
 	}
     }

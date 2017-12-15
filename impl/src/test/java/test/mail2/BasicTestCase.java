@@ -35,7 +35,7 @@ public class BasicTestCase {
 
     @Test
     public void testCreateBuilder() throws MailException {
-	MailMessageBuilder mmb = factory.newMailBuilder();
+	final MailMessageBuilder mmb = factory.newMailBuilder();
 	assertNotNull(mmb);
     }
 }

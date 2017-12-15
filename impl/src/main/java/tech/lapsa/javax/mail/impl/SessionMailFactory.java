@@ -14,7 +14,7 @@ public final class SessionMailFactory implements MailFactory {
 
     public SessionMailFactory(final Session session) throws MailBuilderException {
 	builderRequireNonNull(session, "Session can not be null");
-	DefaultMailFactoryBuilder d = new DefaultMailFactoryBuilder();
+	final DefaultMailFactoryBuilder d = new DefaultMailFactoryBuilder();
 	if (session.getProperties() != null)
 	    d.withProperties(session.getProperties());
 	delegate = d.build(session);

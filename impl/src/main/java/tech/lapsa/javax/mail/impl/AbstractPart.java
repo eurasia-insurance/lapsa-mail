@@ -45,7 +45,7 @@ abstract class AbstractPart {
 		mimePart.setDisposition(Part.ATTACHMENT);
 		break;
 	    }
-	} catch (MessagingException e) {
+	} catch (final MessagingException e) {
 	    throw builderWrapException(e);
 	}
     }

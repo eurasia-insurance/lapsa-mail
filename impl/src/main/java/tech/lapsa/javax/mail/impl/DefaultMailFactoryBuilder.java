@@ -29,44 +29,44 @@ public final class DefaultMailFactoryBuilder implements MailFactoryBuilder {
     String username = null;
     String password = null;
 
-    private Authenticator a = null;
+    private final Authenticator a = null;
     private Properties properties = null;
 
     @Override
     public DefaultMailFactory build() throws MailBuilderException {
-	Session defaultSession = a != null ? Session.getInstance(properties, a)
+	final Session defaultSession = a != null ? Session.getInstance(properties, a)
 		: Session.getInstance(properties);
 	return build(defaultSession);
     }
 
-    DefaultMailFactory build(Session session) throws MailBuilderException {
+    DefaultMailFactory build(final Session session) throws MailBuilderException {
 	return new DefaultMailFactory(this, session);
     }
 
     @Override
-    public DefaultMailFactoryBuilder withAlwaysBlindCopyTo(String address) throws MailBuilderException {
-	this.alwaysBlindCopyTo = new MailAddress(address, defaultCharset);
+    public DefaultMailFactoryBuilder withAlwaysBlindCopyTo(final String address) throws MailBuilderException {
+	alwaysBlindCopyTo = new MailAddress(address, defaultCharset);
 	return this;
     }
 
     @Override
-    public DefaultMailFactoryBuilder withAlwaysBlindCopyTo(String address, String friendlyName)
+    public DefaultMailFactoryBuilder withAlwaysBlindCopyTo(final String address, final String friendlyName)
 	    throws MailBuilderException {
-	this.alwaysBlindCopyTo = new MailAddress(address, friendlyName, defaultCharset);
+	alwaysBlindCopyTo = new MailAddress(address, friendlyName, defaultCharset);
 	return this;
     }
 
     @Override
-    public DefaultMailFactoryBuilder withAuth(String user, String password) throws MailBuilderException {
+    public DefaultMailFactoryBuilder withAuth(final String user, final String password) throws MailBuilderException {
 	builderRequireNonNull(user, "User name can not be null");
 	builderRequireNonNull(password, "Password can not be null");
-	this.username = user;
+	username = user;
 	this.password = password;
 	return this;
     }
 
     @Override
-    public DefaultMailFactoryBuilder withDebug(boolean debug) {
+    public DefaultMailFactoryBuilder withDebug(final boolean debug) {
 	new PropertiesBuilder()
 		.withProperty(PROPERTY_MAIL_DEBUG, debug)
 		.mergeTo(properties);
@@ -74,52 +74,52 @@ public final class DefaultMailFactoryBuilder implements MailFactoryBuilder {
     }
 
     @Override
-    public DefaultMailFactoryBuilder withDefaultCharset(Charset charset) throws MailBuilderException {
-	this.defaultCharset = builderRequireNonNull(charset, "Charset can not be null");
+    public DefaultMailFactoryBuilder withDefaultCharset(final Charset charset) throws MailBuilderException {
+	defaultCharset = builderRequireNonNull(charset, "Charset can not be null");
 	return this;
     }
 
     @Override
-    public DefaultMailFactoryBuilder withDefaultRecipient(String address) throws MailBuilderException {
-	this.defaultRecipient = new MailAddress(address, defaultCharset);
+    public DefaultMailFactoryBuilder withDefaultRecipient(final String address) throws MailBuilderException {
+	defaultRecipient = new MailAddress(address, defaultCharset);
 	return this;
     }
 
     @Override
-    public DefaultMailFactoryBuilder withDefaultRecipient(String address, String friendlyName)
+    public DefaultMailFactoryBuilder withDefaultRecipient(final String address, final String friendlyName)
 	    throws MailBuilderException {
-	this.defaultRecipient = new MailAddress(address, friendlyName, defaultCharset);
+	defaultRecipient = new MailAddress(address, friendlyName, defaultCharset);
 	return this;
     }
 
     @Override
-    public DefaultMailFactoryBuilder withDefaultSender(String address) throws MailBuilderException {
-	this.defaultSender = new MailAddress(address, defaultCharset);
+    public DefaultMailFactoryBuilder withDefaultSender(final String address) throws MailBuilderException {
+	defaultSender = new MailAddress(address, defaultCharset);
 	return this;
     }
 
     @Override
-    public DefaultMailFactoryBuilder withDefaultSender(String address, String friendlyName)
+    public DefaultMailFactoryBuilder withDefaultSender(final String address, final String friendlyName)
 	    throws MailBuilderException {
-	this.defaultSender = new MailAddress(address, friendlyName, defaultCharset);
+	defaultSender = new MailAddress(address, friendlyName, defaultCharset);
 	return this;
     }
 
     @Override
-    public DefaultMailFactoryBuilder withForwardAllMailTo(String address) throws MailBuilderException {
-	this.forwardAllMailTo = new MailAddress(address, defaultCharset);
+    public DefaultMailFactoryBuilder withForwardAllMailTo(final String address) throws MailBuilderException {
+	forwardAllMailTo = new MailAddress(address, defaultCharset);
 	return this;
     }
 
     @Override
-    public DefaultMailFactoryBuilder withForwardAllMailTo(String address, String friendlyName)
+    public DefaultMailFactoryBuilder withForwardAllMailTo(final String address, final String friendlyName)
 	    throws MailBuilderException {
-	this.forwardAllMailTo = new MailAddress(address, friendlyName, defaultCharset);
+	forwardAllMailTo = new MailAddress(address, friendlyName, defaultCharset);
 	return this;
     }
 
     @Override
-    public DefaultMailFactoryBuilder withProperties(Properties properties) throws MailBuilderException {
+    public DefaultMailFactoryBuilder withProperties(final Properties properties) throws MailBuilderException {
 	this.properties = builderRequireNonNull(properties, "Properties can not be null");
 
 	if (properties.containsKey(MAIL_USER)
@@ -149,18 +149,18 @@ public final class DefaultMailFactoryBuilder implements MailFactoryBuilder {
 }
 
 class PropertiesBuilder {
-    private Properties properties = new Properties();
+    private final Properties properties = new Properties();
 
     Properties build() {
 	return (Properties) properties.clone();
     }
 
-    void mergeTo(Properties mergeTo) {
-	for (Object o : properties.keySet())
+    void mergeTo(final Properties mergeTo) {
+	for (final Object o : properties.keySet())
 	    mergeTo.put(o, properties.get(o));
     }
 
-    PropertiesBuilder withProperty(String key, Object value) {
+    PropertiesBuilder withProperty(final String key, final Object value) {
 	properties.put(key, value);
 	return this;
     }

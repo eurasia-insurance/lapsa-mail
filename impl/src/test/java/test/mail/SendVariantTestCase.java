@@ -36,9 +36,9 @@ public class SendVariantTestCase {
     public void testSendHtmlMessageWithImage_Inline() throws MailException, IOException, InvalidMessageException {
 
 	// builder & message
-	MailMessageBuilder builder = service.createBuilder();
+	final MailMessageBuilder builder = service.createBuilder();
 
-	MailMessage message = builder.createMessage();
+	final MailMessage message = builder.createMessage();
 
 	// subject
 	{
@@ -48,13 +48,13 @@ public class SendVariantTestCase {
 
 	// image part
 	try (InputStream is = SendVariantTestCase.class.getResourceAsStream(IMAGE_RESOURCE_PATH)) {
-	    MailMessagePart part = builder.createInlineImagePart(IMAGE_CONTENT_TYPE, is, IMAGE_FILE_NAME);
+	    final MailMessagePart part = builder.createInlineImagePart(IMAGE_CONTENT_TYPE, is, IMAGE_FILE_NAME);
 	    message.addPart(part);
 	}
 
 	// html part
 	{
-	    String html = String.format(
+	    final String html = String.format(
 		    "<!doctype html>"
 			    + "<html>"
 			    + "<body>"
@@ -64,7 +64,7 @@ public class SendVariantTestCase {
 			    + "</html>",
 		    IMAGE_FILE_NAME);
 
-	    MailMessagePart part = builder.createHTMLPart(html);
+	    final MailMessagePart part = builder.createHTMLPart(html);
 	    message.addPart(part);
 	}
 
@@ -78,9 +78,9 @@ public class SendVariantTestCase {
     public void testSendHtmlMessageWithImage_Attachement() throws MailException, IOException, InvalidMessageException {
 
 	// builder & message
-	MailMessageBuilder builder = service.createBuilder();
+	final MailMessageBuilder builder = service.createBuilder();
 
-	MailMessage message = builder.createMessage();
+	final MailMessage message = builder.createMessage();
 
 	// subject
 	{
@@ -90,13 +90,13 @@ public class SendVariantTestCase {
 
 	// image part
 	try (InputStream is = SendVariantTestCase.class.getResourceAsStream(IMAGE_RESOURCE_PATH)) {
-	    MailMessagePart part = builder.createStreamAttachement(is, IMAGE_CONTENT_TYPE, IMAGE_FILE_NAME);
+	    final MailMessagePart part = builder.createStreamAttachement(is, IMAGE_CONTENT_TYPE, IMAGE_FILE_NAME);
 	    message.addPart(part);
 	}
 
 	// html part
 	{
-	    String html = String.format(
+	    final String html = String.format(
 		    "<!doctype html>"
 			    + "<html>"
 			    + "<body>"
@@ -105,7 +105,7 @@ public class SendVariantTestCase {
 			    + "</html>",
 		    IMAGE_FILE_NAME);
 
-	    MailMessagePart part = builder.createHTMLPart(html);
+	    final MailMessagePart part = builder.createHTMLPart(html);
 	    message.addPart(part);
 	}
 
@@ -119,9 +119,9 @@ public class SendVariantTestCase {
     public void testSendException() throws MailException, IOException, InvalidMessageException {
 
 	// builder & message
-	MailMessageBuilder builder = service.createBuilder();
+	final MailMessageBuilder builder = service.createBuilder();
 
-	MailMessage message = builder.createMessage();
+	final MailMessage message = builder.createMessage();
 
 	// subject
 	{
@@ -131,8 +131,8 @@ public class SendVariantTestCase {
 
 	// exception part
 	{
-	    Exception e = new Exception("Test exception");
-	    MailMessagePart part = builder.createTextPart(e);
+	    final Exception e = new Exception("Test exception");
+	    final MailMessagePart part = builder.createTextPart(e);
 	    message.addPart(part);
 	}
 

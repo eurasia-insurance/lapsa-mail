@@ -35,18 +35,18 @@ final class DefaultMailFactory implements MailFactory {
 	    final Session session)
 	    throws MailBuilderException {
 	this.session = MyObjects.requireNonNull(session, "Session can not be null");
-	this.defaultCharset = MyObjects.requireNonNull(factoryBuilder.defaultCharset, "Charset can not be null");
-	this.alwaysBlindCopyTo = factoryBuilder.alwaysBlindCopyTo;
-	this.forwardAllMailTo = factoryBuilder.forwardAllMailTo;
-	this.defaultRecipient = factoryBuilder.defaultRecipient;
-	this.defaultSender = factoryBuilder.defaultSender;
+	defaultCharset = MyObjects.requireNonNull(factoryBuilder.defaultCharset, "Charset can not be null");
+	alwaysBlindCopyTo = factoryBuilder.alwaysBlindCopyTo;
+	forwardAllMailTo = factoryBuilder.forwardAllMailTo;
+	defaultRecipient = factoryBuilder.defaultRecipient;
+	defaultSender = factoryBuilder.defaultSender;
 
-	this.username = factoryBuilder.username;
-	this.password = factoryBuilder.password;
+	username = factoryBuilder.username;
+	password = factoryBuilder.password;
 
 	try {
-	    this.transport = session.getTransport();
-	} catch (NoSuchProviderException e) {
+	    transport = session.getTransport();
+	} catch (final NoSuchProviderException e) {
 	    throw builderWrapException(e);
 	}
     }
@@ -61,12 +61,12 @@ final class DefaultMailFactory implements MailFactory {
 	    try {
 		try {
 		    transport.connect();
-		} catch (AuthenticationFailedException e) {
+		} catch (final AuthenticationFailedException e) {
 		    if (username == null || password == null)
 			throw e;
 		    transport.connect(username, password);
 		}
-	    } catch (MessagingException e) {
+	    } catch (final MessagingException e) {
 		throw senderWrapException(e);
 	    }
 	return transport;

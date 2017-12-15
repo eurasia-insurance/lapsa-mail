@@ -23,12 +23,12 @@ final class PartException extends AbstractPart {
 
 	try {
 	    mimePart.setText(printedStackTrace(e), charset.name(), "plain");
-	} catch (MessagingException e1) {
+	} catch (final MessagingException e1) {
 	    throw builderWrapException(e1);
 	}
     }
 
-    private static String printedStackTrace(Throwable e) {
+    private static String printedStackTrace(final Throwable e) {
 	final StringWriter sw = new StringWriter();
 	{
 	    final PrintWriter pw = new PrintWriter(sw);

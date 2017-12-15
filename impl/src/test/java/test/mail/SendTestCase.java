@@ -36,9 +36,9 @@ public class SendTestCase {
     @Test(expected = InvalidMessageException.class)
     public void testEmptyRecipientsException() throws MailException, InvalidMessageException {
 	try (MailSender sender = service.createSender()) {
-	    MailMessageBuilder mmb = service.createBuilder();
-	    MailMessage message = mmb.createMessage();
-	    MailMessagePart part = mmb.createTextPart("Test message");
+	    final MailMessageBuilder mmb = service.createBuilder();
+	    final MailMessage message = mmb.createMessage();
+	    final MailMessagePart part = mmb.createTextPart("Test message");
 	    message.addPart(part);
 	    message.setSubject("testEmptyRecipientsException()");
 	    sender.send(message);
@@ -48,8 +48,8 @@ public class SendTestCase {
     @Test
     public void testEmptyBody() throws MailException, InvalidMessageException {
 	try (MailSender sender = service.createSender()) {
-	    MailMessageBuilder mmb = service.createBuilder();
-	    MailMessage message = mmb.createMessage();
+	    final MailMessageBuilder mmb = service.createBuilder();
+	    final MailMessage message = mmb.createMessage();
 	    message.addTORecipient(mmb.createAddress(MAIL_TEST_RECIPIENT_ADDRESS));
 	    message.setSubject("testEmptyBody()");
 	    sender.send(message);
@@ -59,8 +59,8 @@ public class SendTestCase {
     @Test
     public void testSend() throws MailException, InvalidMessageException {
 	try (MailSender sender = service.createSender()) {
-	    MailMessageBuilder mmb = service.createBuilder();
-	    MailMessage message = mmb.createMessage();
+	    final MailMessageBuilder mmb = service.createBuilder();
+	    final MailMessage message = mmb.createMessage();
 	    message.addTORecipient(mmb.createAddress(MAIL_TEST_RECIPIENT_ADDRESS));
 	    message.setSubject("testSend()");
 	    message.addPart(mmb.createTextPart("testSend"));
@@ -71,8 +71,8 @@ public class SendTestCase {
     @Test
     public void testSendAlwaysCopyTo() throws MailException, InvalidMessageException {
 	try (MailSender sender = service.createSender()) {
-	    MailMessageBuilder mmb = service.createBuilder();
-	    MailMessage message = mmb.createMessage();
+	    final MailMessageBuilder mmb = service.createBuilder();
+	    final MailMessage message = mmb.createMessage();
 	    message.addTORecipient(mmb.createAddress(MAIL_TEST_RECIPIENT_ADDRESS));
 	    message.setSubject("testSendAlwaysCopyTo()");
 	    message.addPart(mmb.createTextPart("testSendAlwaysCopyTo"));
@@ -84,8 +84,8 @@ public class SendTestCase {
     @Test
     public void testSendImage_InputStream() throws MailException, IOException, InvalidMessageException {
 	try (MailSender sender = service.createSender(); InputStream is = testFileInputStream()) {
-	    MailMessageBuilder builder = service.createBuilder();
-	    MailMessage message = builder.createMessage();
+	    final MailMessageBuilder builder = service.createBuilder();
+	    final MailMessage message = builder.createMessage();
 	    message.addTORecipient(builder.createAddress(MAIL_TEST_RECIPIENT_ADDRESS));
 	    message.setSubject("testSendImage_InputStream()");
 	    message.addPart(builder.createStreamPart("PICTURE", "image/jpeg", is));
@@ -96,11 +96,11 @@ public class SendTestCase {
     @Test
     public void testSendImage_File() throws MailException, IOException, InvalidMessageException {
 	try (MailSender sender = service.createSender()) {
-	    MailMessageBuilder builder = service.createBuilder();
-	    MailMessage message = builder.createMessage();
+	    final MailMessageBuilder builder = service.createBuilder();
+	    final MailMessage message = builder.createMessage();
 	    message.addTORecipient(builder.createAddress(MAIL_TEST_RECIPIENT_ADDRESS));
 	    message.setSubject("testSendImage_File");
-	    MailMessagePart part = builder.createFilePart(new File(PATH_TO_TEST_FILE));
+	    final MailMessagePart part = builder.createFilePart(new File(PATH_TO_TEST_FILE));
 	    message.addPart(part);
 	    sender.send(message);
 	}
@@ -109,11 +109,11 @@ public class SendTestCase {
     @Test
     public void testSendImage_Bytes() throws MailException, IOException, InvalidMessageException {
 	try (MailSender sender = service.createSender()) {
-	    MailMessageBuilder builder = service.createBuilder();
-	    MailMessage message = builder.createMessage();
+	    final MailMessageBuilder builder = service.createBuilder();
+	    final MailMessage message = builder.createMessage();
 	    message.addTORecipient(builder.createAddress(MAIL_TEST_RECIPIENT_ADDRESS));
 	    message.setSubject("testSendImage_Bytes");
-	    byte[] bytes = testFileBytes();
+	    final byte[] bytes = testFileBytes();
 	    message.addPart(builder.createByteArrayPart("PICTURE.jpg", "image/jpeg", bytes));
 	    sender.send(message);
 	}
@@ -125,7 +125,7 @@ public class SendTestCase {
 
     private byte[] testFileBytes() throws IOException {
 	try (InputStream is = testFileInputStream(); ByteArrayOutputStream baos = new ByteArrayOutputStream()) {
-	    byte[] buff = new byte[256];
+	    final byte[] buff = new byte[256];
 	    int readed;
 	    while ((readed = is.read(buff)) != -1)
 		baos.write(buff, 0, readed);
