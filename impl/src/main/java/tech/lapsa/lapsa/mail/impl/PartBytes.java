@@ -1,10 +1,10 @@
-package tech.lapsa.javax.mail.impl;
+package tech.lapsa.lapsa.mail.impl;
 
-import static tech.lapsa.javax.mail.impl.Checks.*;
+import static tech.lapsa.lapsa.mail.impl.Checks.*;
 
 import javax.mail.util.ByteArrayDataSource;
 
-import tech.lapsa.javax.mail.MailBuilderException;
+import tech.lapsa.lapsa.mail.MailBuilderException;
 
 final class PartBytes extends AbstractPartDataSource {
     PartBytes(final DefaultMailFactory factory,

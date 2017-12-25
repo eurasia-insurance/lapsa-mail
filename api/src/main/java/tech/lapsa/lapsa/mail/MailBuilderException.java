@@ -1,4 +1,4 @@
-package tech.lapsa.javax.mail;
+package tech.lapsa.lapsa.mail;
 
 public class MailBuilderException extends MailException {
     private static final long serialVersionUID = 3908635929339642030L;
