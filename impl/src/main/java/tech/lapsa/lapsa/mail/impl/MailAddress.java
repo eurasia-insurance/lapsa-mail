@@ -1,6 +1,6 @@
-package tech.lapsa.javax.mail.impl;
+package tech.lapsa.lapsa.mail.impl;
 
-import static tech.lapsa.javax.mail.impl.Checks.*;
+import static tech.lapsa.lapsa.mail.impl.Checks.*;
 
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.Charset;
@@ -13,7 +13,7 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
 import tech.lapsa.java.commons.function.MyObjects;
-import tech.lapsa.javax.mail.MailBuilderException;
+import tech.lapsa.lapsa.mail.MailBuilderException;
 
 final class MailAddress {
     final InternetAddress internetAddress;

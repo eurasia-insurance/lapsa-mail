@@ -1,9 +1,9 @@
-package tech.lapsa.javax.mail.impl;
+package tech.lapsa.lapsa.mail.impl;
 
 import java.util.Set;
 
-import tech.lapsa.javax.mail.MailBuilderException;
-import tech.lapsa.javax.mail.MailSendException;
+import tech.lapsa.lapsa.mail.MailBuilderException;
+import tech.lapsa.lapsa.mail.MailSendException;
 
 interface Checks {
 

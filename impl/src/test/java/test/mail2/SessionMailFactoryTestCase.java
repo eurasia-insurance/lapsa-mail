@@ -7,9 +7,9 @@ import java.io.IOException;
 import org.junit.Before;
 import org.junit.Test;
 
-import tech.lapsa.javax.mail.MailException;
-import tech.lapsa.javax.mail.MailFactory;
-import tech.lapsa.javax.mail.impl.SessionMailFactory;
+import tech.lapsa.lapsa.mail.MailException;
+import tech.lapsa.lapsa.mail.MailFactory;
+import tech.lapsa.lapsa.mail.impl.SessionMailFactory;
 
 public class SessionMailFactoryTestCase {
 
