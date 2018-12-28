@@ -64,9 +64,9 @@
 	</dependencyManagement>
 
 	<scm>
-		<connection>scm:git:https://gitlab.lapsa.tech/lapsa/lapsa/mail.git</connection>
-		<developerConnection>scm:git:https://gitlab.lapsa.tech/lapsa/lapsa/mail.git</developerConnection>
-		<tag>v2.2</tag>
+		<connection>scm:git:https://github.com/eurasia-insurance/lapsa-mail.git</connection>
+		<developerConnection>scm:git:https://github.com/eurasia-insurance/lapsa-mail.git</developerConnection>
+		<tag>HEAD</tag>
 	</scm>
 
 	<issueManagement>
