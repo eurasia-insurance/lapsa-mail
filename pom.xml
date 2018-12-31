@@ -69,9 +69,4 @@
 		<tag>HEAD</tag>
 	</scm>
 
-	<issueManagement>
-		<system>gitlab</system>
-		<url>https://gitlab.lapsa.tech/lapsa/lapsa/mail/issues</url>
-	</issueManagement>
-
 </project>
