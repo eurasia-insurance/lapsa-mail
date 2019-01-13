@@ -9,7 +9,7 @@
 
 	<groupId>tech.lapsa.lapsa</groupId>
 	<artifactId>lapsa-mail-root</artifactId>
-	<version>CURRENT-SNAPSHOT</version>
+	<version>20190113r3</version>
 	<packaging>pom</packaging>
 
 	<name>Lapsa Lib : Mail : Root POM</name>
@@ -66,7 +66,7 @@
 	<scm>
 		<connection>scm:git:https://github.com/eurasia-insurance/lapsa-mail.git</connection>
 		<developerConnection>scm:git:https://github.com/eurasia-insurance/lapsa-mail.git</developerConnection>
-		<tag>HEAD</tag>
+		<tag>v20190113r3</tag>
 	</scm>
 
 </project>
